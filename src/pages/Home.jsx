@@ -50,9 +50,6 @@ export default function Home() {
           <div className="hero-photo">
             <div className="photo-frame">
               <img src="/ID.png" alt="Klyde Joseph Yabo" className="photo-ph" />
-              <span className="photo-avail">
-                <span className="hero-dot" /> Open to work
-              </span>
             </div>
           </div>
 
