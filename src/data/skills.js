@@ -113,20 +113,4 @@ export const TOOL_GROUPS = [
       },
     ],
   },
-  {
-    num: '04',
-    title: 'Still building',
-    tools: [
-      {
-        name: 'TypeScript',
-        desc: 'Used on the financial hub. Deepening type-safe patterns across new React work.',
-        level: 60,
-      },
-      {
-        name: 'Looker-style reporting',
-        desc: 'Clearer operator dashboards and station reports beyond raw logs and screenshots.',
-        level: 45,
-      },
-    ],
-  },
 ]

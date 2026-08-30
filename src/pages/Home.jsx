@@ -166,14 +166,6 @@ export default function Home() {
                 <li>HTML, CSS, and responsive layouts</li>
               </ul>
             </div>
-            <div className="sp-card sp-card-dark">
-              <p className="sp-ey">Still building</p>
-              <ul className="sk-list">
-                <li>Deeper TypeScript across products</li>
-                <li>Operator-facing reporting dashboards</li>
-                <li>Tighter test coverage on automations</li>
-              </ul>
-            </div>
           </ScrollReveal>
         </div>
       </section>
