@@ -103,6 +103,14 @@ export default function Contact() {
               <span className="cl-lbl">Phone</span>
               <span className="cl-val">+63 945 592 7782</span>
             </a>
+            <a className="cl-row" href="https://github.com/klaayd39" target="_blank" rel="noreferrer">
+              <span className="cl-lbl">GitHub</span>
+              <span className="cl-val">github.com/klaayd39</span>
+            </a>
+            <a className="cl-row" href="https://www.linkedin.com/in/klyde-joseph-yabo-a38286373/" target="_blank" rel="noreferrer">
+              <span className="cl-lbl">LinkedIn</span>
+              <span className="cl-val">linkedin.com/in/klyde-joseph-yabo</span>
+            </a>
             <div className="cl-row">
               <span className="cl-lbl">Location</span>
               <span className="cl-val">Malaybalay City, Bukidnon, Philippines</span>

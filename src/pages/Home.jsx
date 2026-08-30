@@ -22,7 +22,7 @@ export default function Home() {
   return (
     <>
       <Helmet>
-        <title>Klyde Joseph Yabo — Automation Specialist | Malaybalay</title>
+        <title>Klyde Joseph Yabo — Information Technology | Malaybalay</title>
       </Helmet>
 
       <section className="hero" id="top">
@@ -35,9 +35,10 @@ export default function Home() {
             </p>
             <h1 className="hero-h1">
               <span className="nameline">Klyde Joseph Yabo</span>
-              <em>Automation</em>
+              <em>Information</em>
+              {' '}
               <br />
-              Specialist
+              Technology
             </h1>
             <p className="hero-sub">
               I build tools that keep a live radio station running. Crawlers, mixer control,
@@ -55,7 +56,7 @@ export default function Home() {
             </div>
             <div className="photo-name">
               <p className="photo-name-main">Klyde Joseph Yabo</p>
-              <p className="photo-name-role">Automation Specialist · Malaybalay</p>
+              <p className="photo-name-role">Information Technology · Malaybalay</p>
             </div>
           </div>
 

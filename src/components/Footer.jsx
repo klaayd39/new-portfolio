@@ -5,7 +5,7 @@ export default function Footer() {
     <footer className="site-footer">
       <div className="wrap">
         <p className="ft-name">Klyde Joseph Yabo<span>.</span></p>
-        <p className="ft-sub">Automation Specialist · Malaybalay, Philippines</p>
+        <p className="ft-sub">Information Technology · Malaybalay, Philippines</p>
         <div className="ft-links">
           <Link to="/#about">About</Link>
           <Link to="/#tools">Tools</Link>
