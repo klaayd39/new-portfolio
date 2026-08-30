@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { MARQUEE_TOOLS, TOOL_GROUPS } from '../data/skills'
 import { PROJECTS } from '../data/projects'
 import ScrollReveal from '../components/ScrollReveal'
+import Parallax from '../components/Parallax'
 import ProjectModal from '../components/ProjectModal'
 import { useState } from 'react'
 
@@ -26,7 +27,12 @@ export default function Home() {
       </Helmet>
 
       <section className="hero" id="top">
-        <div className="hero-bg-text" aria-hidden="true">Klyde</div>
+        <Parallax className="hero-orb hero-orb-1" speed={0.14} scale={0.12} aria-hidden="true" />
+        <Parallax className="hero-orb hero-orb-2" speed={0.26} scale={0.1} aria-hidden="true" />
+        <Parallax className="hero-orb hero-orb-3" speed={0.2} speedX={0.05} aria-hidden="true" />
+        <Parallax className="hero-bg-text" base="translateY(-50%)" speed={0.18} fade={0.35} aria-hidden="true">
+          Klyde
+        </Parallax>
         <div className="wrap hero-inner">
           <div className="hero-copy">
             <h1 className="hero-h1">
@@ -43,11 +49,11 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="hero-photo">
+          <Parallax className="hero-photo" speed={0.05} scale={0.04} smooth={0.07}>
             <div className="photo-frame">
               <img src="/ID.png" alt="Klyde Joseph Yabo" className="photo-ph" />
             </div>
-          </div>
+          </Parallax>
 
           <div className="hero-actions">
             <div className="hero-btns">
@@ -240,7 +246,7 @@ export default function Home() {
                   </span>
                 ))}
               </div>
-              <span className="cs-num">{project.featuredNum}</span>
+              <Parallax className="cs-num" speed={0.16} rotate={4} fade={0.25}>{project.featuredNum}</Parallax>
             </div>
 
             <div className="cs-headline">
@@ -251,7 +257,9 @@ export default function Home() {
             {project.image && (
               <div className="cs-shot">
                 <div className="cs-shot-img">
-                  <img src={project.image} alt={project.title} />
+                  <Parallax className="cs-shot-parallax" base="scale(1.16)" speed={0.03} smooth={0.06}>
+                    <img src={project.image} alt={project.title} />
+                  </Parallax>
                 </div>
                 <p className="proof-cap">{project.screenshotCaption}</p>
               </div>
@@ -365,14 +373,14 @@ export default function Home() {
             <div>
               <p className="data-ss-label">Live data from the work</p>
               <div className="data-screens">
-                <figure>
+                <Parallax as="figure" speed={0.05} smooth={0.08}>
                   <img src="/projects/bombo.png" alt="News Intelligence Hub dashboard" />
                   <figcaption>News Intelligence Hub — live headline board</figcaption>
-                </figure>
-                <figure>
+                </Parallax>
+                <Parallax as="figure" speed={-0.05} smooth={0.08}>
                   <img src="/projects/nautel.png" alt="Nautel AUI monitor captures" />
                   <figcaption>Nautel AUI Monitor — unattended captures</figcaption>
-                </figure>
+                </Parallax>
               </div>
             </div>
           </div>
