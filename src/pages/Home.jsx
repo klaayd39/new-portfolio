@@ -29,10 +29,6 @@ export default function Home() {
         <div className="hero-bg-text" aria-hidden="true">Klyde</div>
         <div className="wrap hero-inner">
           <div className="hero-copy">
-            <p className="hero-tag">
-              <span className="hero-dot" />
-              Malaybalay, Philippines · Available for hire
-            </p>
             <h1 className="hero-h1">
               <span className="nameline">Klyde Joseph Yabo</span>
               <em>Information</em>
