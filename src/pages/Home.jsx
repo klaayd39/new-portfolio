@@ -54,10 +54,6 @@ export default function Home() {
                 <span className="hero-dot" /> Open to work
               </span>
             </div>
-            <div className="photo-name">
-              <p className="photo-name-main">Klyde Joseph Yabo</p>
-              <p className="photo-name-role">Information Technology · Malaybalay</p>
-            </div>
           </div>
 
           <div className="hero-actions">
