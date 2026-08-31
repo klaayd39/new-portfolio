@@ -37,9 +37,10 @@ export default function Home() {
               Technology
             </h1>
             <p className="hero-sub">
-              I build tools that keep a live radio station running. Crawlers, mixer control,
-              transmitter monitors, and OBS scripts — shipped into production at{' '}
-              <strong>Bombo Radyo Malaybalay</strong>, not left in a tutorial folder.
+              I build tools that keep a live radio station running. Web crawlers, mixer controls,
+              transmitter monitors, and OBS automation—designed to solve real problems, deployed in production,
+              and actively used at <strong>Bombo Radyo Malaybalay</strong>. I build for real-world use, not just
+              for the tutorial folder.
             </p>
           </div>
 
