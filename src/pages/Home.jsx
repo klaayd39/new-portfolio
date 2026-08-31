@@ -411,20 +411,20 @@ export default function Home() {
             <h2 className="h2">Academic <em>background.</em></h2>
           </ScrollReveal>
           <div className="edu-grid">
-            <article className="edu-card edu-main">
-              <span className="edu-badge eb-lt">College</span>
+            <article className="edu-card">
+              <span className="edu-badge">College</span>
               <h3 className="edu-deg">Bachelor of Science in Information Technology</h3>
               <p className="edu-school">Bukidnon State University</p>
               <p className="edu-detail">2020 – 2024</p>
             </article>
-            <article className="edu-card edu-normal">
-              <span className="edu-badge eb-accent">Senior High School</span>
-              <h3 className="edu-deg">Technical-Vocational-Livelihood - Information Technology</h3>
+            <article className="edu-card">
+              <span className="edu-badge">Senior High School</span>
+              <h3 className="edu-deg">Technical Vocational Livelihood - Information Technology</h3>
               <p className="edu-school">STI Malaybalay</p>
               <p className="edu-detail">2018 - 2020</p>
             </article>
-            <article className="edu-card edu-normal">
-              <span className="edu-badge eb-accent">Junior High School</span>
+            <article className="edu-card">
+              <span className="edu-badge">Junior High School</span>
               <h3 className="edu-deg">Special Program in Sports</h3>
               <p className="edu-school">Bukidnon National High School</p>
               <p className="edu-detail">2014 - 2018</p>
