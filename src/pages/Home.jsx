@@ -372,9 +372,7 @@ export default function Home() {
             <span className="label">Outside the studio</span>
             <h2 className="h2">A little about <em>who I am.</em></h2>
             <p className="bp">
-              The things I do outside of work shape how I work. Basketball taught me to read
-              a situation fast and move with a team. Hardware repair taught me to diagnose
-              before swapping parts. Video editing gave me an eye for timing.
+            The things I do outside of work shape the way I approach it. Football taught me to read situations quickly, adapt on the move, and work as part of a team. Hardware repair taught me to diagnose problems carefully before replacing parts. Video editing sharpened my sense of timing, detail, and visual storytelling. Together, these experiences have shaped how I think, solve problems, and approach my work.
             </p>
             <p className="bp">
               I like building things that did not exist that morning and putting them in
@@ -421,7 +419,7 @@ export default function Home() {
             </article>
             <article className="edu-card edu-normal">
               <span className="edu-badge eb-accent">Senior High School</span>
-              <h3 className="edu-deg">TVL - IT</h3>
+              <h3 className="edu-deg">Technical-Vocational-Livelihood - Information Technology</h3>
               <p className="edu-school">STI Malaybalay</p>
               <p className="edu-detail">2018 - 2020</p>
             </article>
