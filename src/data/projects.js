@@ -2,6 +2,7 @@ export const PROJECTS = [
   {
     title: 'Klyde Joseph Yabo Portfolio',
     tag: 'Web App',
+    group: 'personal',
     link: 'https://github.com/klaayd39/personal-portfolio',
     desc: 'A modern, high-end, responsive portfolio built with React, Vite, Supabase, and plain CSS.',
     longDesc: 'This portfolio showcases professional broadcast systems, live-production automation tools, and real-time web applications with an elegant dark navy glassmorphic theme.',
@@ -21,6 +22,7 @@ export const PROJECTS = [
   {
     title: 'news-headline-crawler',
     tag: 'Intelligence',
+    group: 'station',
     link: 'https://github.com/klaayd39/news-headline-crawler',
     desc: 'Automated news headline crawler and aggregation engine.',
     longDesc: 'news-headline-crawler is a headline crawler that gathers the latest news from various sources to build a centralized real-time intelligence board.',
@@ -39,6 +41,7 @@ export const PROJECTS = [
   {
     title: 'Personal Financial Hub',
     tag: 'Web App',
+    group: 'personal',
     link: 'https://github.com/klaayd39/personal-financial-hub',
     desc: 'A modern, visually stunning dashboard to track income, manage expenses, and monitor savings.',
     longDesc: 'A modern, visually stunning, and highly interactive web application designed to help you take complete control of your personal finances. Track your income, manage expenses, and monitor your savings all in one beautiful dashboard.',
@@ -58,6 +61,7 @@ export const PROJECTS = [
   {
     title: 'J&G Farm Tracker',
     tag: 'Web App',
+    group: 'personal',
     link: 'https://github.com/klaayd39/J-G-Farm-Website',
     desc: 'Farm operations portal for J&G Calamansi Farm — harvest batches, sales, expenses, and P&L in one place.',
     longDesc: 'J&G Farm Tracker is a production farm operations portal for J&G Calamansi Farm. It tracks harvest batches in red bags, buyer sales, field expenses, and profit & loss with inventory guards, analytics dashboards, and exportable reports.',
@@ -79,6 +83,7 @@ export const PROJECTS = [
   {
     title: 'Drama Report Gen',
     tag: 'Automation',
+    group: 'station',
     link: 'https://github.com/klaayd39/Automatic-Drama-Report-Document-Generation',
     desc: 'Automated documentation engine for generating broadcast logs and performance reports.',
     longDesc: 'Drama Report Gen is a backend document synthesizer that extracts script data, performance notes, and schedule logs to construct professional PDFs and sheets optimized for broadcast audit compliance.',
@@ -98,6 +103,7 @@ export const PROJECTS = [
   {
     title: 'Bombo Radyo News Intelligence Hub',
     tag: 'Intelligence',
+    group: 'station',
     featured: true,
     featuredId: 'bombo',
     featuredNum: '01',
@@ -141,6 +147,7 @@ export const PROJECTS = [
   {
     title: 'X32 Remote Toggle',
     tag: 'Automation',
+    group: 'station',
     link: 'https://github.com/klaayd39/x32-channel-remote-toggle',
     desc: 'High-performance OSC control system for Behringer X32 mixers using global keyboard hotkeys.',
     longDesc: 'X32 Remote Toggle is a high-performance, low-latency OSC control suite developed to interface directly with Behringer X32 audio consoles. It enables broadcast engineers to seamlessly toggle specific channels via global hotkeys.',
@@ -160,6 +167,7 @@ export const PROJECTS = [
   {
     title: 'Media Rename Automation',
     tag: 'Automation',
+    group: 'station',
     link: 'https://github.com/klaayd39/media-rename-automation',
     desc: 'PowerShell utilities for batch-renaming video files into a clean, consistent naming convention.',
     longDesc: 'A collection of PowerShell utilities built for organizing multi-part Holy Week drama series. It iterates through complex folder hierarchies to automatically rename files to a standardized format without moving or copying data.',
@@ -179,6 +187,7 @@ export const PROJECTS = [
   {
     title: 'OBS Scene Autosort',
     tag: 'Automation',
+    group: 'station',
     link: 'https://github.com/klaayd39/obs-scene-autosort',
     desc: 'Dynamic scene indexing and organization tool designed for complex live productions.',
     longDesc: 'OBS Scene Autosort resolves workflow clutter in complex live productions by auto-indexing, sorting, and arranging scene structures in OBS Studio based on natural alphanumeric sorting via a Lua script.',
@@ -198,6 +207,7 @@ export const PROJECTS = [
   {
     title: 'Nautel AUI Monitor',
     tag: 'Broadcast Systems',
+    group: 'station',
     featured: true,
     featuredId: 'nautel',
     featuredNum: '02',
@@ -241,6 +251,7 @@ export const PROJECTS = [
   {
     title: 'OBS Media Automator',
     tag: 'Automation',
+    group: 'station',
     link: 'https://github.com/klaayd39/obs-media-automator',
     desc: 'Python-driven workflow engine for instant broadcast asset deployment and OBS source management.',
     longDesc: 'OBS Media Automator is a specialized Python toolkit for OBS Studio that automates the configuration, scaling, and audio routing of Media Sources as they are added to your scenes, preventing manual setup delays.',
@@ -258,3 +269,6 @@ export const PROJECTS = [
     image: '/projects/media.png'
   }
 ];
+
+export const STATION_PROJECTS = PROJECTS.filter((p) => p.group === 'station')
+export const PERSONAL_PROJECTS = PROJECTS.filter((p) => p.group === 'personal')

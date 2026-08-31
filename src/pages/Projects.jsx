@@ -6,13 +6,20 @@ import { PROJECTS } from '../data/projects'
 
 export default function Projects() {
   const [activeCategory, setActiveCategory] = useState('All')
+  const [activeGroup, setActiveGroup] = useState('All')
   const [selectedProject, setSelectedProject] = useState(null)
 
   const categories = ['All', 'Automation', 'Broadcast Systems', 'Intelligence', 'Web App']
+  const groups = ['All', 'Station Work', 'Personal']
 
-  const filteredProjects = activeCategory === 'All'
-    ? PROJECTS
-    : PROJECTS.filter((p) => p.tag === activeCategory)
+  const filteredProjects = PROJECTS.filter((p) => {
+    const groupMatch =
+      activeGroup === 'All'
+      || (activeGroup === 'Station Work' && p.group === 'station')
+      || (activeGroup === 'Personal' && p.group === 'personal')
+    const categoryMatch = activeCategory === 'All' || p.tag === activeCategory
+    return groupMatch && categoryMatch
+  })
 
   const handleCategoryChange = (category) => {
     if (!document.startViewTransition) {
@@ -41,6 +48,17 @@ export default function Projects() {
       </div>
 
       <div className="wrap archive-body">
+        <div className="filter-tabs filter-tabs-groups">
+          {groups.map((group) => (
+            <button
+              key={group}
+              className={`filter-tab${activeGroup === group ? ' active' : ''}`}
+              onClick={() => setActiveGroup(group)}
+            >
+              {group}
+            </button>
+          ))}
+        </div>
         <div className="filter-tabs">
           {categories.map((category) => (
             <button

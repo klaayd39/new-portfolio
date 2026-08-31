@@ -964,7 +964,9 @@ a.cl-row .cl-val { color: var(--accent); }
 }
 .resume-page-inner { padding-top: 40px; padding-bottom: 80px; }
 
+.personal-projects-section { background: var(--bg); border-top: 1px solid var(--line); }
 .filter-tabs { display: flex; gap: 8px; margin-bottom: 28px; flex-wrap: wrap; }
+.filter-tabs-groups { margin-bottom: 12px; }
 .filter-tab {
   padding: 0.45rem 1rem;
   border-radius: 100px;

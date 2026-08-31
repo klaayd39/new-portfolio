@@ -1,14 +1,14 @@
 import { Helmet } from 'react-helmet-async'
 import { Link } from 'react-router-dom'
 import { MARQUEE_TOOLS, TOOL_GROUPS } from '../data/skills'
-import { PROJECTS } from '../data/projects'
+import { PROJECTS, PERSONAL_PROJECTS, STATION_PROJECTS } from '../data/projects'
 import ScrollReveal from '../components/ScrollReveal'
 import Parallax from '../components/Parallax'
 import ProjectModal from '../components/ProjectModal'
 import { useState } from 'react'
 
-const FEATURED = PROJECTS.filter((p) => p.featured)
-const MORE = PROJECTS.filter((p) => !p.featured)
+const FEATURED = STATION_PROJECTS.filter((p) => p.featured)
+const STATION_MORE = STATION_PROJECTS.filter((p) => !p.featured)
 const marquee = [...MARQUEE_TOOLS, ...MARQUEE_TOOLS]
 
 export default function Home() {
@@ -290,7 +290,38 @@ export default function Home() {
             </Link>
           </div>
           <div className="more-grid">
-            {MORE.map((project) => (
+            {STATION_MORE.map((project) => (
+              <button
+                type="button"
+                className="more-card"
+                key={project.title}
+                onClick={() => setSelected(project)}
+              >
+                <div className="more-thumb">
+                  {project.image && <img src={project.image} alt="" loading="lazy" />}
+                </div>
+                <span className="project-card-tag">{project.tag}</span>
+                <h3>{project.title}</h3>
+                <p>{project.desc}</p>
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section personal-projects-section">
+        <div className="wrap">
+          <div className="more-head">
+            <div>
+              <span className="label">Personal projects</span>
+              <h2 className="h2">Built outside the <em>station.</em></h2>
+            </div>
+            <Link to="/projects" className="more-all">
+              Full archive <span className="btn-arrow">→</span>
+            </Link>
+          </div>
+          <div className="more-grid">
+            {PERSONAL_PROJECTS.map((project) => (
               <button
                 type="button"
                 className="more-card"
