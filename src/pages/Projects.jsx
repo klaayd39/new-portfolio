@@ -5,31 +5,16 @@ import ProjectModal from '../components/ProjectModal'
 import { PROJECTS } from '../data/projects'
 
 export default function Projects() {
-  const [activeCategory, setActiveCategory] = useState('All')
   const [activeGroup, setActiveGroup] = useState('All')
   const [selectedProject, setSelectedProject] = useState(null)
 
-  const categories = ['All', 'Automation', 'Broadcast Systems', 'Intelligence', 'Web App']
   const groups = ['All', 'Station Work', 'Personal']
 
-  const filteredProjects = PROJECTS.filter((p) => {
-    const groupMatch =
-      activeGroup === 'All'
-      || (activeGroup === 'Station Work' && p.group === 'station')
-      || (activeGroup === 'Personal' && p.group === 'personal')
-    const categoryMatch = activeCategory === 'All' || p.tag === activeCategory
-    return groupMatch && categoryMatch
-  })
-
-  const handleCategoryChange = (category) => {
-    if (!document.startViewTransition) {
-      setActiveCategory(category)
-      return
-    }
-    document.startViewTransition(() => {
-      setActiveCategory(category)
-    })
-  }
+  const filteredProjects = PROJECTS.filter((p) =>
+    activeGroup === 'All'
+    || (activeGroup === 'Station Work' && p.group === 'station')
+    || (activeGroup === 'Personal' && p.group === 'personal')
+  )
 
   return (
     <div className="subpage">
@@ -48,7 +33,7 @@ export default function Projects() {
       </div>
 
       <div className="wrap archive-body">
-        <div className="filter-tabs filter-tabs-groups">
+        <div className="filter-tabs">
           {groups.map((group) => (
             <button
               key={group}
@@ -56,17 +41,6 @@ export default function Projects() {
               onClick={() => setActiveGroup(group)}
             >
               {group}
-            </button>
-          ))}
-        </div>
-        <div className="filter-tabs">
-          {categories.map((category) => (
-            <button
-              key={category}
-              className={`filter-tab${activeCategory === category ? ' active' : ''}`}
-              onClick={() => handleCategoryChange(category)}
-            >
-              {category}
             </button>
           ))}
         </div>
