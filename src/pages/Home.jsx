@@ -414,13 +414,10 @@ export default function Home() {
           </ScrollReveal>
           <div className="edu-grid">
             <article className="edu-card edu-main">
-              <span className="edu-badge eb-lt">Degree</span>
+              <span className="edu-badge eb-lt">College</span>
               <h3 className="edu-deg">Bachelor of Science in Information Technology</h3>
               <p className="edu-school">Bukidnon State University</p>
               <p className="edu-detail">2020 – 2024</p>
-              <p className="edu-note">
-                Built the programming and systems foundation I now use on live broadcast tools.
-              </p>
             </article>
             <article className="edu-card edu-normal">
               <span className="edu-badge eb-accent">Senior High School</span>
