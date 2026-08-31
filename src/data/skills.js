@@ -18,20 +18,18 @@ export const SKILLS = [
 ]
 
 export const MARQUEE_TOOLS = [
-  'Python',
-  'React',
-  'JavaScript',
-  'Playwright',
-  'WebSockets',
-  'Node.js',
-  'OBS Studio',
-  'Supabase',
-  'Git',
-  'Linux',
-  'OSC Protocol',
-  'PowerShell',
-  'Vite',
-  'PostgreSQL',
+  { name: 'Visual Studio Code', icon: 'https://api.iconify.design/logos:visual-studio-code.svg' },
+  { name: 'GitHub', icon: 'https://api.iconify.design/logos:github-icon.svg' },
+  { name: 'Cursor', icon: 'https://api.iconify.design/simple-icons:cursor.svg' },
+  { name: 'Claude Code', icon: 'https://api.iconify.design/simple-icons:anthropic.svg' },
+  { name: 'Antigravity', icon: '/icons/antigravity.svg' },
+  { name: 'OBS Studio', icon: 'https://api.iconify.design/simple-icons:obsstudio.svg' },
+  { name: 'Python', icon: 'https://api.iconify.design/logos:python.svg' },
+  { name: 'Supabase', icon: 'https://api.iconify.design/logos:supabase-icon.svg' },
+  { name: 'React', icon: 'https://api.iconify.design/logos:react.svg' },
+  { name: 'Javascript', icon: 'https://api.iconify.design/logos:javascript.svg' },
+  { name: 'Vite', icon: 'https://api.iconify.design/logos:vitejs.svg' },
+  { name: 'ChatGPT', icon: 'https://api.iconify.design/simple-icons:openai.svg' },
 ]
 
 export const TOOL_GROUPS = [

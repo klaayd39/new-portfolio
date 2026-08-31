@@ -77,16 +77,12 @@ export default function Home() {
         <p className="mq-label">Tools I work with</p>
         <div className="mq-track">
           <div className="mq-row">
-            {marquee.map((name, i) => (
-              <div className="mq-item" key={`${name}-${i}`}>
-                <span
-                  className="mq-mark"
-                  aria-hidden="true"
-                  style={{ '--h': name.split('').reduce((a, c) => a + c.charCodeAt(0), 0) % 360 }}
-                >
-                  {name.slice(0, 1)}
+            {marquee.map((tool, i) => (
+              <div className="mq-item" key={`${tool.name}-${i}`}>
+                <span className="mq-mark">
+                  <img src={tool.icon} alt="" className="mq-icon" loading="lazy" decoding="async" />
                 </span>
-                <span>{name}</span>
+                <span>{tool.name}</span>
               </div>
             ))}
           </div>
@@ -387,8 +383,8 @@ export default function Home() {
           </ScrollReveal>
           <div className="personal-cards">
             <div className="p-card">
-              <div className="p-card-ico">🏀</div>
-              <p className="p-card-title">Basketball</p>
+              <div className="p-card-ico">⚽</div>
+              <p className="p-card-title">Football</p>
               <p className="p-card-sub">College of Technologies Athlete of the Year, BukSU 2024.</p>
             </div>
             <div className="p-card">
@@ -421,22 +417,22 @@ export default function Home() {
               <span className="edu-badge eb-lt">Degree</span>
               <h3 className="edu-deg">Bachelor of Science in Information Technology</h3>
               <p className="edu-school">Bukidnon State University</p>
-              <p className="edu-detail">Malaybalay, Bukidnon · 2020 – 2024</p>
+              <p className="edu-detail">2020 – 2024</p>
               <p className="edu-note">
                 Built the programming and systems foundation I now use on live broadcast tools.
               </p>
             </article>
             <article className="edu-card edu-normal">
-              <span className="edu-badge eb-accent">Internship</span>
-              <h3 className="edu-deg">IT Intern — Cash Unit</h3>
-              <p className="edu-school">Department of Education, Malaybalay City</p>
-              <p className="edu-detail">Troubleshooting, data encoding, loan and voucher processing.</p>
+              <span className="edu-badge eb-accent">Senior High School</span>
+              <h3 className="edu-deg">TVL - IT</h3>
+              <p className="edu-school">STI Malaybalay</p>
+              <p className="edu-detail">2018 - 2020</p>
             </article>
             <article className="edu-card edu-normal">
-              <span className="edu-badge eb-accent">On the job</span>
-              <h3 className="edu-deg">IT / Technician</h3>
-              <p className="edu-school">Bombo Radyo Malaybalay</p>
-              <p className="edu-detail">2025 – present · Station systems and custom automation.</p>
+              <span className="edu-badge eb-accent">Junior High School</span>
+              <h3 className="edu-deg">Special Program in Sports</h3>
+              <p className="edu-school">Bukidnon National High School</p>
+              <p className="edu-detail">2014 - 2018</p>
             </article>
           </div>
         </div>
