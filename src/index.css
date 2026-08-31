@@ -810,6 +810,15 @@ a.cl-row .cl-val { color: var(--accent); }
 .edu-deg { font-family: var(--fd); font-size: 1.12rem; font-weight: 400; line-height: 1.25; margin-bottom: 7px; color: var(--gray-1); }
 .edu-school { font-size: 0.83rem; font-weight: 500; margin-bottom: 4px; color: var(--gray-2); }
 .edu-detail { font-size: 0.74rem; color: var(--gray-3); line-height: 1.5; }
+.edu-note {
+  font-size: 0.77rem;
+  color: var(--gray-2);
+  line-height: 1.65;
+  margin-top: 13px;
+  font-style: italic;
+  border-top: 1px solid var(--line);
+  padding-top: 13px;
+}
 
 /* ── CONTACT ── */
 .contact-section { background: var(--bg); padding: 100px 0; }

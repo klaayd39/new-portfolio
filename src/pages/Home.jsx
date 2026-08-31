@@ -372,7 +372,8 @@ export default function Home() {
             <span className="label">Outside the studio</span>
             <h2 className="h2">A little about <em>who I am.</em></h2>
             <p className="bp">
-            The things I do outside of work shape the way I approach it. Football taught me to read situations quickly, adapt on the move, and work as part of a team. Hardware repair taught me to diagnose problems carefully before replacing parts. Video editing sharpened my sense of timing, detail, and visual storytelling. Together, these experiences have shaped how I think, solve problems, and approach my work.
+              The things I do outside of work shape the way I approach it. Football taught me to read situations quickly, adapt on the move, and work as part of a team. Being recognized as the{' '}
+              <strong>College of Technologies – Athlete of the Year</strong> reinforced the discipline, commitment, and perseverance I bring to everything I do. Hardware repair taught me to diagnose problems carefully before replacing parts, while video editing sharpened my sense of timing, detail, and visual storytelling. Together, these experiences have shaped how I think, solve problems, and approach my work.
             </p>
             <p className="bp">
               I like building things that did not exist that morning and putting them in
@@ -416,6 +417,7 @@ export default function Home() {
               <h3 className="edu-deg">Bachelor of Science in Information Technology</h3>
               <p className="edu-school">Bukidnon State University</p>
               <p className="edu-detail">2020 – 2024</p>
+              <p className="edu-note">Graduated as College of Technologies — Athlete of the Year.</p>
             </article>
             <article className="edu-card">
               <span className="edu-badge">Senior High School</span>
