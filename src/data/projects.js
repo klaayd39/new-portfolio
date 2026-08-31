@@ -13,7 +13,7 @@ export const PROJECTS = [
       'In-Page Print-to-PDF Resume generation',
       'Glassmorphic aesthetics with 3D hover effects'
     ],
-    tech: ['React', 'Vite', 'Supabase', 'Vanilla CSS', 'Lottie'],
+    tech: ['React', 'Vite', 'Supabase', 'Vanilla CSS'],
     challenges: 'Balancing visual quality and performance. Optimized CSS and lazy-loaded components to ensure lightning-fast speeds.',
     liveUrl: 'https://yabopersonalportfolio.vercel.app/',
     image: '/projects/portfolio.png'

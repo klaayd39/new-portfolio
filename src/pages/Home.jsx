@@ -10,12 +10,6 @@ import { useState } from 'react'
 const FEATURED = PROJECTS.filter((p) => p.featured)
 const MORE = PROJECTS.filter((p) => !p.featured)
 const marquee = [...MARQUEE_TOOLS, ...MARQUEE_TOOLS]
-const STATS = [
-  { value: '50+', label: 'news sources watched' },
-  { value: '<50ms', label: 'mixer mute latency' },
-  { value: '~70%', label: 'less OBS setup time' },
-  { value: '2025', label: 'live at Bombo Radyo' },
-]
 
 export default function Home() {
   const [selected, setSelected] = useState(null)
@@ -78,17 +72,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      <div className="stat-bar">
-        <div className="wrap stat-row">
-          {STATS.map((s) => (
-            <div className="stat" key={s.label}>
-              <b>{s.value}</b>
-              <span>{s.label}</span>
-            </div>
-          ))}
-        </div>
-      </div>
 
       <div className="marquee-wrap">
         <p className="mq-label">Tools I work with</p>
