@@ -30,6 +30,12 @@ export const MARQUEE_TOOLS = [
   { name: 'Javascript', icon: 'https://api.iconify.design/logos:javascript.svg' },
   { name: 'Vite', icon: 'https://api.iconify.design/logos:vitejs.svg' },
   { name: 'ChatGPT', icon: 'https://api.iconify.design/simple-icons:openai.svg' },
+  { name: 'Microsoft Excel', icon: 'https://api.iconify.design/simple-icons:microsoftexcel.svg' },
+  { name: 'Microsoft Word', icon: 'https://api.iconify.design/simple-icons:microsoftword.svg' },
+  { name: 'Gmail', icon: 'https://api.iconify.design/simple-icons:gmail.svg' },
+  { name: 'DaVinci Resolve', icon: 'https://api.iconify.design/simple-icons:davinciresolve.svg' },
+  { name: 'NewBlue Titler Live 5', icon: '/icons/newblue-titler.svg' },
+  { name: 'Discord', icon: 'https://api.iconify.design/simple-icons:discord.svg' },
 ]
 
 export const TOOL_GROUPS = [

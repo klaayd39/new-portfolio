@@ -74,7 +74,7 @@ export default function Home() {
       </section>
 
       <div className="marquee-wrap">
-        <p className="mq-label">Tools I work with</p>
+        <p className="mq-label">Tools I Use in Work</p>
         <div className="mq-track">
           <div className="mq-row">
             {marquee.map((tool, i) => (
