@@ -56,6 +56,27 @@ export const PROJECTS = [
     image: '/projects/finance.png'
   },
   {
+    title: 'J&G Farm Tracker',
+    tag: 'Web App',
+    link: 'https://github.com/klaayd39/J-G-Farm-Website',
+    desc: 'Farm operations portal for J&G Calamansi Farm — harvest batches, sales, expenses, and P&L in one place.',
+    longDesc: 'J&G Farm Tracker is a production farm operations portal for J&G Calamansi Farm. It tracks harvest batches in red bags, buyer sales, field expenses, and profit & loss with inventory guards, analytics dashboards, and exportable reports.',
+    problem: 'Farm records were scattered across notebooks and spreadsheets, making it hard to track harvest volume, sales against inventory, and true profit in one view.',
+    solution: 'Built a full-stack React app with Supabase auth, Postgres, and private receipt storage — giving the farm a single dashboard for harvests, income, expenses, and reporting.',
+    features: [
+      'Harvest batch logging with red-bag and loose-kg tracking',
+      'Income ledger with bag and kilo sales linked to inventory',
+      'Expense tracking with categorized costs and receipt uploads',
+      'Dashboard with P&L, cash-flow charts, buyer analytics, and low-stock alerts',
+      'Filterable reports with CSV and PDF export',
+      'PWA-ready with offline app-shell caching'
+    ],
+    tech: ['React', 'Vite', 'Tailwind CSS', 'Recharts', 'Supabase', 'Vercel'],
+    challenges: 'Preventing overselling harvest inventory required guardrails in both the UI and database. Implemented batch-level inventory checks and owner-scoped RLS writes in Supabase.',
+    liveUrl: 'https://jgcalamansi.vercel.app/',
+    image: '/projects/jg-farm.png'
+  },
+  {
     title: 'Drama Report Gen',
     tag: 'Automation',
     link: 'https://github.com/klaayd39/Automatic-Drama-Report-Document-Generation',
