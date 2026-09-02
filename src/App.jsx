@@ -59,17 +59,15 @@ export default function App() {
     <div className="app-shell app-shell--sidebar">
       <ScrollManager />
       <ScrollProgress />
+      <Sidebar />
 
-      <div className="layout">
-        <div className="layout-main">
-          <main>
-            <Suspense fallback={<div className="page-fallback" />}>
-              <AnimatedRoutes />
-            </Suspense>
-          </main>
-          <Footer />
-        </div>
-        <Sidebar />
+      <div className="layout-main">
+        <main id="main-content">
+          <Suspense fallback={<div className="page-fallback" />}>
+            <AnimatedRoutes />
+          </Suspense>
+        </main>
+        <Footer />
       </div>
 
       <ScrollToTopFAB />
