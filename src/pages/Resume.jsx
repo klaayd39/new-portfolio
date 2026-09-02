@@ -1,4 +1,7 @@
 import { Helmet } from 'react-helmet-async';
+import ScrollReveal from '../components/ScrollReveal';
+import DepthSection from '../components/DepthSection';
+
 export default function Resume() {
   return (
     <div className="resume-page subpage">
@@ -8,12 +11,14 @@ export default function Resume() {
 
       <div className="subpage-hero">
         <div className="wrap">
-          <span className="label">Resume</span>
-          <h1 className="h2">The paper <em>trail.</em></h1>
+          <ScrollReveal blur>
+            <h1 className="h2">Resume</h1>
+          </ScrollReveal>
         </div>
       </div>
 
-      <div className="wrap resume-page-inner">
+      <DepthSection className="wrap resume-page-inner" as="div" ambient>
+      <ScrollReveal>
       <div className="resume-actions">
         <a
           href="/Klyde_Joseph_Yabo_Resume.pdf"
@@ -30,10 +35,9 @@ export default function Resume() {
           Download DOCX
         </a>
       </div>
+      </ScrollReveal>
 
-      {/* ══════════════════════════════════
-          RESUME CARD
-      ══════════════════════════════════ */}
+      <ScrollReveal delay={100}>
       <div className="resume-card doc-theme">
 
         {/* ── Header ── */}
@@ -201,8 +205,9 @@ export default function Resume() {
 
           </div>{/* end rv-right */}
         </div>{/* end rv-body */}
-      </div>{/* end resume-card */}
       </div>
+      </ScrollReveal>
+      </DepthSection>
     </div>
   )
 }

@@ -4,24 +4,20 @@ const lerp = (a, b, t) => a + (b - a) * t
 const clamp = (v, min, max) => Math.max(min, Math.min(max, v))
 
 /**
- * Premium, smoothed parallax.
- *
- * Motion is driven by the element's distance from the viewport center and eased
- * every frame with a lerp, so it trails the scroll with a soft, weighted feel
- * instead of snapping. Supports layered translate / scale / rotate / opacity so
- * multiple instances at different speeds create real depth.
- *
- * Runs a rAF loop only while the element is near the viewport (Intersection
- * Observer gated) and disables entirely under prefers-reduced-motion.
+ * Premium, smoothed parallax with optional 3D depth (translateZ, rotateX/Y).
+ * rAF-gated via Intersection Observer; disabled under prefers-reduced-motion.
  */
 export default function Parallax({
-  speed = 0.15, // vertical translate factor (px per px of offset)
-  speedX = 0, // horizontal translate factor
-  scale = 0, // extra scale across the pass (e.g. 0.06)
-  rotate = 0, // degrees across the pass
-  fade = 0, // 0..1 opacity dip at the extremes
-  smooth = 0.085, // easing (lower = smoother / more lag)
-  base = '', // transform applied before the parallax transform
+  speed = 0.15,
+  speedX = 0,
+  scale = 0,
+  rotate = 0,
+  rotateX = 0,
+  rotateY = 0,
+  translateZ = 0,
+  fade = 0,
+  smooth = 0.085,
+  base = '',
   as: Tag = 'div',
   className = '',
   style,
@@ -35,23 +31,30 @@ export default function Parallax({
     if (!el) return
 
     const media = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const mobile = window.matchMedia('(max-width: 768px)')
     if (media.matches) return
+
+    const mobileFactor = mobile.matches ? 0.35 : 1
 
     let raf = null
     let running = false
-    const cur = { y: 0, x: 0, s: 0, r: 0, o: 1 }
-    const tgt = { y: 0, x: 0, s: 0, r: 0, o: 1 }
-    let settleFrames = 0
+    const cur = { y: 0, x: 0, s: 0, r: 0, rx: 0, ry: 0, z: 0, o: 1 }
+    const tgt = { y: 0, x: 0, s: 0, r: 0, rx: 0, ry: 0, z: 0, o: 1 }
 
     const measure = () => {
       const rect = el.getBoundingClientRect()
       const vh = window.innerHeight || document.documentElement.clientHeight
       const offset = rect.top + rect.height / 2 - vh / 2
       const p = clamp(offset / (vh / 2 + rect.height / 2), -1, 1)
-      tgt.y = -offset * speed
-      tgt.x = -offset * speedX
-      tgt.s = -p * scale
-      tgt.r = -p * rotate
+      const f = mobileFactor
+
+      tgt.y = -offset * speed * f
+      tgt.x = -offset * speedX * f
+      tgt.s = -p * scale * f
+      tgt.r = -p * rotate * f
+      tgt.rx = -p * rotateX * f
+      tgt.ry = -p * rotateY * f
+      tgt.z = -p * translateZ * f
       tgt.o = fade ? 1 - Math.abs(p) * fade : 1
     }
 
@@ -60,11 +63,16 @@ export default function Parallax({
       cur.x = lerp(cur.x, tgt.x, smooth)
       cur.s = lerp(cur.s, tgt.s, smooth)
       cur.r = lerp(cur.r, tgt.r, smooth)
+      cur.rx = lerp(cur.rx, tgt.rx, smooth)
+      cur.ry = lerp(cur.ry, tgt.ry, smooth)
+      cur.z = lerp(cur.z, tgt.z, smooth)
       cur.o = lerp(cur.o, tgt.o, smooth)
 
-      let t = `translate3d(${cur.x.toFixed(2)}px, ${cur.y.toFixed(2)}px, 0)`
+      let t = `translate3d(${cur.x.toFixed(2)}px, ${cur.y.toFixed(2)}px, ${cur.z.toFixed(2)}px)`
       if (scale) t += ` scale(${(1 + cur.s).toFixed(4)})`
       if (rotate) t += ` rotate(${cur.r.toFixed(3)}deg)`
+      if (rotateX) t += ` rotateX(${cur.rx.toFixed(3)}deg)`
+      if (rotateY) t += ` rotateY(${cur.ry.toFixed(3)}deg)`
       el.style.transform = base ? `${base} ${t}` : t
       if (fade) el.style.opacity = cur.o.toFixed(3)
     }
@@ -72,13 +80,6 @@ export default function Parallax({
     const frame = () => {
       measure()
       draw()
-      // keep animating a touch after settling so nothing freezes mid-ease
-      const rest =
-        Math.abs(cur.y - tgt.y) +
-        Math.abs(cur.x - tgt.x) +
-        Math.abs(cur.s - tgt.s) +
-        Math.abs(cur.r - tgt.r)
-      settleFrames = rest < 0.05 ? settleFrames + 1 : 0
       if (running) raf = requestAnimationFrame(frame)
     }
 
@@ -102,23 +103,36 @@ export default function Parallax({
     )
     io.observe(el)
 
-    // prime once so there's no first-paint jump
     measure()
     cur.y = tgt.y
     cur.x = tgt.x
     cur.s = tgt.s
     cur.r = tgt.r
+    cur.rx = tgt.rx
+    cur.ry = tgt.ry
+    cur.z = tgt.z
     cur.o = tgt.o
     draw()
+
+    const onMobileChange = () => {
+      measure()
+    }
+    mobile.addEventListener('change', onMobileChange)
 
     return () => {
       io.disconnect()
       stop()
+      mobile.removeEventListener('change', onMobileChange)
     }
-  }, [speed, speedX, scale, rotate, fade, smooth, base])
+  }, [speed, speedX, scale, rotate, rotateX, rotateY, translateZ, fade, smooth, base])
 
   return (
-    <Tag ref={ref} className={className} style={{ willChange: 'transform', ...style }} {...rest}>
+    <Tag
+      ref={ref}
+      className={className}
+      style={{ willChange: 'transform', ...style }}
+      {...rest}
+    >
       {children}
     </Tag>
   )

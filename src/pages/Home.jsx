@@ -4,6 +4,10 @@ import { MARQUEE_TOOLS, TOOL_GROUPS } from '../data/skills'
 import { CLIENT_PROJECTS, PERSONAL_PROJECTS, STATION_PROJECTS } from '../data/projects'
 import ScrollReveal from '../components/ScrollReveal'
 import Parallax from '../components/Parallax'
+import DepthSection from '../components/DepthSection'
+import Card3D from '../components/Card3D'
+import AnimatedFill from '../components/AnimatedFill'
+import SplitReveal from '../components/SplitReveal'
 import ProjectModal from '../components/ProjectModal'
 import { useState } from 'react'
 
@@ -21,20 +25,20 @@ export default function Home() {
       </Helmet>
 
       <section className="hero" id="top">
-        <Parallax className="hero-orb hero-orb-1" speed={0.32} scale={0.22} aria-hidden="true" />
-        <Parallax className="hero-orb hero-orb-2" speed={0.5} scale={0.18} aria-hidden="true" />
-        <Parallax className="hero-orb hero-orb-3" speed={0.42} speedX={0.14} aria-hidden="true" />
-        <Parallax className="hero-bg-text" base="translateY(-50%)" speed={0.4} fade={0.45} aria-hidden="true">
+        <Parallax className="hero-orb hero-orb-1" speed={0.32} scale={0.22} translateZ={-40} aria-hidden="true" />
+        <Parallax className="hero-orb hero-orb-2" speed={0.5} scale={0.18} rotateY={6} aria-hidden="true" />
+        <Parallax className="hero-orb hero-orb-3" speed={0.42} speedX={0.14} translateZ={20} aria-hidden="true" />
+        <Parallax className="hero-bg-text" base="translateY(-50%)" speed={0.4} fade={0.45} rotateX={4} aria-hidden="true">
           Klyde
         </Parallax>
         <div className="wrap hero-inner">
-          <div className="hero-copy">
+          <ScrollReveal className="hero-copy" blur delay={80}>
             <h1 className="hero-h1">
               <span className="nameline">Klyde Joseph Yabo</span>
-              <em>Information</em>
+              <em><SplitReveal text="Information" delay={120} stagger={55} /></em>
               {' '}
               <br />
-              Technology
+              <SplitReveal text="Technology" delay={280} stagger={50} />
             </h1>
             <p className="hero-sub">
               I build tools that keep a live radio station running. Web crawlers, mixer controls,
@@ -42,15 +46,19 @@ export default function Home() {
               and actively used at <strong>Bombo Radyo Malaybalay</strong>. I build for real-world use, not just
               for the tutorial folder.
             </p>
-          </div>
+          </ScrollReveal>
 
-          <Parallax className="hero-photo" speed={0.14} scale={0.07} smooth={0.07}>
+          <Parallax className="hero-photo" speed={0.14} scale={0.07} rotateY={-4} translateZ={30} smooth={0.07}>
             <div className="photo-frame">
               <img src="/ID.png" alt="Klyde Joseph Yabo" className="photo-ph" />
             </div>
+            <div className="photo-name">
+              <p className="photo-name-main">Klyde Joseph Yabo</p>
+              <p className="photo-name-role">IT / Technician · Bombo Radyo Malaybalay</p>
+            </div>
           </Parallax>
 
-          <div className="hero-actions">
+          <ScrollReveal className="hero-actions" delay={160}>
             <div className="hero-btns">
               <Link to="/projects" className="btn btn-dark">
                 View My Projects <span className="btn-arrow">→</span>
@@ -70,7 +78,7 @@ export default function Home() {
                 <strong>Studied:</strong> BS Information Technology, Bukidnon State University
               </p>
             </div>
-          </div>
+          </ScrollReveal>
         </div>
       </section>
 
@@ -90,9 +98,9 @@ export default function Home() {
         </div>
       </div>
 
-      <section className="section about-section" id="about">
+      <DepthSection className="section about-section" id="about" ambient>
         <div className="wrap about-grid">
-          <ScrollReveal>
+          <ScrollReveal blur>
             <span className="label">About Me</span>
             <h2 className="h2">Real station. <em>Real tools.</em></h2>
             <p className="about-quote">I do not wait for a perfect stack. I automate the job in front of me.</p>
@@ -122,8 +130,8 @@ export default function Home() {
             </div>
           </ScrollReveal>
 
-          <ScrollReveal delay={120} className="skill-panels">
-            <div className="sp-card">
+          <ScrollReveal delay={120} className="skill-panels" direction="right">
+            <Card3D className="sp-card" intensity={6}>
               <p className="sp-ey">Automation</p>
               <ul className="sk-list">
                 <li>Headline crawlers and news aggregation</li>
@@ -132,8 +140,8 @@ export default function Home() {
                 <li>Scheduled background monitors</li>
                 <li>Playwright and PowerShell workflows</li>
               </ul>
-            </div>
-            <div className="sp-card">
+            </Card3D>
+            <Card3D className="sp-card" intensity={6}>
               <p className="sp-ey">Broadcast systems</p>
               <ul className="sk-list">
                 <li>OBS scene sorting and media automators</li>
@@ -142,8 +150,8 @@ export default function Home() {
                 <li>Discord alerts for breaking news</li>
                 <li>Linux and Windows station machines</li>
               </ul>
-            </div>
-            <div className="sp-card">
+            </Card3D>
+            <Card3D className="sp-card" intensity={6}>
               <p className="sp-ey">Web and data</p>
               <ul className="sk-list">
                 <li>React dashboards and Vite apps</li>
@@ -151,12 +159,12 @@ export default function Home() {
                 <li>Supabase and PostgreSQL</li>
                 <li>HTML, CSS, and responsive layouts</li>
               </ul>
-            </div>
+            </Card3D>
           </ScrollReveal>
         </div>
-      </section>
+      </DepthSection>
 
-      <section className="section tools-section" id="tools">
+      <DepthSection className="section tools-section" id="tools" ambient>
         <div className="wrap">
           <ScrollReveal>
             <span className="label">Skills and Tools</span>
@@ -178,11 +186,9 @@ export default function Home() {
                     <div className="tr" key={tool.name}>
                       <span className="tr-name">{tool.name}</span>
                       <p className="tr-desc">{tool.desc}</p>
-                      <div className="tr-lv">
+                        <div className="tr-lv">
                         <span className="lv-lbl">Confidence</span>
-                        <div className="lv-bar" aria-hidden="true">
-                          <div className="lv-fill" style={{ width: `${tool.level}%` }} />
-                        </div>
+                        <AnimatedFill width={tool.level} />
                       </div>
                     </div>
                   ))}
@@ -191,11 +197,14 @@ export default function Home() {
             ))}
           </div>
         </div>
-      </section>
+      </DepthSection>
+
+      <div className="section-divider" aria-hidden="true"><span /></div>
 
       <div className="proj-banner-wrap" id="projects">
         <div className="wrap">
-          <div className="proj-banner">
+          <ScrollReveal>
+            <div className="proj-banner">
             <div>
               <span className="label">My Projects</span>
               <h2>Two systems from the station. <em>Everything I did.</em></h2>
@@ -204,15 +213,17 @@ export default function Home() {
               <strong>A note on these projects</strong>
               Built on the job at Bombo Radyo Malaybalay. Live environments, real operators, real failure modes.
             </p>
-          </div>
+            </div>
+          </ScrollReveal>
         </div>
       </div>
 
       {FEATURED.map((project) => (
-        <section
+        <DepthSection
           className={`cs-section${project.featuredNum === '02' ? ' cs-alt' : ''}`}
           id={project.featuredId}
           key={project.featuredId}
+          ambient
         >
           <div className="wrap">
             <div className="cs-kicker">
@@ -229,151 +240,165 @@ export default function Home() {
               <Parallax className="cs-num" speed={0.34} rotate={9} fade={0.35}>{project.featuredNum}</Parallax>
             </div>
 
-            <div className="cs-headline">
+            <ScrollReveal className="cs-headline" blur>
               <h2 className="cs-h"><em>{project.title.replace('Bombo Radyo ', '')}</em></h2>
               <p className="cs-loc">{project.subtitle}</p>
-            </div>
+            </ScrollReveal>
 
             {project.image && (
-              <div className="cs-shot">
-                <div className="cs-shot-img">
-                  <Parallax className="cs-shot-parallax" base="scale(1.24)" speed={0.07} smooth={0.06}>
-                    <img src={project.image} alt={project.title} />
-                  </Parallax>
+              <ScrollReveal delay={80}>
+                <div className="cs-shot">
+                  <div className="cs-shot-img">
+                    <Parallax className="cs-shot-parallax" base="scale(1.24)" speed={0.07} smooth={0.06} rotateX={3}>
+                      <img src={project.image} alt={project.title} />
+                    </Parallax>
+                  </div>
+                  <p className="proof-cap">{project.screenshotCaption}</p>
                 </div>
-                <p className="proof-cap">{project.screenshotCaption}</p>
-              </div>
+              </ScrollReveal>
             )}
 
             <div className="cs-ov">
-              <div className="cs-ov-card">
-                <p className="sp-ey">The situation</p>
-                <ul>
-                  {project.situation.map((item) => <li key={item}>{item}</li>)}
-                </ul>
-              </div>
-              <div className="cs-ov-card">
-                <p className="sp-ey">What I built</p>
-                <ul>
-                  {project.built.map((item) => <li key={item}>{item}</li>)}
-                </ul>
-              </div>
-              <div className="cs-ov-card">
-                <p className="sp-ey">Where it sits now</p>
-                <ul>
-                  {project.outcome.map((item) => <li key={item}>{item}</li>)}
-                </ul>
-              </div>
+              {['The situation', 'What I built', 'Where it sits now'].map((label, idx) => {
+                const items = idx === 0 ? project.situation : idx === 1 ? project.built : project.outcome
+                return (
+                  <ScrollReveal key={label} delay={idx * 80} direction={idx === 1 ? 'none' : idx === 0 ? 'left' : 'right'}>
+                    <Card3D className="cs-ov-card" intensity={5}>
+                      <p className="sp-ey">{label}</p>
+                      <ul>
+                        {items.map((item) => <li key={item}>{item}</li>)}
+                      </ul>
+                    </Card3D>
+                  </ScrollReveal>
+                )
+              })}
             </div>
 
-            <div className="cs-nav-row">
+            <ScrollReveal delay={200}>
+              <div className="cs-nav-row">
               <button type="button" className="btn btn-dark" onClick={() => setSelected(project)}>
                 Read full case study <span className="btn-arrow">→</span>
               </button>
               <a href={project.link} target="_blank" rel="noreferrer" className="btn btn-outline">
                 GitHub
               </a>
-            </div>
+              </div>
+            </ScrollReveal>
           </div>
-        </section>
+        </DepthSection>
       ))}
 
-      <section className="section more-section">
+      <DepthSection className="section more-section" ambient>
         <div className="wrap">
-          <div className="more-head">
-            <div>
-              <span className="label">More work</span>
-              <h2 className="h2">The rest of the <em>station toolkit.</em></h2>
+          <ScrollReveal>
+            <div className="more-head">
+              <div>
+                <span className="label">More work</span>
+                <h2 className="h2">The rest of the <em>station toolkit.</em></h2>
+              </div>
+              <Link to="/projects" className="more-all">
+                Full archive <span className="btn-arrow">→</span>
+              </Link>
             </div>
-            <Link to="/projects" className="more-all">
-              Full archive <span className="btn-arrow">→</span>
-            </Link>
-          </div>
+          </ScrollReveal>
           <div className="more-grid">
-            {STATION_MORE.map((project) => (
-              <button
-                type="button"
-                className="more-card"
-                key={project.title}
-                onClick={() => setSelected(project)}
-              >
-                <div className="more-thumb">
-                  {project.image && <img src={project.image} alt="" loading="lazy" />}
-                </div>
-                <span className="project-card-tag">{project.tag}</span>
-                <h3>{project.title}</h3>
-                <p>{project.desc}</p>
-              </button>
+            {STATION_MORE.map((project, index) => (
+              <ScrollReveal key={project.title} delay={Math.min(index * 50, 200)}>
+                <Card3D
+                  as="button"
+                  type="button"
+                  className="more-card"
+                  intensity={8}
+                  onClick={() => setSelected(project)}
+                >
+                  <div className="more-thumb">
+                    {project.image && <img src={project.image} alt="" loading="lazy" />}
+                  </div>
+                  <span className="project-card-tag">{project.tag}</span>
+                  <h3>{project.title}</h3>
+                  <p>{project.desc}</p>
+                </Card3D>
+              </ScrollReveal>
             ))}
           </div>
         </div>
-      </section>
+      </DepthSection>
 
-      <section className="section client-projects-section">
+      <DepthSection className="section client-projects-section" ambient>
         <div className="wrap">
-          <div className="more-head">
-            <div>
-              <span className="label">Client projects</span>
-              <h2 className="h2">Built for <em>real clients.</em></h2>
+          <ScrollReveal>
+            <div className="more-head">
+              <div>
+                <span className="label">Client projects</span>
+                <h2 className="h2">Built for <em>real clients.</em></h2>
+              </div>
+              <Link to="/projects" className="more-all">
+                Full archive <span className="btn-arrow">→</span>
+              </Link>
             </div>
-            <Link to="/projects" className="more-all">
-              Full archive <span className="btn-arrow">→</span>
-            </Link>
-          </div>
+          </ScrollReveal>
           <div className="more-grid">
-            {CLIENT_PROJECTS.map((project) => (
-              <button
-                type="button"
-                className="more-card"
-                key={project.title}
-                onClick={() => setSelected(project)}
-              >
-                <div className="more-thumb">
-                  {project.image && <img src={project.image} alt="" loading="lazy" />}
-                </div>
-                <span className="project-card-tag">{project.tag}</span>
-                <h3>{project.title}</h3>
-                <p>{project.desc}</p>
-              </button>
+            {CLIENT_PROJECTS.map((project, index) => (
+              <ScrollReveal key={project.title} delay={Math.min(index * 50, 200)}>
+                <Card3D
+                  as="button"
+                  type="button"
+                  className="more-card"
+                  intensity={8}
+                  onClick={() => setSelected(project)}
+                >
+                  <div className="more-thumb">
+                    {project.image && <img src={project.image} alt="" loading="lazy" />}
+                  </div>
+                  <span className="project-card-tag">{project.tag}</span>
+                  <h3>{project.title}</h3>
+                  <p>{project.desc}</p>
+                </Card3D>
+              </ScrollReveal>
             ))}
           </div>
         </div>
-      </section>
+      </DepthSection>
 
-      <section className="section personal-projects-section">
+      <DepthSection className="section personal-projects-section" ambient>
         <div className="wrap">
-          <div className="more-head">
-            <div>
-              <span className="label">Personal projects</span>
-              <h2 className="h2">Built outside the <em>station.</em></h2>
+          <ScrollReveal>
+            <div className="more-head">
+              <div>
+                <span className="label">Personal projects</span>
+                <h2 className="h2">Built outside the <em>station.</em></h2>
+              </div>
+              <Link to="/projects" className="more-all">
+                Full archive <span className="btn-arrow">→</span>
+              </Link>
             </div>
-            <Link to="/projects" className="more-all">
-              Full archive <span className="btn-arrow">→</span>
-            </Link>
-          </div>
+          </ScrollReveal>
           <div className="more-grid">
-            {PERSONAL_PROJECTS.map((project) => (
-              <button
-                type="button"
-                className="more-card"
-                key={project.title}
-                onClick={() => setSelected(project)}
-              >
-                <div className="more-thumb">
-                  {project.image && <img src={project.image} alt="" loading="lazy" />}
-                </div>
-                <span className="project-card-tag">{project.tag}</span>
-                <h3>{project.title}</h3>
-                <p>{project.desc}</p>
-              </button>
+            {PERSONAL_PROJECTS.map((project, index) => (
+              <ScrollReveal key={project.title} delay={Math.min(index * 50, 200)}>
+                <Card3D
+                  as="button"
+                  type="button"
+                  className="more-card"
+                  intensity={8}
+                  onClick={() => setSelected(project)}
+                >
+                  <div className="more-thumb">
+                    {project.image && <img src={project.image} alt="" loading="lazy" />}
+                  </div>
+                  <span className="project-card-tag">{project.tag}</span>
+                  <h3>{project.title}</h3>
+                  <p>{project.desc}</p>
+                </Card3D>
+              </ScrollReveal>
             ))}
           </div>
         </div>
-      </section>
+      </DepthSection>
 
-      <section className="data-section" id="process">
+      <DepthSection className="data-section" id="process" ambient>
         <div className="wrap">
-          <div className="data-header">
+          <ScrollReveal className="data-header" blur>
             <div>
               <span className="label">How I work</span>
               <h2 className="h2">I do not just write scripts. <em>I ship them live.</em></h2>
@@ -382,54 +407,46 @@ export default function Home() {
               Broadcast software fails in public. I design for unattended hours, covered windows,
               and operators who do not have time to debug. Here is how that shows up in the work.
             </p>
-          </div>
+          </ScrollReveal>
 
           <div className="data-main-grid">
             <div className="data-points">
-              <div className="dp-item">
-                <div className="dp-item-ico">⏱</div>
-                <h4>Latency under live conditions</h4>
-                <p>X32 toggles had to feel instant. OSC over UDP, not a round-trip through a UI layer, is why mute happens in under 50ms.</p>
-              </div>
-              <div className="dp-item">
-                <div className="dp-item-ico">👁</div>
-                <h4>Unattended observability</h4>
-                <p>If a transmitter AUI is minimised, the monitor still captures it. Tools that only work when someone is looking are not tools.</p>
-              </div>
-              <div className="dp-item">
-                <div className="dp-item-ico">🔗</div>
-                <h4>Alerts where people already are</h4>
-                <p>Breaking news goes to Discord. Operators should not open a second dashboard to find out the important thing already happened.</p>
-              </div>
-              <div className="dp-item">
-                <div className="dp-item-ico">🛡</div>
-                <h4>Safe defaults</h4>
-                <p>Rename scripts dry-run. OBS sorts only targeted scenes. Automations that can destroy a live show need a fence around them.</p>
-              </div>
-              <div className="dp-item">
-                <div className="dp-item-ico">📐</div>
-                <h4>Measure the hours saved</h4>
-                <p>Drama reports and OBS setup were timed against the old process. If it does not cut real work, it does not ship.</p>
-              </div>
+              {[
+                { ico: '⏱', title: 'Latency under live conditions', text: 'X32 toggles had to feel instant. OSC over UDP, not a round-trip through a UI layer, is why mute happens in under 50ms.' },
+                { ico: '👁', title: 'Unattended observability', text: 'If a transmitter AUI is minimised, the monitor still captures it. Tools that only work when someone is looking are not tools.' },
+                { ico: '🔗', title: 'Alerts where people already are', text: 'Breaking news goes to Discord. Operators should not open a second dashboard to find out the important thing already happened.' },
+                { ico: '🛡', title: 'Safe defaults', text: 'Rename scripts dry-run. OBS sorts only targeted scenes. Automations that can destroy a live show need a fence around them.' },
+                { ico: '📐', title: 'Measure the hours saved', text: 'Drama reports and OBS setup were timed against the old process. If it does not cut real work, it does not ship.' },
+              ].map((item, index) => (
+                <ScrollReveal key={item.title} delay={index * 60} direction="left">
+                  <div className="dp-item">
+                    <div className="dp-item-ico">{item.ico}</div>
+                    <h4>{item.title}</h4>
+                    <p>{item.text}</p>
+                  </div>
+                </ScrollReveal>
+              ))}
             </div>
-            <div>
+            <ScrollReveal direction="right" delay={120}>
               <p className="data-ss-label">Live data from the work</p>
               <div className="data-screens">
-                <Parallax as="figure" speed={0.13} smooth={0.08}>
+                <Parallax as="figure" speed={0.13} smooth={0.08} rotateY={-3} translateZ={16}>
                   <img src="/projects/bombo.png" alt="News Intelligence Hub dashboard" />
                   <figcaption>News Intelligence Hub — live headline board</figcaption>
                 </Parallax>
-                <Parallax as="figure" speed={-0.13} smooth={0.08}>
+                <Parallax as="figure" speed={-0.13} smooth={0.08} rotateY={3} translateZ={16}>
                   <img src="/projects/nautel.png" alt="Nautel AUI monitor captures" />
                   <figcaption>Nautel AUI Monitor — unattended captures</figcaption>
                 </Parallax>
               </div>
-            </div>
+            </ScrollReveal>
           </div>
         </div>
-      </section>
+      </DepthSection>
 
-      <section className="section personal-section" id="personal">
+      <div className="section-divider section-divider--dark" aria-hidden="true"><span /></div>
+
+      <DepthSection className="section personal-section" id="personal" ambient>
         <div className="wrap personal-grid">
           <ScrollReveal>
             <span className="label">Outside the studio</span>
@@ -444,69 +461,62 @@ export default function Home() {
             </p>
           </ScrollReveal>
           <div className="personal-cards">
-            <div className="p-card">
-              <div className="p-card-ico">⚽</div>
-              <p className="p-card-title">Football</p>
-              <p className="p-card-sub">College of Technologies Athlete of the Year, BukSU 2024.</p>
-            </div>
-            <div className="p-card">
-              <div className="p-card-ico">🎬</div>
-              <p className="p-card-title">Video editing</p>
-              <p className="p-card-sub">Cuts and timing for station and personal work. Pace matters.</p>
-            </div>
-            <div className="p-card">
-              <div className="p-card-ico">🔧</div>
-              <p className="p-card-title">Hardware</p>
-              <p className="p-card-sub">Freelance diagnostics, upgrades, and small-office networks.</p>
-            </div>
-            <div className="p-card">
-              <div className="p-card-ico">⚙️</div>
-              <p className="p-card-title">Building from scratch</p>
-              <p className="p-card-sub">If the station needs it and it does not exist, I write it.</p>
-            </div>
+            {[
+              { ico: '⚽', title: 'Football', sub: 'College of Technologies Athlete of the Year, BukSU 2024.' },
+              { ico: '🎬', title: 'Video editing', sub: 'Cuts and timing for station and personal work. Pace matters.' },
+              { ico: '🔧', title: 'Hardware', sub: 'Freelance diagnostics, upgrades, and small-office networks.' },
+              { ico: '⚙️', title: 'Building from scratch', sub: 'If the station needs it and it does not exist, I write it.' },
+            ].map((card, index) => (
+              <ScrollReveal key={card.title} delay={index * 70}>
+                <Card3D className="p-card" intensity={7}>
+                  <div className="p-card-ico">{card.ico}</div>
+                  <p className="p-card-title">{card.title}</p>
+                  <p className="p-card-sub">{card.sub}</p>
+                </Card3D>
+              </ScrollReveal>
+            ))}
           </div>
         </div>
-      </section>
+      </DepthSection>
 
-      <section className="section education-section" id="education">
+      <DepthSection className="section education-section" id="education" ambient>
         <div className="wrap">
           <ScrollReveal>
             <span className="label">Education</span>
             <h2 className="h2">Academic <em>background.</em></h2>
           </ScrollReveal>
           <div className="edu-grid">
-            <article className="edu-card">
-              <span className="edu-badge">College</span>
-              <h3 className="edu-deg">Bachelor of Science in Information Technology</h3>
-              <p className="edu-school">Bukidnon State University</p>
-              <p className="edu-detail">2020 – 2024</p>
-              <p className="edu-note">Graduated as College of Technologies — Athlete of the Year.</p>
-            </article>
-            <article className="edu-card">
-              <span className="edu-badge">Senior High School</span>
-              <h3 className="edu-deg">Technical Vocational Livelihood - Information Technology</h3>
-              <p className="edu-school">STI Malaybalay</p>
-              <p className="edu-detail">2018 - 2020</p>
-            </article>
-            <article className="edu-card">
-              <span className="edu-badge">Junior High School</span>
-              <h3 className="edu-deg">Special Program in Sports</h3>
-              <p className="edu-school">Bukidnon National High School</p>
-              <p className="edu-detail">2014 - 2018</p>
-            </article>
+            {[
+              { badge: 'College', deg: 'Bachelor of Science in Information Technology', school: 'Bukidnon State University', detail: '2020 – 2024', note: 'Graduated as College of Technologies — Athlete of the Year.' },
+              { badge: 'Senior High School', deg: 'Technical Vocational Livelihood - Information Technology', school: 'STI Malaybalay', detail: '2018 - 2020' },
+              { badge: 'Junior High School', deg: 'Special Program in Sports', school: 'Bukidnon National High School', detail: '2014 - 2018' },
+            ].map((edu, index) => (
+              <ScrollReveal key={edu.badge} delay={index * 80}>
+                <Card3D as="article" className="edu-card" intensity={6}>
+                  <span className="edu-badge">{edu.badge}</span>
+                  <h3 className="edu-deg">{edu.deg}</h3>
+                  <p className="edu-school">{edu.school}</p>
+                  <p className="edu-detail">{edu.detail}</p>
+                  {edu.note && <p className="edu-note">{edu.note}</p>}
+                </Card3D>
+              </ScrollReveal>
+            ))}
           </div>
         </div>
-      </section>
+      </DepthSection>
 
-      <section className="contact-section" id="hire">
+      <DepthSection className="contact-section" id="hire" ambient>
         <div className="wrap contact-inner">
-          <span className="label">Get in Touch</span>
-          <h2 className="contact-h">Looking for an <em>automation role.</em></h2>
-          <p className="contact-desc">
-            I have real station systems, real data, and a drive to keep building. If you are
-            hiring or know someone who is, reach out directly.
-          </p>
-          <div className="contact-list">
+          <ScrollReveal blur>
+            <span className="label">Get in Touch</span>
+            <h2 className="contact-h">Looking for an <em>automation role.</em></h2>
+            <p className="contact-desc">
+              I have real station systems, real data, and a drive to keep building. If you are
+              hiring or know someone who is, reach out directly.
+            </p>
+          </ScrollReveal>
+          <ScrollReveal delay={100}>
+            <div className="contact-list">
             <a className="cl-row" href="mailto:klydejosephy@gmail.com">
               <span className="cl-lbl">Email</span>
               <span className="cl-val">klydejosephy@gmail.com</span>
@@ -531,14 +541,17 @@ export default function Home() {
               <span className="cl-lbl">Status</span>
               <span className="cl-val cl-avail">Available now · Actively looking</span>
             </div>
-          </div>
-          <div className="hero-btns contact-cta">
-            <Link to="/contact" className="btn btn-accent">
-              Send a message <span className="btn-arrow">→</span>
-            </Link>
-          </div>
+            </div>
+          </ScrollReveal>
+          <ScrollReveal delay={180}>
+            <div className="hero-btns contact-cta">
+              <Link to="/contact" className="btn btn-accent">
+                Send a message <span className="btn-arrow">→</span>
+              </Link>
+            </div>
+          </ScrollReveal>
         </div>
-      </section>
+      </DepthSection>
 
       {selected && (
         <ProjectModal project={selected} onClose={() => setSelected(null)} />

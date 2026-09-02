@@ -1,7 +1,11 @@
 import { Helmet } from 'react-helmet-async'
 import { useState } from 'react'
 import ScrollReveal from '../components/ScrollReveal'
+import Parallax from '../components/Parallax'
+import Card3D from '../components/Card3D'
+import DepthSection from '../components/DepthSection'
 import ProjectModal from '../components/ProjectModal'
+import CountUp from '../components/CountUp'
 import { PROJECTS } from '../data/projects'
 
 export default function Projects() {
@@ -24,32 +28,38 @@ export default function Projects() {
       </Helmet>
 
       <div className="subpage-hero">
+        <Parallax className="subpage-hero-glow" speed={0.2} scale={0.08} aria-hidden="true" />
         <div className="wrap">
-          <span className="label">Archive</span>
-          <h1 className="h2">Projects I actually <em>shipped.</em></h1>
-          <p className="bp" style={{ maxWidth: 520, margin: 0 }}>
-            Automation toolsets, telemetry, and real-time systems built for a live radio station and personal products.
-          </p>
+          <ScrollReveal blur>
+            <span className="label">Archive</span>
+            <h1 className="h2">Projects I actually <em>shipped.</em></h1>
+            <p className="bp" style={{ maxWidth: 520, margin: 0 }}>
+              Automation toolsets, telemetry, and real-time systems built for a live radio station and personal products.
+              {' '}<strong><CountUp end={PROJECTS.length} /> projects</strong> in the archive.
+            </p>
+          </ScrollReveal>
         </div>
       </div>
 
-      <div className="wrap archive-body">
-        <div className="filter-tabs">
-          {groups.map((group) => (
-            <button
-              key={group}
-              className={`filter-tab${activeGroup === group ? ' active' : ''}`}
-              onClick={() => setActiveGroup(group)}
-            >
-              {group}
-            </button>
-          ))}
-        </div>
+      <DepthSection className="archive-body wrap" as="div" ambient>
+        <ScrollReveal>
+          <div className="filter-tabs">
+            {groups.map((group) => (
+              <button
+                key={group}
+                className={`filter-tab${activeGroup === group ? ' active' : ''}`}
+                onClick={() => setActiveGroup(group)}
+              >
+                {group}
+              </button>
+            ))}
+          </div>
+        </ScrollReveal>
 
         <div className="project-grid">
           {filteredProjects.map((project, index) => (
             <ScrollReveal direction="up" delay={Math.min(index * 40, 200)} duration={500} key={project.title}>
-              <article className="project-card">
+              <Card3D className="project-card" intensity={7}>
                 <div className="project-card-image-wrap">
                   {project.image ? (
                     <img src={project.image} loading="lazy" alt={project.title} className="project-card-image" />
@@ -87,11 +97,11 @@ export default function Projects() {
                     GitHub
                   </a>
                 </div>
-              </article>
+              </Card3D>
             </ScrollReveal>
           ))}
         </div>
-      </div>
+      </DepthSection>
 
       {selectedProject && (
         <ProjectModal
