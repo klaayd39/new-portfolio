@@ -81,6 +81,28 @@ export const PROJECTS = [
     image: '/projects/jg-farm.png'
   },
   {
+    title: 'TOMA Mobile Bar',
+    tag: 'Web App',
+    group: 'personal',
+    link: 'https://github.com/klaayd39/Toma-Mobile-Bar-Liquidation',
+    desc: 'Financial management and event liquidation system for TOMA Mobile Bar — budgets, expenses, and reporting in one dashboard.',
+    longDesc: 'TOMA Mobile Bar is a web-based financial management, inventory tracking, event liquidation, and reporting system built for mobile bar operators. It gives the team real-time visibility into budgets, expenses, profits, and event-linked liquidations.',
+    problem: 'Event expenses, liquidations, and project budgets were tracked across spreadsheets and chats, making it hard to see profit, recover deleted records, or audit who changed what.',
+    solution: 'Built a full-stack React and TypeScript app with Supabase, TanStack Query, and PDF export — centralizing events, liquidations, analytics, activity logs, and a recycle bin in one admin portal.',
+    features: [
+      'Interactive dashboard for budgets, expenses, and profit overview',
+      'Liquidations management with receipts, payment methods, and bulk entry',
+      'Projects and events linked directly to client budgets and spend',
+      'Analytics with Recharts and downloadable PDF reports',
+      'Activity logs and recycle bin for auditability and recovery',
+      'Embedded Google Sheet live monitor for shared reporting'
+    ],
+    tech: ['React', 'TypeScript', 'Vite', 'Tailwind CSS', 'Supabase', 'Recharts', 'Zustand'],
+    challenges: 'Keeping financial totals accurate across linked events and liquidations required careful state sync. Addressed with Supabase RLS, React Query caching, and realtime subscriptions.',
+    liveUrl: 'https://tomaadmin.vercel.app/',
+    image: '/projects/toma-mobile-bar.png'
+  },
+  {
     title: 'Drama Report Gen',
     tag: 'Automation',
     group: 'station',
