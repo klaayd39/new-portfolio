@@ -1,6 +1,6 @@
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { useEffect, Suspense, lazy } from 'react'
-import Navbar from './components/Navbar'
+import Sidebar from './components/Sidebar'
 import Footer from './components/Footer'
 import ScrollToTopFAB from './components/ScrollToTopFAB'
 import ScrollProgress from './components/ScrollProgress'
@@ -56,18 +56,22 @@ function ScrollManager() {
 
 export default function App() {
   return (
-    <div className="app-shell">
+    <div className="app-shell app-shell--sidebar">
       <ScrollManager />
       <ScrollProgress />
-      <Navbar />
 
-      <main>
-        <Suspense fallback={<div className="page-fallback" />}>
-          <AnimatedRoutes />
-        </Suspense>
-      </main>
+      <div className="layout">
+        <div className="layout-main">
+          <main>
+            <Suspense fallback={<div className="page-fallback" />}>
+              <AnimatedRoutes />
+            </Suspense>
+          </main>
+          <Footer />
+        </div>
+        <Sidebar />
+      </div>
 
-      <Footer />
       <ScrollToTopFAB />
       <Analytics />
     </div>

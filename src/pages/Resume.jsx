@@ -1,6 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import ScrollReveal from '../components/ScrollReveal';
-import DepthSection from '../components/DepthSection';
+import MotionReveal from '../components/MotionReveal';
 
 export default function Resume() {
   return (
@@ -9,35 +8,37 @@ export default function Resume() {
         <title>Resume | Klyde Joseph Yabo</title>
       </Helmet>
 
-      <div className="subpage-hero">
-        <div className="wrap">
-          <ScrollReveal blur>
-            <h1 className="h2">Resume</h1>
-          </ScrollReveal>
+      <section className="subpage-hero">
+        <div className="container">
+          <MotionReveal>
+            <p className="section-label">Resume</p>
+            <h1 className="section-title">Klyde Joseph Yabo</h1>
+          </MotionReveal>
         </div>
-      </div>
+      </section>
 
-      <DepthSection className="wrap resume-page-inner" as="div" ambient>
-      <ScrollReveal>
+      <section className="section">
+      <div className="container resume-page-inner">
+      <MotionReveal>
       <div className="resume-actions">
         <a
           href="/Klyde_Joseph_Yabo_Resume.pdf"
           download="Klyde_Joseph_Yabo_Resume.pdf"
-          className="btn btn-dark"
+          className="btn btn-primary"
         >
           Download PDF
         </a>
         <a
           href="/Klyde_Joseph_Yabo_Resume.docx"
           download="Klyde_Joseph_Yabo_Resume.docx"
-          className="btn btn-outline"
+          className="btn btn-secondary"
         >
           Download DOCX
         </a>
       </div>
-      </ScrollReveal>
+      </MotionReveal>
 
-      <ScrollReveal delay={100}>
+      <MotionReveal delay={0.1}>
       <div className="resume-card doc-theme">
 
         {/* ── Header ── */}
@@ -206,8 +207,9 @@ export default function Resume() {
           </div>{/* end rv-right */}
         </div>{/* end rv-body */}
       </div>
-      </ScrollReveal>
-      </DepthSection>
+      </MotionReveal>
+      </div>
+      </section>
     </div>
   )
 }

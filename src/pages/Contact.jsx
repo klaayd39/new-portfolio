@@ -2,10 +2,7 @@ import { Helmet } from 'react-helmet-async'
 import { useState } from 'react'
 import emailjs from '@emailjs/browser'
 import { supabase, isSupabaseConfigured } from '../supabaseClient'
-import ScrollReveal from '../components/ScrollReveal'
-import DepthSection from '../components/DepthSection'
-import Parallax from '../components/Parallax'
-import SplitReveal from '../components/SplitReveal'
+import MotionReveal from '../components/MotionReveal'
 
 const EMAILJS_SERVICE_ID  = import.meta.env.VITE_EMAILJS_SERVICE_ID
 const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID
@@ -86,52 +83,52 @@ export default function Contact() {
         <title>Contact | Klyde Joseph Yabo</title>
       </Helmet>
 
-      <DepthSection className="contact-section" ambient>
-        <Parallax className="scene-orb scene-orb-a contact-orb" speed={0.18} aria-hidden="true" />
-        <div className="wrap contact-inner">
-          <ScrollReveal blur>
-            <span className="label">Get in Touch</span>
-            <h1 className="contact-h">
-              Looking for an <em><SplitReveal text="automation role." delay={100} stagger={40} /></em>
-            </h1>
-            <p className="contact-desc">
-              Whether you have a question about station workflows or want to talk about a role,
-              write directly. I read every message.
+      <section className="subpage-hero">
+        <div className="container">
+          <MotionReveal>
+            <p className="section-label">Contact</p>
+            <h1 className="section-title">Let&apos;s talk.</h1>
+            <p className="section-intro">
+              Whether you have a question about station workflows or want to talk about a role, write directly. I read every message.
             </p>
-          </ScrollReveal>
+          </MotionReveal>
+        </div>
+      </section>
 
-          <ScrollReveal delay={80}>
-            <div className="contact-list" style={{ marginBottom: 40 }}>
-              <a className="cl-row" href="mailto:klydejosephy@gmail.com">
-                <span className="cl-lbl">Email</span>
-                <span className="cl-val">klydejosephy@gmail.com</span>
+      <section className="section contact-page">
+        <div className="container contact-page-inner">
+          <MotionReveal>
+            <div className="contact-info-list">
+              <a className="contact-info-row" href="mailto:klydejosephy@gmail.com">
+                <span>Email</span>
+                <span>klydejosephy@gmail.com</span>
               </a>
-              <a className="cl-row" href="tel:+639455927782">
-                <span className="cl-lbl">Phone</span>
-                <span className="cl-val">+63 945 592 7782</span>
+              <a className="contact-info-row" href="tel:+639455927782">
+                <span>Phone</span>
+                <span>+63 945 592 7782</span>
               </a>
-              <a className="cl-row" href="https://github.com/klaayd39" target="_blank" rel="noreferrer">
-                <span className="cl-lbl">GitHub</span>
-                <span className="cl-val">github.com/klaayd39</span>
+              <a className="contact-info-row" href="https://github.com/klaayd39" target="_blank" rel="noreferrer">
+                <span>GitHub</span>
+                <span>github.com/klaayd39</span>
               </a>
-              <a className="cl-row" href="https://www.linkedin.com/in/klyde-joseph-yabo-a38286373/" target="_blank" rel="noreferrer">
-                <span className="cl-lbl">LinkedIn</span>
-                <span className="cl-val">linkedin.com/in/klyde-joseph-yabo</span>
+              <a className="contact-info-row" href="https://www.linkedin.com/in/klyde-joseph-yabo-a38286373/" target="_blank" rel="noreferrer">
+                <span>LinkedIn</span>
+                <span>linkedin.com/in/klyde-joseph-yabo</span>
               </a>
-              <div className="cl-row">
-                <span className="cl-lbl">Location</span>
-                <span className="cl-val">Malaybalay City, Bukidnon, Philippines</span>
+              <div className="contact-info-row">
+                <span>Location</span>
+                <span>Malaybalay City, Bukidnon</span>
               </div>
-              <div className="cl-row">
-                <span className="cl-lbl">Status</span>
-                <span className="cl-val cl-avail">Available now · Actively looking</span>
+              <div className="contact-info-row">
+                <span>Status</span>
+                <span style={{ color: 'var(--accent)' }}>Available now · Actively looking</span>
               </div>
             </div>
-          </ScrollReveal>
+          </MotionReveal>
 
-          <ScrollReveal delay={140}>
+          <MotionReveal delay={0.1}>
             <form onSubmit={handleSubmit} className="contact-form">
-              <h3 className="contact-form-title">Send a message</h3>
+              <h2 className="contact-form-title">Send a message</h2>
 
               {status === 'error' && <p className="form-error">{errorMessage}</p>}
               {status === 'success' && (
@@ -143,56 +140,28 @@ export default function Contact() {
                 </p>
               )}
 
-              <div className="form-field-floating">
-                <input
-                  id="name"
-                  name="name"
-                  type="text"
-                  placeholder=" "
-                  value={form.name}
-                  onChange={handleChange}
-                  disabled={status === 'submitting'}
-                />
+              <div className="form-field">
+                <input id="name" name="name" type="text" placeholder=" " value={form.name} onChange={handleChange} disabled={status === 'submitting'} />
                 <label htmlFor="name">Full Name</label>
               </div>
 
-              <div className="form-field-floating">
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  placeholder=" "
-                  value={form.email}
-                  onChange={handleChange}
-                  disabled={status === 'submitting'}
-                />
+              <div className="form-field">
+                <input id="email" name="email" type="email" placeholder=" " value={form.email} onChange={handleChange} disabled={status === 'submitting'} />
                 <label htmlFor="email">Email Address</label>
               </div>
 
-              <div className="form-field-floating">
-                <textarea
-                  id="message"
-                  name="message"
-                  rows={5}
-                  placeholder=" "
-                  value={form.message}
-                  onChange={handleChange}
-                  disabled={status === 'submitting'}
-                />
+              <div className="form-field">
+                <textarea id="message" name="message" rows={5} placeholder=" " value={form.message} onChange={handleChange} disabled={status === 'submitting'} />
                 <label htmlFor="message">Your Message</label>
               </div>
 
-              <button
-                type="submit"
-                className="btn btn-dark submit-btn"
-                disabled={status === 'submitting'}
-              >
+              <button type="submit" className="btn btn-primary submit-btn" disabled={status === 'submitting'}>
                 {status === 'submitting' ? 'Sending...' : 'Send Message'}
               </button>
             </form>
-          </ScrollReveal>
+          </MotionReveal>
         </div>
-      </DepthSection>
+      </section>
     </div>
   )
 }

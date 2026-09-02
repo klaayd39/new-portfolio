@@ -1,12 +1,9 @@
 import { Helmet } from 'react-helmet-async'
 import { useState } from 'react'
-import ScrollReveal from '../components/ScrollReveal'
-import Parallax from '../components/Parallax'
-import Card3D from '../components/Card3D'
-import DepthSection from '../components/DepthSection'
-import ProjectModal from '../components/ProjectModal'
-import CountUp from '../components/CountUp'
 import { PROJECTS } from '../data/projects'
+import MotionReveal from '../components/MotionReveal'
+import { ProjectCard } from '../components/FeaturedProject'
+import ProjectModal from '../components/ProjectModal'
 
 export default function Projects() {
   const [activeGroup, setActiveGroup] = useState('All')
@@ -27,87 +24,47 @@ export default function Projects() {
         <title>Projects | Klyde Joseph Yabo</title>
       </Helmet>
 
-      <div className="subpage-hero">
-        <Parallax className="subpage-hero-glow" speed={0.2} scale={0.08} aria-hidden="true" />
-        <div className="wrap">
-          <ScrollReveal blur>
-            <span className="label">Archive</span>
-            <h1 className="h2">Projects I actually <em>shipped.</em></h1>
-            <p className="bp" style={{ maxWidth: 520, margin: 0 }}>
-              Automation toolsets, telemetry, and real-time systems built for a live radio station and personal products.
-              {' '}<strong><CountUp end={PROJECTS.length} /> projects</strong> in the archive.
+      <section className="subpage-hero">
+        <div className="container">
+          <MotionReveal>
+            <p className="section-label">Archive</p>
+            <h1 className="section-title">Projects I actually shipped.</h1>
+            <p className="section-intro">
+              {PROJECTS.length} automation toolsets, telemetry systems, and web apps built for a live radio station, clients, and personal use.
             </p>
-          </ScrollReveal>
+          </MotionReveal>
         </div>
-      </div>
+      </section>
 
-      <DepthSection className="archive-body wrap" as="div" ambient>
-        <ScrollReveal>
-          <div className="filter-tabs">
-            {groups.map((group) => (
-              <button
-                key={group}
-                className={`filter-tab${activeGroup === group ? ' active' : ''}`}
-                onClick={() => setActiveGroup(group)}
-              >
-                {group}
-              </button>
+      <section className="section">
+        <div className="container">
+          <MotionReveal>
+            <div className="filter-tabs">
+              {groups.map((group) => (
+                <button
+                  key={group}
+                  type="button"
+                  className={`filter-tab${activeGroup === group ? ' filter-tab--active' : ''}`}
+                  onClick={() => setActiveGroup(group)}
+                >
+                  {group}
+                </button>
+              ))}
+            </div>
+          </MotionReveal>
+
+          <div className="projects-grid">
+            {filteredProjects.map((project, index) => (
+              <MotionReveal key={project.title} delay={Math.min(index * 0.04, 0.24)}>
+                <ProjectCard project={project} onOpen={setSelectedProject} />
+              </MotionReveal>
             ))}
           </div>
-        </ScrollReveal>
-
-        <div className="project-grid">
-          {filteredProjects.map((project, index) => (
-            <ScrollReveal direction="up" delay={Math.min(index * 40, 200)} duration={500} key={project.title}>
-              <Card3D className="project-card" intensity={7}>
-                <div className="project-card-image-wrap">
-                  {project.image ? (
-                    <img src={project.image} loading="lazy" alt={project.title} className="project-card-image" />
-                  ) : (
-                    <div className="modal-hero-placeholder">
-                      <span className="placeholder-text">{project.title}</span>
-                    </div>
-                  )}
-                  {project.featured && <span className="feat-pill">Station</span>}
-                </div>
-                <span className="project-card-tag">{project.tag}</span>
-                <h3 className="card-title-main">{project.title}</h3>
-                <p className="project-card-desc">{project.desc}</p>
-                <div className="tech-badges">
-                  {(project.tech || []).slice(0, 3).map((t) => (
-                    <span className="tech-badge" key={t}>{t}</span>
-                  ))}
-                  {project.tech && project.tech.length > 3 && (
-                    <span className="tech-badge">+{project.tech.length - 3}</span>
-                  )}
-                </div>
-                <div className="project-actions">
-                  <button
-                    onClick={() => setSelectedProject(project)}
-                    className="project-btn-sm project-btn-primary"
-                  >
-                    Details →
-                  </button>
-                  <a
-                    href={project.link}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="project-btn-sm project-btn-outline"
-                  >
-                    GitHub
-                  </a>
-                </div>
-              </Card3D>
-            </ScrollReveal>
-          ))}
         </div>
-      </DepthSection>
+      </section>
 
       {selectedProject && (
-        <ProjectModal
-          project={selectedProject}
-          onClose={() => setSelectedProject(null)}
-        />
+        <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />
       )}
     </div>
   )

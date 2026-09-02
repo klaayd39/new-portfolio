@@ -1,54 +1,79 @@
-import { useState, useEffect } from 'react'
-import { NavLink, useLocation } from 'react-router-dom'
-import { NAV_ITEMS } from './navItems'
+import { useEffect, useState } from 'react'
+import { Link, NavLink, useLocation } from 'react-router-dom'
+import { NAV_ITEMS, PAGE_ITEMS, SECTION_IDS } from './navItems'
 
-function SidebarContent({ onLinkClick }) {
+function SidebarContent({ activeId, onHome, onLinkClick }) {
   return (
     <>
-      <div className="sidebar-brand">
-        <span className="brand-name">Klyde Joseph</span>
+      <div className="sidebar-top">
+        <Link to="/" className="sidebar-brand" onClick={onLinkClick}>
+          Klyde<span>.</span>
+        </Link>
+        <span className="sidebar-pill">Open to work</span>
+        <p className="sidebar-updated">Malaybalay, Philippines</p>
       </div>
 
-      <ul className="nav-list">
-        {NAV_ITEMS.map((item) => (
-          <li key={item.to}>
-            <NavLink
-              to={item.to}
-              end={item.to === '/'}
-              className={({ isActive }) => `nav-item${isActive ? ' active' : ''}`}
-              onClick={onLinkClick}
-            >
-              <span>{item.label}</span>
-            </NavLink>
-          </li>
-        ))}
-      </ul>
+      <nav className="sidebar-nav" aria-label="Main navigation">
+        <p className="sidebar-nav-label">Sections</p>
+        <ul className="sidebar-list">
+          {NAV_ITEMS.map((item) => (
+            <li key={item.id}>
+              {onHome ? (
+                <a
+                  href={`#${item.id}`}
+                  className={`sidebar-link${activeId === item.id ? ' sidebar-link--active' : ''}`}
+                  onClick={onLinkClick}
+                >
+                  <span className="sidebar-link-dot" aria-hidden="true" />
+                  {item.label}
+                </a>
+              ) : (
+                <Link
+                  to={item.to}
+                  className={`sidebar-link${activeId === item.id ? ' sidebar-link--active' : ''}`}
+                  onClick={onLinkClick}
+                >
+                  <span className="sidebar-link-dot" aria-hidden="true" />
+                  {item.label}
+                </Link>
+              )}
+            </li>
+          ))}
+        </ul>
+
+        <p className="sidebar-nav-label">Pages</p>
+        <ul className="sidebar-list">
+          {PAGE_ITEMS.map((item) => (
+            <li key={item.id}>
+              <NavLink
+                to={item.to}
+                className={({ isActive }) => `sidebar-link${isActive ? ' sidebar-link--active' : ''}`}
+                onClick={onLinkClick}
+              >
+                <span className="sidebar-link-dot" aria-hidden="true" />
+                {item.label}
+              </NavLink>
+            </li>
+          ))}
+        </ul>
+      </nav>
 
       <div className="sidebar-bottom">
-        <hr className="sidebar-divider" />
-
         <a
           href="/Klyde_Joseph_Yabo_Resume.pdf"
           download="Klyde_Joseph_Yabo_Resume.pdf"
-          className="download-btn"
+          className="sidebar-download"
           onClick={onLinkClick}
         >
           Download Resume
         </a>
-
         <div className="sidebar-socials">
-          <a href="mailto:klydejosephy@gmail.com" className="sidebar-social-link" title="Email">
-            Email
-          </a>
-          <a href="https://github.com/klaayd39" target="_blank" rel="noreferrer" className="sidebar-social-link" title="GitHub">
-            GitHub
-          </a>
-          <a href="https://www.linkedin.com/in/klyde-joseph-yabo-a38286373/" target="_blank" rel="noreferrer" className="sidebar-social-link" title="LinkedIn">
-            LinkedIn
-          </a>
+          <a href="mailto:klydejosephy@gmail.com">Email</a>
+          <a href="https://github.com/klaayd39" target="_blank" rel="noreferrer">GitHub</a>
+          <a href="https://www.linkedin.com/in/klyde-joseph-yabo-a38286373/" target="_blank" rel="noreferrer">LinkedIn</a>
         </div>
-
-        <p className="sidebar-footer-note">© {new Date().getFullYear()} Klyde Joseph Yabo</p>
+        <p className="sidebar-note">📻 probably automating something at the station</p>
+        <p className="sidebar-copy">© {new Date().getFullYear()} Klyde Joseph Yabo</p>
       </div>
     </>
   )
@@ -56,83 +81,85 @@ function SidebarContent({ onLinkClick }) {
 
 export default function Sidebar() {
   const [drawerOpen, setDrawerOpen] = useState(false)
-  const [isScrolled, setIsScrolled] = useState(false)
+  const [activeHash, setActiveHash] = useState('top')
   const location = useLocation()
-  const [prevPath, setPrevPath] = useState(location.pathname)
+  const onHome = location.pathname === '/'
 
-  // Adjust state during render when route changes
-  if (prevPath !== location.pathname) {
-    setPrevPath(location.pathname)
-    setDrawerOpen(false)
-  }
+  const closeDrawer = () => setDrawerOpen(false)
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setIsScrolled(true)
-      } else {
-        setIsScrolled(false)
-      }
-    }
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
-  // Prevent body scroll when drawer is open
-  useEffect(() => {
-    if (drawerOpen) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = ''
-    }
+    document.body.style.overflow = drawerOpen ? 'hidden' : ''
     return () => { document.body.style.overflow = '' }
   }, [drawerOpen])
 
+  useEffect(() => {
+    if (!onHome) return undefined
+
+    let io
+    let cancelled = false
+    const setup = () => {
+      if (cancelled) return
+      const els = SECTION_IDS.map((id) => document.getElementById(id)).filter(Boolean)
+      if (!els.length) {
+        window.requestAnimationFrame(setup)
+        return
+      }
+      io = new IntersectionObserver(
+        (entries) => {
+          const visible = entries
+            .filter((e) => e.isIntersecting)
+            .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0]
+          if (visible?.target?.id) setActiveHash(visible.target.id)
+        },
+        { rootMargin: '-28% 0px -58% 0px', threshold: [0.1, 0.25, 0.5] }
+      )
+      els.forEach((el) => io.observe(el))
+    }
+    setup()
+    return () => {
+      cancelled = true
+      io?.disconnect()
+    }
+  }, [onHome])
+
+  const activeId = onHome ? activeHash : ''
+
   return (
     <>
-      {/* Desktop / Tablet Sidebar */}
-      <aside className={`sidebar${isScrolled ? ' scrolled' : ''}`} aria-label="Main navigation">
-        <SidebarContent onLinkClick={undefined} />
-      </aside>
-
-      {/* Mobile Hamburger Bar */}
-      <div className={`mobile-topbar${isScrolled ? ' scrolled' : ''}`} role="banner">
-        <span className="brand">Klyde Joseph</span>
+      {/* Mobile top bar */}
+      <header className="mobile-bar">
+        <Link to="/" className="mobile-bar-brand" onClick={closeDrawer}>
+          Klyde<span>.</span>
+        </Link>
         <button
-          className="hamburger-btn"
-          onClick={() => setDrawerOpen(true)}
-          aria-label="Open navigation menu"
+          type="button"
+          className={`mobile-bar-toggle${drawerOpen ? ' mobile-bar-toggle--open' : ''}`}
+          onClick={() => setDrawerOpen((v) => !v)}
+          aria-label={drawerOpen ? 'Close menu' : 'Open menu'}
           aria-expanded={drawerOpen}
         >
-          <span className="ham-line" />
-          <span className="ham-line" />
-          <span className="ham-line" />
+          <span /><span /><span />
         </button>
-      </div>
+      </header>
 
-      {/* Mobile Off-Canvas Drawer */}
       {drawerOpen && (
-        <div
-          className="drawer-overlay"
-          onClick={() => setDrawerOpen(false)}
-          aria-hidden="true"
-        />
+        <button type="button" className="sidebar-scrim" onClick={closeDrawer} aria-label="Close menu" />
       )}
+
+      {/* Right sidebar — desktop fixed, mobile drawer from right */}
       <aside
-        className={`drawer-sidebar${drawerOpen ? ' drawer-open' : ''}`}
-        aria-label="Mobile navigation"
-        aria-hidden={!drawerOpen}
+        className={`sidebar-right${drawerOpen ? ' sidebar-right--open' : ''}`}
+        aria-label="Site navigation"
       >
         <button
-          className="drawer-close-btn"
-          onClick={() => setDrawerOpen(false)}
-          aria-label="Close navigation menu"
+          type="button"
+          className="sidebar-close"
+          onClick={closeDrawer}
+          aria-label="Close menu"
         >
           ✕
         </button>
-        <SidebarContent
-          onLinkClick={() => setDrawerOpen(false)}
-        />
+        <SidebarContent activeId={activeId} onHome={onHome} onLinkClick={closeDrawer} />
       </aside>
     </>
   )

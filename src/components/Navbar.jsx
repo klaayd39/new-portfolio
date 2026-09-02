@@ -1,39 +1,40 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
-import { PROJECTS } from '../data/projects'
 
-const FEATURED = PROJECTS.filter((p) => p.featured)
-const SECTION_IDS = ['about', 'tools', 'projects', 'bombo', 'nautel', 'hire']
+const NAV = [
+  { label: 'Home', to: '/#top', id: 'top' },
+  { label: 'About', to: '/#about', id: 'about' },
+  { label: 'Projects', to: '/#projects', id: 'projects' },
+  { label: 'Skills', to: '/#skills', id: 'skills' },
+  { label: 'Experience', to: '/#experience', id: 'experience' },
+  { label: 'Contact', to: '/#contact', id: 'contact' },
+]
+
+const SECTION_IDS = NAV.map((n) => n.id)
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
-  const [dropOpen, setDropOpen] = useState(false)
-  const [activeHash, setActiveHash] = useState('')
+  const [activeHash, setActiveHash] = useState('top')
   const location = useLocation()
+  const onHome = location.pathname === '/'
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12)
+    const onScroll = () => setScrolled(window.scrollY > 20)
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
   useEffect(() => {
-    setMenuOpen(false)
-    setDropOpen(false)
-  }, [location.pathname, location.hash])
-
-  useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : ''
     return () => { document.body.style.overflow = '' }
   }, [menuOpen])
 
+  const closeMenu = () => setMenuOpen(false)
+
   useEffect(() => {
-    if (location.pathname !== '/') {
-      setActiveHash('')
-      return undefined
-    }
+    if (!onHome) return undefined
 
     let io
     let cancelled = false
@@ -49,11 +50,9 @@ export default function Navbar() {
           const visible = entries
             .filter((e) => e.isIntersecting)
             .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0]
-          if (!visible?.target?.id) return
-          const id = visible.target.id
-          setActiveHash(['bombo', 'nautel', 'projects'].includes(id) ? 'projects' : id)
+          if (visible?.target?.id) setActiveHash(visible.target.id)
         },
-        { rootMargin: '-28% 0px -58% 0px', threshold: [0.1, 0.25, 0.5] }
+        { rootMargin: '-30% 0px -55% 0px', threshold: [0.1, 0.3] }
       )
       els.forEach((el) => io.observe(el))
     }
@@ -62,84 +61,48 @@ export default function Navbar() {
       cancelled = true
       io?.disconnect()
     }
-  }, [location.pathname])
-
-  const onHome = location.pathname === '/'
-  const projectsActive = location.pathname === '/projects' || (onHome && activeHash === 'projects')
+  }, [onHome])
 
   return (
-    <header className={`nav${scrolled ? ' scrolled' : ''}`}>
-      <div className="nav-inner">
-        <Link to="/" className="nav-logo" onClick={() => window.scrollTo(0, 0)}>
-          Klyde<span></span>
+    <header className={`nav${scrolled ? ' nav--scrolled' : ''}`}>
+      <div className="container nav-inner">
+        <Link to="/" className="nav-logo" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+          Klyde<span>.</span>
         </Link>
 
         <button
-          className={`ham${menuOpen ? ' open' : ''}`}
+          type="button"
+          className={`nav-toggle${menuOpen ? ' nav-toggle--open' : ''}`}
           onClick={() => setMenuOpen((v) => !v)}
           aria-label={menuOpen ? 'Close menu' : 'Open menu'}
           aria-expanded={menuOpen}
         >
-          <span />
-          <span />
-          <span />
+          <span /><span /><span />
         </button>
 
         {menuOpen && (
-          <div className="nav-scrim" onClick={() => setMenuOpen(false)} aria-hidden="true" />
+          <button type="button" className="nav-scrim" onClick={() => setMenuOpen(false)} aria-label="Close menu" />
         )}
 
-        <ul className={`nav-links${menuOpen ? ' open' : ''}`}>
-          <li>
-            <NavLink to="/#about" className={() => onHome && activeHash === 'about' ? 'active' : ''}>
-              About
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/#tools" className={() => onHome && activeHash === 'tools' ? 'active' : ''}>
-              Tools
-            </NavLink>
-          </li>
-          <li className="has-drop">
-            <button
-              className={`nav-drop-btn${projectsActive ? ' active' : ''}`}
-              onClick={() => setDropOpen((v) => !v)}
-              aria-expanded={dropOpen}
-            >
-              Projects <span className="chevron">▼</span>
-            </button>
-            <div className={`dropdown${dropOpen ? ' mob-open' : ''}`}>
-              {FEATURED.map((p) => (
-                <Link
-                  key={p.featuredId}
-                  to={`/#${p.featuredId}`}
-                  className="drop-item"
-                >
-                  <span className="drop-ico">{p.tag === 'Intelligence' ? '📡' : '📻'}</span>
-                  <span>
-                    <span className="drop-name">{p.title.replace('Bombo Radyo ', '')}</span>
-                    <span className="drop-sub">{p.tag} · {p.subtitle.split('·')[0].trim()}</span>
-                  </span>
-                </Link>
-              ))}
-              <Link to="/projects" className="drop-item">
-                <span className="drop-ico">→</span>
-                <span>
-                  <span className="drop-name">All projects</span>
-                  <span className="drop-sub">Full archive with filters</span>
-                </span>
+        <nav className={`nav-menu${menuOpen ? ' nav-menu--open' : ''}`}>
+          {NAV.map((item) => (
+            onHome ? (
+              <a
+                key={item.id}
+                href={`#${item.id}`}
+                className={`nav-link${activeHash === item.id ? ' nav-link--active' : ''}`}
+                onClick={closeMenu}
+              >
+                {item.label}
+              </a>
+            ) : (
+              <Link key={item.id} to={item.to} className="nav-link" onClick={closeMenu}>
+                {item.label}
               </Link>
-            </div>
-          </li>
-          <li>
-            <NavLink to="/resume">Resume</NavLink>
-          </li>
-          <li>
-            <NavLink to="/contact" className={({ isActive }) => `nav-cta${isActive ? ' on' : ''}`}>
-              Contact
-            </NavLink>
-          </li>
-        </ul>
+            )
+          ))}
+          <NavLink to="/resume" className="nav-link nav-link--resume" onClick={closeMenu}>Resume</NavLink>
+        </nav>
       </div>
     </header>
   )

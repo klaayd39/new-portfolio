@@ -1,19 +1,57 @@
 import { Helmet } from 'react-helmet-async'
 import { Link } from 'react-router-dom'
-import { MARQUEE_TOOLS, TOOL_GROUPS } from '../data/skills'
-import { CLIENT_PROJECTS, PERSONAL_PROJECTS, STATION_PROJECTS } from '../data/projects'
-import ScrollReveal from '../components/ScrollReveal'
-import Parallax from '../components/Parallax'
-import DepthSection from '../components/DepthSection'
-import Card3D from '../components/Card3D'
-import AnimatedFill from '../components/AnimatedFill'
-import SplitReveal from '../components/SplitReveal'
-import ProjectModal from '../components/ProjectModal'
 import { useState } from 'react'
+import { motion } from 'framer-motion'
+import { PROJECTS, STATION_PROJECTS, CLIENT_PROJECTS, PERSONAL_PROJECTS } from '../data/projects'
+import { TOOL_GROUPS, SKILLS } from '../data/skills'
+import MotionReveal from '../components/MotionReveal'
+import FeaturedProject, { ProjectCard } from '../components/FeaturedProject'
+import ProjectModal from '../components/ProjectModal'
+import CountUp from '../components/CountUp'
 
 const FEATURED = STATION_PROJECTS.filter((p) => p.featured)
-const STATION_MORE = STATION_PROJECTS.filter((p) => !p.featured)
-const marquee = [...MARQUEE_TOOLS, ...MARQUEE_TOOLS]
+const HIGHLIGHTS = [...FEATURED, ...CLIENT_PROJECTS.slice(0, 2), ...PERSONAL_PROJECTS.slice(0, 1)]
+
+const STATS = [
+  { value: PROJECTS.length, suffix: '+', label: 'Projects shipped', note: 'Station tools, client apps, and personal builds.' },
+  { value: 50, suffix: '+', label: 'Live feeds monitored', note: 'Aggregated in the News Intelligence Hub.' },
+  { value: 15, suffix: '+', label: 'Technologies in production', note: 'From Python crawlers to React dashboards.' },
+  { value: 1, suffix: '+', label: 'Years on live broadcast', note: 'Building software Bombo Radyo Malaybalay runs daily.' },
+]
+
+const EXPERIENCE = [
+  {
+    period: '2025 – Present',
+    role: 'IT / Technician',
+    org: 'Bombo Radyo Malaybalay',
+    detail: 'Built news intelligence, transmitter monitoring, OBS automation, and mixer control systems used during live broadcasts.',
+  },
+  {
+    period: '2024',
+    role: 'IT Intern – Cash Unit (OJT)',
+    org: 'Department of Education, Malaybalay City',
+    detail: 'Computer troubleshooting, data encoding, and loan and voucher processing.',
+  },
+  {
+    period: '2020 – 2024',
+    role: 'BS Information Technology',
+    org: 'Bukidnon State University',
+    detail: 'College of Technologies Athlete of the Year, 2024.',
+  },
+]
+
+const EXPLORING = [
+  { emoji: '⚽', title: 'Football', text: 'College of Technologies Athlete of the Year, BukSU 2024.' },
+  { emoji: '🎬', title: 'Video editing', text: 'Timing and pacing for station and personal work.' },
+  { emoji: '🔧', title: 'Hardware repair', text: 'Freelance diagnostics, upgrades, and small-office networks.' },
+  { emoji: '🛠', title: 'Building from scratch', text: 'If the station needs it and it does not exist, I write it.' },
+]
+
+const SOCIALS = [
+  { label: 'GitHub', href: 'https://github.com/klaayd39' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/klyde-joseph-yabo-a38286373/' },
+  { label: 'Email', href: 'mailto:klydejosephy@gmail.com' },
+]
 
 export default function Home() {
   const [selected, setSelected] = useState(null)
@@ -21,537 +59,313 @@ export default function Home() {
   return (
     <>
       <Helmet>
-        <title>Klyde Joseph Yabo — Information Technology | Malaybalay</title>
+        <title>Klyde Joseph Yabo — Developer & Automation Engineer</title>
+        <meta name="description" content="Klyde Joseph Yabo builds automation, broadcast systems, and web apps for live radio — based in Malaybalay, Philippines." />
       </Helmet>
 
+      {/* ── HERO ── */}
       <section className="hero" id="top">
-        <Parallax className="hero-orb hero-orb-1" speed={0.32} scale={0.22} translateZ={-40} aria-hidden="true" />
-        <Parallax className="hero-orb hero-orb-2" speed={0.5} scale={0.18} rotateY={6} aria-hidden="true" />
-        <Parallax className="hero-orb hero-orb-3" speed={0.42} speedX={0.14} translateZ={20} aria-hidden="true" />
-        <Parallax className="hero-bg-text" base="translateY(-50%)" speed={0.4} fade={0.45} rotateX={4} aria-hidden="true">
-          Klyde
-        </Parallax>
-        <div className="wrap hero-inner">
-          <ScrollReveal className="hero-copy" blur delay={80}>
-            <h1 className="hero-h1">
-              <span className="nameline">Klyde Joseph Yabo</span>
-              <em><SplitReveal text="Information" delay={120} stagger={55} /></em>
-              {' '}
-              <br />
-              <SplitReveal text="Technology" delay={280} stagger={50} />
-            </h1>
-            <p className="hero-sub">
-              I build tools that keep a live radio station running. Web crawlers, mixer controls,
-              transmitter monitors, and OBS automation—designed to solve real problems, deployed in production,
-              and actively used at <strong>Bombo Radyo Malaybalay</strong>. I build for real-world use, not just
-              for the tutorial folder.
-            </p>
-          </ScrollReveal>
+        <div className="container hero-grid">
+          <div className="hero-copy">
+            <motion.span
+              className="status-pill"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              Open to work · Malaybalay, Philippines
+            </motion.span>
 
-          <Parallax className="hero-photo" speed={0.14} scale={0.07} rotateY={-4} translateZ={30} smooth={0.07}>
-            <div className="photo-frame">
-              <img src="/ID.png" alt="Klyde Joseph Yabo" className="photo-ph" />
-            </div>
-            <div className="photo-name">
-              <p className="photo-name-main">Klyde Joseph Yabo</p>
-              <p className="photo-name-role">IT / Technician · Bombo Radyo Malaybalay</p>
-            </div>
-          </Parallax>
+            <motion.h1
+              className="hero-title"
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.65, delay: 0.08 }}
+            >
+              Hey, I&apos;m <span className="text-accent">Klyde</span>
+            </motion.h1>
 
-          <ScrollReveal className="hero-actions" delay={160}>
-            <div className="hero-btns">
-              <Link to="/projects" className="btn btn-dark">
-                View My Projects <span className="btn-arrow">→</span>
-              </Link>
-              <Link to="/contact" className="btn btn-outline">
-                Get in Touch
-              </Link>
+            <motion.p
+              className="hero-role"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.65, delay: 0.16 }}
+            >
+              Automation Developer &amp; IT Technician
+            </motion.p>
+
+            <motion.p
+              className="hero-lead"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.65, delay: 0.24 }}
+            >
+              I build tools that keep a live radio station running — web crawlers, mixer controls,
+              transmitter monitors, and OBS automation. Designed for real problems, deployed in production,
+              and actively used at <strong>Bombo Radyo Malaybalay</strong>.
+            </motion.p>
+
+            <motion.div
+              className="hero-actions"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.65, delay: 0.32 }}
+            >
+              <a href="#projects" className="btn btn-primary">View My Work</a>
+              <Link to="/contact" className="btn btn-secondary">Contact Me</Link>
+            </motion.div>
+
+            <motion.div
+              className="hero-socials"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.65, delay: 0.42 }}
+            >
+              {SOCIALS.map((s) => (
+                <a key={s.label} href={s.href} target="_blank" rel="noreferrer">{s.label}</a>
+              ))}
+            </motion.div>
+
+            <p className="hero-status">📻 probably automating something at the station</p>
+          </div>
+
+          <motion.div
+            className="hero-visual"
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <div className="hero-photo-wrap">
+              <img src="/ID.png" alt="Klyde Joseph Yabo" className="hero-photo" />
             </div>
-            <div className="hero-creds">
-              <p className="hcred">
-                <strong>Station work:</strong> IT / Technician at Bombo Radyo Malaybalay, 2025 – present
-              </p>
-              <p className="hcred">
-                <strong>Systems built:</strong> News Intelligence Hub, Nautel AUI Monitor, X32 Remote Toggle
-              </p>
-              <p className="hcred">
-                <strong>Studied:</strong> BS Information Technology, Bukidnon State University
-              </p>
-            </div>
-          </ScrollReveal>
+          </motion.div>
         </div>
       </section>
 
-      <div className="marquee-wrap">
-        <p className="mq-label">Tools I Use in Work</p>
-        <div className="mq-track">
-          <div className="mq-row">
-            {marquee.map((tool, i) => (
-              <div className="mq-item" key={`${tool.name}-${i}`}>
-                <span className="mq-mark">
-                  <img src={tool.icon} alt="" className="mq-icon" loading="lazy" decoding="async" />
-                </span>
-                <span>{tool.name}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
+      {/* ── ABOUT ── */}
+      <section className="section" id="about">
+        <div className="container">
+          <MotionReveal>
+            <p className="section-label">About Me</p>
+            <h2 className="section-title">I automate the job in front of me.</h2>
+          </MotionReveal>
 
-      <DepthSection className="section about-section" id="about" ambient>
-        <div className="wrap about-grid">
-          <ScrollReveal blur>
-            <span className="label">About Me</span>
-            <h2 className="h2">Real station. <em>Real tools.</em></h2>
-            <p className="about-quote">I do not wait for a perfect stack. I automate the job in front of me.</p>
-            <p className="bp">
-              I grew up in Bukidnon and studied Information Technology at Bukidnon State University.
-              After graduating I joined Bombo Radyo Malaybalay as an IT technician — and started
-              writing the software the station actually needed.
-            </p>
-            <p className="bp">
-              Newsrooms were tab-hopping for headlines. Transmitter sites went unchecked.
-              Mixer mutes needed a walk across the studio. I built crawlers, monitors, OSC
-              control, and OBS scripts so those jobs happen in the background. The tools run
-              on live broadcasts, not sample data.
-            </p>
-            <p className="bp">
-              I use AI the same way I use a search: to draft structure and generate starting
-              code I can read, change, and own. The systems that matter are the ones that
-              still work at 5am when a transmitter window is covered and nobody is watching.
-            </p>
-            <div className="open-box">
-              <span className="label">What I am looking for</span>
-              <h4>A full-time automation, software, or broadcast-systems role</h4>
-              <p>
-                Agency, in-house, or a station that wants someone who ships. I show up
-                having already built the kind of work you would hand me on day one.
+          <div className="about-layout">
+            <MotionReveal delay={0.1}>
+              <blockquote className="about-pull">
+                Real station. Real tools. Not tutorial folder projects.
+              </blockquote>
+              <p className="body-text">
+                I grew up in Bukidnon and studied Information Technology at Bukidnon State University.
+                After graduating I joined Bombo Radyo Malaybalay as an IT technician — and started
+                writing the software the station actually needed.
               </p>
-            </div>
-          </ScrollReveal>
+              <p className="body-text">
+                Newsrooms were tab-hopping for headlines. Transmitter sites went unchecked.
+                Mixer mutes needed a walk across the studio. I built crawlers, monitors, OSC
+                control, and OBS scripts so those jobs happen in the background.
+              </p>
+              <p className="body-text">
+                I use AI the same way I use a search: to draft structure and generate starting
+                code I can read, change, and own. The systems that matter are the ones that
+                still work at 5am when a transmitter window is covered and nobody is watching.
+              </p>
+            </MotionReveal>
 
-          <ScrollReveal delay={120} className="skill-panels" direction="right">
-            <Card3D className="sp-card" intensity={6}>
-              <p className="sp-ey">Automation</p>
-              <ul className="sk-list">
-                <li>Headline crawlers and news aggregation</li>
-                <li>Document generation from broadcast logs</li>
-                <li>Batch media renaming with regex safety</li>
-                <li>Scheduled background monitors</li>
-                <li>Playwright and PowerShell workflows</li>
-              </ul>
-            </Card3D>
-            <Card3D className="sp-card" intensity={6}>
-              <p className="sp-ey">Broadcast systems</p>
-              <ul className="sk-list">
-                <li>OBS scene sorting and media automators</li>
-                <li>Behringer X32 OSC control over UDP</li>
-                <li>Nautel transmitter AUI capture</li>
-                <li>Discord alerts for breaking news</li>
-                <li>Linux and Windows station machines</li>
-              </ul>
-            </Card3D>
-            <Card3D className="sp-card" intensity={6}>
-              <p className="sp-ey">Web and data</p>
-              <ul className="sk-list">
-                <li>React dashboards and Vite apps</li>
-                <li>WebSockets and REST APIs</li>
-                <li>Supabase and PostgreSQL</li>
-                <li>HTML, CSS, and responsive layouts</li>
-              </ul>
-            </Card3D>
-          </ScrollReveal>
+            <MotionReveal delay={0.2}>
+              <div className="about-callout">
+                <p className="section-label">What I&apos;m looking for</p>
+                <h3>A full-time automation, software, or broadcast-systems role</h3>
+                <p className="body-text body-text--light">
+                  Agency, in-house, or a station that wants someone who ships. I show up
+                  having already built the kind of work you would hand me on day one.
+                </p>
+              </div>
+            </MotionReveal>
+          </div>
         </div>
-      </DepthSection>
+      </section>
 
-      <DepthSection className="section tools-section" id="tools" ambient>
-        <div className="wrap">
-          <ScrollReveal>
-            <span className="label">Skills and Tools</span>
-            <h2 className="h2">What I use and <em>how I actually use it.</em></h2>
-            <p className="bp">
-              Every tool listed has been used on a live station workflow or a shipped project. Not just in a tutorial.
+      {/* ── EXPERIENCE / STATS ── */}
+      <section className="section section--muted" id="experience">
+        <div className="container">
+          <MotionReveal>
+            <p className="section-label">Experience</p>
+            <h2 className="section-title">Numbers from the work.</h2>
+          </MotionReveal>
+
+          <div className="stats-grid">
+            {STATS.map((stat, i) => (
+              <MotionReveal key={stat.label} delay={i * 0.08} className="stat-card">
+                <CountUp end={stat.value} suffix={stat.suffix} className="stat-number" />
+                <h3 className="stat-label">{stat.label}</h3>
+                <p className="stat-note">{stat.note}</p>
+              </MotionReveal>
+            ))}
+          </div>
+
+          <div className="timeline">
+            {EXPERIENCE.map((item, i) => (
+              <MotionReveal key={item.role + item.org} delay={i * 0.08} className="timeline-item">
+                <span className="timeline-period">{item.period}</span>
+                <div>
+                  <h3 className="timeline-role">{item.role}</h3>
+                  <p className="timeline-org">{item.org}</p>
+                  <p className="body-text">{item.detail}</p>
+                </div>
+              </MotionReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── PROJECTS ── */}
+      <section className="section" id="projects">
+        <div className="container">
+          <MotionReveal>
+            <p className="section-label">Featured Projects</p>
+            <h2 className="section-title">Work I&apos;ve shipped.</h2>
+            <p className="section-intro">
+              Station systems built on the job, client products, and personal tools — all running in real environments.
             </p>
-          </ScrollReveal>
+          </MotionReveal>
 
-          <div className="tg-list">
-            {TOOL_GROUPS.map((group) => (
-              <ScrollReveal key={group.num}>
-                <div className="tg">
-                  <div className="tg-hd">
-                    <span className="tg-num">{group.num}</span>
-                    <span className="tg-title">{group.title}</span>
-                  </div>
-                  {group.tools.map((tool) => (
-                    <div className="tr" key={tool.name}>
-                      <span className="tr-name">{tool.name}</span>
-                      <p className="tr-desc">{tool.desc}</p>
-                        <div className="tr-lv">
-                        <span className="lv-lbl">Confidence</span>
-                        <AnimatedFill width={tool.level} />
-                      </div>
-                    </div>
+          <div className="featured-list">
+            {FEATURED.map((project, index) => (
+              <FeaturedProject
+                key={project.featuredId}
+                project={project}
+                index={index}
+                onOpen={setSelected}
+              />
+            ))}
+          </div>
+
+          <MotionReveal>
+            <div className="projects-header">
+              <h3 className="subsection-title">More projects</h3>
+              <Link to="/projects" className="text-link">Full archive →</Link>
+            </div>
+          </MotionReveal>
+
+          <div className="projects-grid">
+            {HIGHLIGHTS.filter((p) => !p.featured).slice(0, 6).map((project, i) => (
+              <MotionReveal key={project.title} delay={i * 0.05}>
+                <ProjectCard project={project} onOpen={setSelected} />
+              </MotionReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── SKILLS ── */}
+      <section className="section section--muted" id="skills">
+        <div className="container">
+          <MotionReveal>
+            <p className="section-label">Skills &amp; Technologies</p>
+            <h2 className="section-title">What I use in production.</h2>
+            <p className="section-intro">
+              Every tool listed has been used on a live station workflow or a shipped project.
+            </p>
+          </MotionReveal>
+
+          <div className="skills-layout">
+            {SKILLS.map((group, i) => (
+              <MotionReveal key={group.category} delay={i * 0.08} className="skill-group">
+                <h3>{group.category}</h3>
+                <ul>
+                  {group.items.map((item) => (
+                    <li key={item}>{item}</li>
                   ))}
+                </ul>
+              </MotionReveal>
+            ))}
+          </div>
+
+          <div className="tools-detail">
+            {TOOL_GROUPS.map((group, gi) => (
+              <MotionReveal key={group.num} delay={gi * 0.06} className="tool-block">
+                <div className="tool-block-head">
+                  <span className="tool-num">{group.num}</span>
+                  <h3>{group.title}</h3>
                 </div>
-              </ScrollReveal>
+                <ul className="tool-list">
+                  {group.tools.map((tool) => (
+                    <li key={tool.name}>
+                      <div className="tool-list-top">
+                        <strong>{tool.name}</strong>
+                        <span>{tool.level}%</span>
+                      </div>
+                      <p>{tool.desc}</p>
+                      <div className="tool-bar" aria-hidden="true">
+                        <span style={{ width: `${tool.level}%` }} />
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </MotionReveal>
             ))}
           </div>
         </div>
-      </DepthSection>
+      </section>
 
-      <div className="section-divider" aria-hidden="true"><span /></div>
-
-      <div className="proj-banner-wrap" id="projects">
-        <div className="wrap">
-          <ScrollReveal>
-            <div className="proj-banner">
-            <div>
-              <span className="label">My Projects</span>
-              <h2>Two systems from the station. <em>Everything I did.</em></h2>
-            </div>
-            <p className="proj-banner-note">
-              <strong>A note on these projects</strong>
-              Built on the job at Bombo Radyo Malaybalay. Live environments, real operators, real failure modes.
+      {/* ── CURRENTLY EXPLORING ── */}
+      <section className="section" id="exploring">
+        <div className="container">
+          <MotionReveal>
+            <p className="section-label">Outside the Studio</p>
+            <h2 className="section-title">Currently exploring.</h2>
+            <p className="section-intro">
+              Football taught me to read situations quickly and work as a team. Hardware repair taught me to diagnose before replacing. Video editing sharpened my sense of timing and visual storytelling.
             </p>
-            </div>
-          </ScrollReveal>
+          </MotionReveal>
+
+          <div className="explore-grid">
+            {EXPLORING.map((item, i) => (
+              <MotionReveal key={item.title} delay={i * 0.08} className="explore-card">
+                <span className="explore-emoji">{item.emoji}</span>
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
+              </MotionReveal>
+            ))}
+          </div>
         </div>
-      </div>
+      </section>
 
-      {FEATURED.map((project) => (
-        <DepthSection
-          className={`cs-section${project.featuredNum === '02' ? ' cs-alt' : ''}`}
-          id={project.featuredId}
-          key={project.featuredId}
-          ambient
-        >
-          <div className="wrap">
-            <div className="cs-kicker">
-              <div className="cs-tags">
-                {project.featuredTags.map((tag) => (
-                  <span
-                    key={tag}
-                    className={`cs-tag${tag === project.featuredTags[0] ? ' ct-accent' : tag === project.featuredTags[project.featuredTags.length - 1] ? ' ct-dark' : ' ct-gray'}`}
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-              <Parallax className="cs-num" speed={0.34} rotate={9} fade={0.35}>{project.featuredNum}</Parallax>
-            </div>
+      {/* ── CONTACT ── */}
+      <section className="section contact-section" id="contact">
+        <div className="container contact-wrap">
+          <MotionReveal>
+            <p className="section-label">Contact</p>
+            <h2 className="section-title section-title--light">
+              Let&apos;s build something that runs at 5am.
+            </h2>
+            <p className="section-intro section-intro--light">
+              Hiring for automation, broadcast systems, or full-stack work? I read every message.
+            </p>
+          </MotionReveal>
 
-            <ScrollReveal className="cs-headline" blur>
-              <h2 className="cs-h"><em>{project.title.replace('Bombo Radyo ', '')}</em></h2>
-              <p className="cs-loc">{project.subtitle}</p>
-            </ScrollReveal>
-
-            {project.image && (
-              <ScrollReveal delay={80}>
-                <div className="cs-shot">
-                  <div className="cs-shot-img">
-                    <Parallax className="cs-shot-parallax" base="scale(1.24)" speed={0.07} smooth={0.06} rotateX={3}>
-                      <img src={project.image} alt={project.title} />
-                    </Parallax>
-                  </div>
-                  <p className="proof-cap">{project.screenshotCaption}</p>
-                </div>
-              </ScrollReveal>
-            )}
-
-            <div className="cs-ov">
-              {['The situation', 'What I built', 'Where it sits now'].map((label, idx) => {
-                const items = idx === 0 ? project.situation : idx === 1 ? project.built : project.outcome
-                return (
-                  <ScrollReveal key={label} delay={idx * 80} direction={idx === 1 ? 'none' : idx === 0 ? 'left' : 'right'}>
-                    <Card3D className="cs-ov-card" intensity={5}>
-                      <p className="sp-ey">{label}</p>
-                      <ul>
-                        {items.map((item) => <li key={item}>{item}</li>)}
-                      </ul>
-                    </Card3D>
-                  </ScrollReveal>
-                )
-              })}
-            </div>
-
-            <ScrollReveal delay={200}>
-              <div className="cs-nav-row">
-              <button type="button" className="btn btn-dark" onClick={() => setSelected(project)}>
-                Read full case study <span className="btn-arrow">→</span>
-              </button>
-              <a href={project.link} target="_blank" rel="noreferrer" className="btn btn-outline">
-                GitHub
+          <MotionReveal delay={0.1}>
+            <div className="contact-actions">
+              <a href="mailto:klydejosephy@gmail.com" className="btn btn-primary btn-lg">
+                klydejosephy@gmail.com
               </a>
-              </div>
-            </ScrollReveal>
-          </div>
-        </DepthSection>
-      ))}
-
-      <DepthSection className="section more-section" ambient>
-        <div className="wrap">
-          <ScrollReveal>
-            <div className="more-head">
-              <div>
-                <span className="label">More work</span>
-                <h2 className="h2">The rest of the <em>station toolkit.</em></h2>
-              </div>
-              <Link to="/projects" className="more-all">
-                Full archive <span className="btn-arrow">→</span>
+              <Link to="/contact" className="btn btn-secondary btn-lg btn-secondary--light">
+                Send a message
               </Link>
             </div>
-          </ScrollReveal>
-          <div className="more-grid">
-            {STATION_MORE.map((project, index) => (
-              <ScrollReveal key={project.title} delay={Math.min(index * 50, 200)}>
-                <Card3D
-                  as="button"
-                  type="button"
-                  className="more-card"
-                  intensity={8}
-                  onClick={() => setSelected(project)}
-                >
-                  <div className="more-thumb">
-                    {project.image && <img src={project.image} alt="" loading="lazy" />}
-                  </div>
-                  <span className="project-card-tag">{project.tag}</span>
-                  <h3>{project.title}</h3>
-                  <p>{project.desc}</p>
-                </Card3D>
-              </ScrollReveal>
-            ))}
-          </div>
+          </MotionReveal>
+
+          <MotionReveal delay={0.18}>
+            <div className="contact-links">
+              <a href="tel:+639455927782">+63 945 592 7782</a>
+              <a href="https://github.com/klaayd39" target="_blank" rel="noreferrer">GitHub</a>
+              <a href="https://www.linkedin.com/in/klyde-joseph-yabo-a38286373/" target="_blank" rel="noreferrer">LinkedIn</a>
+              <Link to="/resume">Resume</Link>
+            </div>
+          </MotionReveal>
         </div>
-      </DepthSection>
-
-      <DepthSection className="section client-projects-section" ambient>
-        <div className="wrap">
-          <ScrollReveal>
-            <div className="more-head">
-              <div>
-                <span className="label">Client projects</span>
-                <h2 className="h2">Built for <em>real clients.</em></h2>
-              </div>
-              <Link to="/projects" className="more-all">
-                Full archive <span className="btn-arrow">→</span>
-              </Link>
-            </div>
-          </ScrollReveal>
-          <div className="more-grid">
-            {CLIENT_PROJECTS.map((project, index) => (
-              <ScrollReveal key={project.title} delay={Math.min(index * 50, 200)}>
-                <Card3D
-                  as="button"
-                  type="button"
-                  className="more-card"
-                  intensity={8}
-                  onClick={() => setSelected(project)}
-                >
-                  <div className="more-thumb">
-                    {project.image && <img src={project.image} alt="" loading="lazy" />}
-                  </div>
-                  <span className="project-card-tag">{project.tag}</span>
-                  <h3>{project.title}</h3>
-                  <p>{project.desc}</p>
-                </Card3D>
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
-      </DepthSection>
-
-      <DepthSection className="section personal-projects-section" ambient>
-        <div className="wrap">
-          <ScrollReveal>
-            <div className="more-head">
-              <div>
-                <span className="label">Personal projects</span>
-                <h2 className="h2">Built outside the <em>station.</em></h2>
-              </div>
-              <Link to="/projects" className="more-all">
-                Full archive <span className="btn-arrow">→</span>
-              </Link>
-            </div>
-          </ScrollReveal>
-          <div className="more-grid">
-            {PERSONAL_PROJECTS.map((project, index) => (
-              <ScrollReveal key={project.title} delay={Math.min(index * 50, 200)}>
-                <Card3D
-                  as="button"
-                  type="button"
-                  className="more-card"
-                  intensity={8}
-                  onClick={() => setSelected(project)}
-                >
-                  <div className="more-thumb">
-                    {project.image && <img src={project.image} alt="" loading="lazy" />}
-                  </div>
-                  <span className="project-card-tag">{project.tag}</span>
-                  <h3>{project.title}</h3>
-                  <p>{project.desc}</p>
-                </Card3D>
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
-      </DepthSection>
-
-      <DepthSection className="data-section" id="process" ambient>
-        <div className="wrap">
-          <ScrollReveal className="data-header" blur>
-            <div>
-              <span className="label">How I work</span>
-              <h2 className="h2">I do not just write scripts. <em>I ship them live.</em></h2>
-            </div>
-            <p>
-              Broadcast software fails in public. I design for unattended hours, covered windows,
-              and operators who do not have time to debug. Here is how that shows up in the work.
-            </p>
-          </ScrollReveal>
-
-          <div className="data-main-grid">
-            <div className="data-points">
-              {[
-                { ico: '⏱', title: 'Latency under live conditions', text: 'X32 toggles had to feel instant. OSC over UDP, not a round-trip through a UI layer, is why mute happens in under 50ms.' },
-                { ico: '👁', title: 'Unattended observability', text: 'If a transmitter AUI is minimised, the monitor still captures it. Tools that only work when someone is looking are not tools.' },
-                { ico: '🔗', title: 'Alerts where people already are', text: 'Breaking news goes to Discord. Operators should not open a second dashboard to find out the important thing already happened.' },
-                { ico: '🛡', title: 'Safe defaults', text: 'Rename scripts dry-run. OBS sorts only targeted scenes. Automations that can destroy a live show need a fence around them.' },
-                { ico: '📐', title: 'Measure the hours saved', text: 'Drama reports and OBS setup were timed against the old process. If it does not cut real work, it does not ship.' },
-              ].map((item, index) => (
-                <ScrollReveal key={item.title} delay={index * 60} direction="left">
-                  <div className="dp-item">
-                    <div className="dp-item-ico">{item.ico}</div>
-                    <h4>{item.title}</h4>
-                    <p>{item.text}</p>
-                  </div>
-                </ScrollReveal>
-              ))}
-            </div>
-            <ScrollReveal direction="right" delay={120}>
-              <p className="data-ss-label">Live data from the work</p>
-              <div className="data-screens">
-                <Parallax as="figure" speed={0.13} smooth={0.08} rotateY={-3} translateZ={16}>
-                  <img src="/projects/bombo.png" alt="News Intelligence Hub dashboard" />
-                  <figcaption>News Intelligence Hub — live headline board</figcaption>
-                </Parallax>
-                <Parallax as="figure" speed={-0.13} smooth={0.08} rotateY={3} translateZ={16}>
-                  <img src="/projects/nautel.png" alt="Nautel AUI monitor captures" />
-                  <figcaption>Nautel AUI Monitor — unattended captures</figcaption>
-                </Parallax>
-              </div>
-            </ScrollReveal>
-          </div>
-        </div>
-      </DepthSection>
-
-      <div className="section-divider section-divider--dark" aria-hidden="true"><span /></div>
-
-      <DepthSection className="section personal-section" id="personal" ambient>
-        <div className="wrap personal-grid">
-          <ScrollReveal>
-            <span className="label">Outside the studio</span>
-            <h2 className="h2">A little about <em>who I am.</em></h2>
-            <p className="bp">
-              The things I do outside of work shape the way I approach it. Football taught me to read situations quickly, adapt on the move, and work as part of a team. Being recognized as the{' '}
-              <strong>College of Technologies – Athlete of the Year</strong> reinforced the discipline, commitment, and perseverance I bring to everything I do. Hardware repair taught me to diagnose problems carefully before replacing parts, while video editing sharpened my sense of timing, detail, and visual storytelling. Together, these experiences have shaped how I think, solve problems, and approach my work.
-            </p>
-            <p className="bp">
-              I like building things that did not exist that morning and putting them in
-              front of people who will actually use them.
-            </p>
-          </ScrollReveal>
-          <div className="personal-cards">
-            {[
-              { ico: '⚽', title: 'Football', sub: 'College of Technologies Athlete of the Year, BukSU 2024.' },
-              { ico: '🎬', title: 'Video editing', sub: 'Cuts and timing for station and personal work. Pace matters.' },
-              { ico: '🔧', title: 'Hardware', sub: 'Freelance diagnostics, upgrades, and small-office networks.' },
-              { ico: '⚙️', title: 'Building from scratch', sub: 'If the station needs it and it does not exist, I write it.' },
-            ].map((card, index) => (
-              <ScrollReveal key={card.title} delay={index * 70}>
-                <Card3D className="p-card" intensity={7}>
-                  <div className="p-card-ico">{card.ico}</div>
-                  <p className="p-card-title">{card.title}</p>
-                  <p className="p-card-sub">{card.sub}</p>
-                </Card3D>
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
-      </DepthSection>
-
-      <DepthSection className="section education-section" id="education" ambient>
-        <div className="wrap">
-          <ScrollReveal>
-            <span className="label">Education</span>
-            <h2 className="h2">Academic <em>background.</em></h2>
-          </ScrollReveal>
-          <div className="edu-grid">
-            {[
-              { badge: 'College', deg: 'Bachelor of Science in Information Technology', school: 'Bukidnon State University', detail: '2020 – 2024', note: 'Graduated as College of Technologies — Athlete of the Year.' },
-              { badge: 'Senior High School', deg: 'Technical Vocational Livelihood - Information Technology', school: 'STI Malaybalay', detail: '2018 - 2020' },
-              { badge: 'Junior High School', deg: 'Special Program in Sports', school: 'Bukidnon National High School', detail: '2014 - 2018' },
-            ].map((edu, index) => (
-              <ScrollReveal key={edu.badge} delay={index * 80}>
-                <Card3D as="article" className="edu-card" intensity={6}>
-                  <span className="edu-badge">{edu.badge}</span>
-                  <h3 className="edu-deg">{edu.deg}</h3>
-                  <p className="edu-school">{edu.school}</p>
-                  <p className="edu-detail">{edu.detail}</p>
-                  {edu.note && <p className="edu-note">{edu.note}</p>}
-                </Card3D>
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
-      </DepthSection>
-
-      <DepthSection className="contact-section" id="hire" ambient>
-        <div className="wrap contact-inner">
-          <ScrollReveal blur>
-            <span className="label">Get in Touch</span>
-            <h2 className="contact-h">Looking for an <em>automation role.</em></h2>
-            <p className="contact-desc">
-              I have real station systems, real data, and a drive to keep building. If you are
-              hiring or know someone who is, reach out directly.
-            </p>
-          </ScrollReveal>
-          <ScrollReveal delay={100}>
-            <div className="contact-list">
-            <a className="cl-row" href="mailto:klydejosephy@gmail.com">
-              <span className="cl-lbl">Email</span>
-              <span className="cl-val">klydejosephy@gmail.com</span>
-            </a>
-            <a className="cl-row" href="tel:+639455927782">
-              <span className="cl-lbl">Phone</span>
-              <span className="cl-val">+63 945 592 7782</span>
-            </a>
-            <a className="cl-row" href="https://github.com/klaayd39" target="_blank" rel="noreferrer">
-              <span className="cl-lbl">GitHub</span>
-              <span className="cl-val">github.com/klaayd39</span>
-            </a>
-            <a className="cl-row" href="https://www.linkedin.com/in/klyde-joseph-yabo-a38286373/" target="_blank" rel="noreferrer">
-              <span className="cl-lbl">LinkedIn</span>
-              <span className="cl-val">klyde-joseph-yabo</span>
-            </a>
-            <div className="cl-row">
-              <span className="cl-lbl">Location</span>
-              <span className="cl-val">Malaybalay City, Bukidnon, Philippines</span>
-            </div>
-            <div className="cl-row">
-              <span className="cl-lbl">Status</span>
-              <span className="cl-val cl-avail">Available now · Actively looking</span>
-            </div>
-            </div>
-          </ScrollReveal>
-          <ScrollReveal delay={180}>
-            <div className="hero-btns contact-cta">
-              <Link to="/contact" className="btn btn-accent">
-                Send a message <span className="btn-arrow">→</span>
-              </Link>
-            </div>
-          </ScrollReveal>
-        </div>
-      </DepthSection>
+      </section>
 
       {selected && (
         <ProjectModal project={selected} onClose={() => setSelected(null)} />
