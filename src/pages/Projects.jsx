@@ -8,11 +8,12 @@ export default function Projects() {
   const [activeGroup, setActiveGroup] = useState('All')
   const [selectedProject, setSelectedProject] = useState(null)
 
-  const groups = ['All', 'Station Work', 'Personal']
+  const groups = ['All', 'Station Work', 'Client Projects', 'Personal']
 
   const filteredProjects = PROJECTS.filter((p) =>
     activeGroup === 'All'
     || (activeGroup === 'Station Work' && p.group === 'station')
+    || (activeGroup === 'Client Projects' && p.group === 'client')
     || (activeGroup === 'Personal' && p.group === 'personal')
   )
 

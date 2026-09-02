@@ -61,7 +61,7 @@ export const PROJECTS = [
   {
     title: 'J&G Farm Tracker',
     tag: 'Web App',
-    group: 'personal',
+    group: 'client',
     link: 'https://github.com/klaayd39/J-G-Farm-Website',
     desc: 'Farm operations portal for J&G Calamansi Farm — harvest batches, sales, expenses, and P&L in one place.',
     longDesc: 'J&G Farm Tracker is a production farm operations portal for J&G Calamansi Farm. It tracks harvest batches in red bags, buyer sales, field expenses, and profit & loss with inventory guards, analytics dashboards, and exportable reports.',
@@ -83,7 +83,7 @@ export const PROJECTS = [
   {
     title: 'TOMA Mobile Bar',
     tag: 'Web App',
-    group: 'personal',
+    group: 'client',
     link: 'https://github.com/klaayd39/Toma-Mobile-Bar-Liquidation',
     desc: 'Financial management and event liquidation system for TOMA Mobile Bar — budgets, expenses, and reporting in one dashboard.',
     longDesc: 'TOMA Mobile Bar is a web-based financial management, inventory tracking, event liquidation, and reporting system built for mobile bar operators. It gives the team real-time visibility into budgets, expenses, profits, and event-linked liquidations.',
@@ -293,4 +293,5 @@ export const PROJECTS = [
 ];
 
 export const STATION_PROJECTS = PROJECTS.filter((p) => p.group === 'station')
+export const CLIENT_PROJECTS = PROJECTS.filter((p) => p.group === 'client')
 export const PERSONAL_PROJECTS = PROJECTS.filter((p) => p.group === 'personal')
