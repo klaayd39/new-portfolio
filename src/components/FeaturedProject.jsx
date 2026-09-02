@@ -1,8 +1,9 @@
 import { motion, useReducedMotion } from 'framer-motion'
 
-export default function FeaturedProject({ project, index, onOpen }) {
+export default function FeaturedProject({ project, index, onOpen, total = 3 }) {
   const reduced = useReducedMotion()
   const reverse = index % 2 === 1
+  const indexLabel = String(index + 1).padStart(2, '0')
 
   return (
     <motion.article
@@ -14,6 +15,7 @@ export default function FeaturedProject({ project, index, onOpen }) {
       transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
     >
       <div className="featured-project-media">
+        <span className="featured-index" aria-hidden="true">{indexLabel} / {String(total).padStart(2, '0')}</span>
         {project.image ? (
           <img src={project.image} alt={project.title} loading="lazy" />
         ) : (
@@ -79,6 +81,7 @@ export function ProjectCard({ project, onOpen }) {
             <span key={t} className="tech-pill tech-pill--sm">{t}</span>
           ))}
         </div>
+        <span className="project-card-cta">View case study →</span>
       </div>
     </motion.button>
   )

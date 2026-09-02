@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { NAV_ITEMS, PAGE_ITEMS, SECTION_IDS } from './navItems'
+import LocalTime from './LocalTime'
 
 function SidebarContent({ activeId, onHome, onLinkClick }) {
   return (
@@ -10,6 +11,7 @@ function SidebarContent({ activeId, onHome, onLinkClick }) {
           Klyde<span>.</span>
         </Link>
         <span className="sidebar-pill">Open to work</span>
+        <LocalTime />
         <p className="sidebar-updated">Malaybalay, Philippines</p>
       </div>
 

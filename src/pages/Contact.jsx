@@ -3,6 +3,7 @@ import { useState } from 'react'
 import emailjs from '@emailjs/browser'
 import { supabase, isSupabaseConfigured } from '../supabaseClient'
 import MotionReveal from '../components/MotionReveal'
+import CopyButton from '../components/CopyButton'
 
 const EMAILJS_SERVICE_ID  = import.meta.env.VITE_EMAILJS_SERVICE_ID
 const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID
@@ -99,10 +100,13 @@ export default function Contact() {
         <div className="container contact-page-inner">
           <MotionReveal>
             <div className="contact-info-list">
-              <a className="contact-info-row" href="mailto:klydejosephy@gmail.com">
-                <span>Email</span>
-                <span>klydejosephy@gmail.com</span>
-              </a>
+              <div className="contact-info-row contact-info-row--email">
+                <a href="mailto:klydejosephy@gmail.com" className="contact-info-row-link">
+                  <span>Email</span>
+                  <span>klydejosephy@gmail.com</span>
+                </a>
+                <CopyButton text="klydejosephy@gmail.com" label="Copy" />
+              </div>
               <a className="contact-info-row" href="tel:+639455927782">
                 <span>Phone</span>
                 <span>+63 945 592 7782</span>

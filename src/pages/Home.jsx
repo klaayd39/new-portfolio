@@ -8,6 +8,9 @@ import MotionReveal from '../components/MotionReveal'
 import FeaturedProject, { ProjectCard } from '../components/FeaturedProject'
 import ProjectModal from '../components/ProjectModal'
 import CountUp from '../components/CountUp'
+import AnimatedFill from '../components/AnimatedFill'
+import TechMarquee from '../components/TechMarquee'
+import CopyButton from '../components/CopyButton'
 
 const FEATURED = STATION_PROJECTS.filter((p) => p.featured)
 const HIGHLIGHTS = [...FEATURED, ...CLIENT_PROJECTS.slice(0, 2), ...PERSONAL_PROJECTS.slice(0, 1)]
@@ -46,6 +49,15 @@ const EXPLORING = [
   { emoji: '🔧', title: 'Hardware repair', text: 'Freelance diagnostics, upgrades, and small-office networks.' },
   { emoji: '🛠', title: 'Building from scratch', text: 'If the station needs it and it does not exist, I write it.' },
 ]
+
+const SECTION_NUMS = {
+  about: '01',
+  experience: '02',
+  projects: '03',
+  skills: '04',
+  exploring: '05',
+  contact: '06',
+}
 
 const SOCIALS = [
   { label: 'GitHub', href: 'https://github.com/klaayd39' },
@@ -142,11 +154,16 @@ export default function Home() {
         </div>
       </section>
 
+      <TechMarquee />
+
       {/* ── ABOUT ── */}
       <section className="section" id="about">
         <div className="container">
           <MotionReveal>
-            <p className="section-label">About Me</p>
+            <p className="section-label">
+              <span className="section-num">{SECTION_NUMS.about}</span>
+              About Me
+            </p>
             <h2 className="section-title">I automate the job in front of me.</h2>
           </MotionReveal>
 
@@ -190,7 +207,10 @@ export default function Home() {
       <section className="section section--muted" id="experience">
         <div className="container">
           <MotionReveal>
-            <p className="section-label">Experience</p>
+            <p className="section-label">
+              <span className="section-num">{SECTION_NUMS.experience}</span>
+              Experience
+            </p>
             <h2 className="section-title">Numbers from the work.</h2>
           </MotionReveal>
 
@@ -223,7 +243,10 @@ export default function Home() {
       <section className="section" id="projects">
         <div className="container">
           <MotionReveal>
-            <p className="section-label">Featured Projects</p>
+            <p className="section-label">
+              <span className="section-num">{SECTION_NUMS.projects}</span>
+              Featured Projects
+            </p>
             <h2 className="section-title">Work I&apos;ve shipped.</h2>
             <p className="section-intro">
               Station systems built on the job, client products, and personal tools — all running in real environments.
@@ -236,6 +259,7 @@ export default function Home() {
                 key={project.featuredId}
                 project={project}
                 index={index}
+                total={FEATURED.length}
                 onOpen={setSelected}
               />
             ))}
@@ -262,7 +286,10 @@ export default function Home() {
       <section className="section section--muted" id="skills">
         <div className="container">
           <MotionReveal>
-            <p className="section-label">Skills &amp; Technologies</p>
+            <p className="section-label">
+              <span className="section-num">{SECTION_NUMS.skills}</span>
+              Skills &amp; Technologies
+            </p>
             <h2 className="section-title">What I use in production.</h2>
             <p className="section-intro">
               Every tool listed has been used on a live station workflow or a shipped project.
@@ -297,9 +324,7 @@ export default function Home() {
                         <span>{tool.level}%</span>
                       </div>
                       <p>{tool.desc}</p>
-                      <div className="tool-bar" aria-hidden="true">
-                        <span style={{ width: `${tool.level}%` }} />
-                      </div>
+                      <AnimatedFill width={tool.level} />
                     </li>
                   ))}
                 </ul>
@@ -313,7 +338,10 @@ export default function Home() {
       <section className="section" id="exploring">
         <div className="container">
           <MotionReveal>
-            <p className="section-label">Outside the Studio</p>
+            <p className="section-label">
+              <span className="section-num">{SECTION_NUMS.exploring}</span>
+              Outside the Studio
+            </p>
             <h2 className="section-title">Currently exploring.</h2>
             <p className="section-intro">
               Football taught me to read situations quickly and work as a team. Hardware repair taught me to diagnose before replacing. Video editing sharpened my sense of timing and visual storytelling.
@@ -336,7 +364,10 @@ export default function Home() {
       <section className="section contact-section" id="contact">
         <div className="container contact-wrap">
           <MotionReveal>
-            <p className="section-label">Contact</p>
+            <p className="section-label">
+              <span className="section-num">{SECTION_NUMS.contact}</span>
+              Contact
+            </p>
             <h2 className="section-title section-title--light">
               Let&apos;s build something that runs at 5am.
             </h2>
@@ -350,6 +381,7 @@ export default function Home() {
               <a href="mailto:klydejosephy@gmail.com" className="btn btn-primary btn-lg">
                 klydejosephy@gmail.com
               </a>
+              <CopyButton text="klydejosephy@gmail.com" className="copy-btn--light" />
               <Link to="/contact" className="btn btn-secondary btn-lg btn-secondary--light">
                 Send a message
               </Link>
