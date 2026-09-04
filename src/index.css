@@ -20,8 +20,9 @@
   --font-body: 'Inter', system-ui, sans-serif;
   --container: min(1120px, 100%);
   --content-pad: clamp(16px, 4vw, 28px);
-  --sidebar-w: 272px;
-  --sidebar-gap: 20px;
+  --sidebar-w: 280px;
+  --sidebar-gap: clamp(16px, 2vw, 24px);
+  --content-offset: calc(var(--sidebar-w) + var(--sidebar-gap) * 2);
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
   --radius: 14px;
   --radius-lg: 22px;
@@ -79,6 +80,8 @@ textarea:focus-visible {
 .app-shell--sidebar {
   min-height: 100vh;
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .layout-main {
@@ -97,9 +100,12 @@ textarea:focus-visible {
 
 @media (min-width: 1024px) {
   .layout-main {
-    margin-left: calc(var(--sidebar-w) + var(--sidebar-gap) * 2);
-    width: calc(100% - var(--sidebar-w) - var(--sidebar-gap) * 2);
-    max-width: calc(100vw - var(--sidebar-w) - var(--sidebar-gap) * 2);
+    margin-left: var(--content-offset);
+    padding-right: var(--sidebar-gap);
+    width: auto;
+    flex: 1;
+    max-width: none;
+    min-width: 0;
   }
 }
 
@@ -132,10 +138,10 @@ textarea:focus-visible {
   height: 100%;
   display: flex;
   flex-direction: column;
-  padding: 22px 20px 18px;
+  padding: 20px 18px 16px;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 28px;
+  border-radius: 24px;
   box-shadow:
     0 1px 2px rgba(17, 17, 16, 0.04),
     0 12px 40px rgba(17, 17, 16, 0.07);
@@ -152,15 +158,15 @@ textarea:focus-visible {
 .sidebar-profile {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding-bottom: 18px;
-  margin-bottom: 18px;
+  gap: 11px;
+  padding-bottom: 16px;
+  margin-bottom: 16px;
   border-bottom: 1px solid var(--border);
 }
 
 .sidebar-avatar {
-  width: 52px;
-  height: 52px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   object-fit: cover;
   flex-shrink: 0;
@@ -173,19 +179,19 @@ textarea:focus-visible {
 .sidebar-name {
   display: block;
   font-family: var(--font-display);
-  font-size: 0.98rem;
+  font-size: 0.92rem;
   font-weight: 700;
   letter-spacing: -0.02em;
-  line-height: 1.25;
+  line-height: 1.2;
   margin-bottom: 2px;
   transition: color 0.2s;
 }
 .sidebar-name:hover { color: var(--accent); }
 
 .sidebar-role {
-  font-size: 0.76rem;
+  font-size: 0.72rem;
   color: var(--text-muted);
-  line-height: 1.35;
+  line-height: 1.3;
 }
 
 .sidebar-nav { flex: 1; }
@@ -202,9 +208,9 @@ textarea:focus-visible {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 10px 12px;
-  border-radius: 14px;
-  font-size: 0.9rem;
+  padding: 9px 11px;
+  border-radius: 12px;
+  font-size: 0.86rem;
   font-weight: 500;
   color: var(--text-muted);
   transition: color 0.2s, background 0.2s;
@@ -245,8 +251,8 @@ textarea:focus-visible {
 }
 
 .sidebar-connect {
-  margin-top: 22px;
-  padding-top: 18px;
+  margin-top: 18px;
+  padding-top: 16px;
   border-top: 1px solid var(--border);
 }
 
@@ -274,13 +280,13 @@ textarea:focus-visible {
 
 .sidebar-footer {
   margin-top: auto;
-  padding-top: 18px;
+  padding-top: 14px;
 }
 
 .sidebar-download-card {
   display: block;
-  padding: 12px 14px;
-  border-radius: 16px;
+  padding: 11px 12px;
+  border-radius: 14px;
   background: var(--bg-muted);
   border: 1px solid var(--border);
   margin-bottom: 12px;
@@ -429,11 +435,12 @@ textarea:focus-visible {
 
 @media (min-width: 1024px) {
   .container {
-    max-width: min(1120px, calc(100vw - var(--sidebar-w) - var(--sidebar-gap) * 2 - var(--content-pad) * 2));
+    max-width: var(--container);
+    width: 100%;
   }
 }
 
-.section { padding: clamp(64px, 10vw, 100px) 0; }
+.section { padding: clamp(56px, 8vw, 88px) 0; }
 .section--muted { background: var(--bg-muted); }
 
 .section-label {
@@ -522,7 +529,7 @@ textarea:focus-visible {
 
 @media (min-width: 1024px) {
   .scroll-progress {
-    left: calc(var(--sidebar-w) + var(--sidebar-gap) * 2);
+    left: var(--content-offset);
   }
 }
 .scroll-progress-fill {
@@ -702,10 +709,10 @@ textarea:focus-visible {
 
 /* ── Hero ── */
 .hero {
-  min-height: min(100vh, 900px);
+  min-height: min(100vh, 880px);
   display: flex;
   align-items: center;
-  padding: clamp(48px, 8vw, 80px) 0;
+  padding: clamp(40px, 6vw, 72px) 0;
   position: relative;
   overflow: hidden;
 }
@@ -736,10 +743,17 @@ textarea:focus-visible {
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: 1.05fr 0.95fr;
-  gap: clamp(32px, 5vw, 64px);
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: clamp(28px, 4vw, 56px);
   align-items: center;
   width: 100%;
+}
+
+.hero-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
 }
 
 .status-pill {
@@ -757,28 +771,30 @@ textarea:focus-visible {
 
 .hero-title {
   font-family: var(--font-display);
-  font-size: clamp(2.25rem, 6vw, 5rem);
+  font-size: clamp(2.1rem, 4.8vw, 4.25rem);
   font-weight: 800;
-  line-height: 1;
+  line-height: 1.02;
   letter-spacing: -0.04em;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
 }
 
 .hero-role {
   font-family: var(--font-display);
-  font-size: clamp(1.2rem, 2.5vw, 1.65rem);
+  font-size: clamp(1.1rem, 2.2vw, 1.5rem);
   font-weight: 600;
   color: var(--text-muted);
-  margin-bottom: 22px;
+  margin-bottom: 18px;
 }
 
 .hero-lead {
-  font-size: clamp(0.95rem, 2vw, 1.05rem);
+  font-size: clamp(0.95rem, 1.6vw, 1.02rem);
   color: var(--text-muted);
-  line-height: 1.78;
-  max-width: 36rem;
-  margin-bottom: 32px;
+  line-height: 1.75;
+  max-width: 100%;
+  margin-bottom: 28px;
   text-align: justify;
+  text-wrap: pretty;
+  hyphens: auto;
 }
 .hero-lead strong { color: var(--text); font-weight: 600; }
 
@@ -786,7 +802,7 @@ textarea:focus-visible {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  margin-bottom: 28px;
+  margin-bottom: 0;
 }
 
 .hero-socials {
@@ -809,11 +825,16 @@ textarea:focus-visible {
   font-style: italic;
 }
 
-.hero-visual { display: flex; justify-content: center; }
+.hero-visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 0;
+}
 
 .hero-photo-wrap {
   width: 100%;
-  max-width: 360px;
+  max-width: min(340px, 100%);
   margin: 0 auto;
   border-radius: var(--radius-lg);
   overflow: hidden;
@@ -2008,16 +2029,38 @@ textarea:focus-visible {
   .stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .skills-layout { grid-template-columns: repeat(2, 1fr); }
   .explore-grid { grid-template-columns: repeat(2, 1fr); }
+  .hero-photo-wrap { max-width: 300px; }
+}
+
+@media (min-width: 1024px) and (max-width: 1280px) {
+  :root { --sidebar-w: 260px; }
+
+  .hero-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.82fr);
+    gap: 28px;
+  }
+
+  .hero-title { font-size: clamp(2rem, 3.8vw, 3.5rem); }
+  .hero-photo-wrap { max-width: 280px; }
 }
 
 @media (max-width: 1024px) {
   .hero-grid {
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 32px;
   }
   .hero-visual { order: -1; }
-  .hero-photo-wrap { max-width: 280px; }
-  .hero-copy { text-align: left; }
+  .hero-photo-wrap { max-width: 260px; }
+  .hero-copy {
+    text-align: center;
+    align-items: center;
+  }
+  .hero-lead {
+    text-align: left;
+    hyphens: none;
+    max-width: 36rem;
+  }
+  .hero-actions { justify-content: center; }
   .about-layout { grid-template-columns: 1fr; gap: 32px; }
   .stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .featured-project,
@@ -2035,6 +2078,12 @@ textarea:focus-visible {
 @media (max-width: 768px) {
   .section { padding: clamp(56px, 12vw, 72px) 0; }
   .section-intro { margin-bottom: 36px; font-size: 0.98rem; }
+  .hero { padding: 28px 0 40px; }
+  .hero-title { font-size: clamp(2rem, 9vw, 2.6rem); }
+  .hero-role { font-size: 1.05rem; margin-bottom: 14px; }
+  .hero-lead { font-size: 0.95rem; line-height: 1.7; margin-bottom: 24px; max-width: 100%; }
+  .hero-actions { width: 100%; max-width: 24rem; }
+  .hero-actions .btn { flex: 1 1 auto; min-width: 0; justify-content: center; }
   .stats-grid { grid-template-columns: 1fr; }
   .skills-layout { grid-template-columns: 1fr; }
   .explore-grid { grid-template-columns: 1fr; }
@@ -2078,9 +2127,9 @@ textarea:focus-visible {
 @media (max-width: 480px) {
   :root { --mobile-bar-h: 56px; }
 
-  .hero { min-height: auto; padding: 32px 0 48px; }
-  .hero-title { font-size: 2.25rem; }
-  .hero-role { font-size: 1.1rem; }
+  .hero { min-height: auto; padding: 20px 0 36px; }
+  .hero-title { font-size: 2.1rem; }
+  .hero-role { font-size: 1rem; }
   .hero-actions { flex-direction: column; width: 100%; }
   .hero-actions .btn { width: 100%; }
   .hero-socials { gap: 12px; }
@@ -2113,7 +2162,7 @@ textarea:focus-visible {
 @media print {
   @page { size: A4 portrait; margin: 0; }
   .mobile-bar, .sidebar-panel, .sidebar-scrim, .btt, .site-footer, .resume-actions, .subpage-hero, .scroll-progress { display: none !important; }
-  .layout-main { width: 100% !important; max-width: 100% !important; margin-left: 0 !important; padding-top: 0 !important; }
+  .layout-main { width: 100% !important; max-width: 100% !important; margin-left: 0 !important; padding-right: 0 !important; padding-top: 0 !important; }
   .subpage, .resume-page-inner { padding: 0 !important; }
   .resume-card { box-shadow: none !important; border: none !important; padding: 0 !important; }
   .rv-body { grid-template-columns: 1fr 190px !important; }
