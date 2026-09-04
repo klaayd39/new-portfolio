@@ -3,7 +3,7 @@ export const PROJECTS = [
     title: 'Klyde Joseph Yabo Portfolio',
     tag: 'Web App',
     group: 'personal',
-    link: 'https://github.com/klaayd39/personal-portfolio',
+    link: 'https://github.com/klaayd39/new-portfolio',
     desc: 'A modern, high-end, responsive portfolio built with React, Vite, Supabase, and plain CSS.',
     longDesc: 'This portfolio showcases professional broadcast systems, live-production automation tools, and real-time web applications with an elegant dark navy glassmorphic theme.',
     problem: 'Showcasing a diverse range of technical projects requires a fast, responsive, and visually stunning platform.',
