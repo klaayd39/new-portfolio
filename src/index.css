@@ -778,6 +778,7 @@ textarea:focus-visible {
   line-height: 1.78;
   max-width: 36rem;
   margin-bottom: 32px;
+  text-align: justify;
 }
 .hero-lead strong { color: var(--text); font-weight: 600; }
 
