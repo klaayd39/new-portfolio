@@ -74,7 +74,6 @@ function SidebarContent({ activeId, onHome, onLinkClick }) {
           <a href="https://github.com/klaayd39" target="_blank" rel="noreferrer">GitHub</a>
           <a href="https://www.linkedin.com/in/klyde-joseph-yabo-a38286373/" target="_blank" rel="noreferrer">LinkedIn</a>
         </div>
-        <p className="sidebar-note">📻 probably automating something at the station</p>
         <p className="sidebar-copy">© {new Date().getFullYear()} Klyde Joseph Yabo</p>
       </div>
     </>

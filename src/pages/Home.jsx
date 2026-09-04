@@ -2,25 +2,17 @@ import { Helmet } from 'react-helmet-async'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { PROJECTS, STATION_PROJECTS, CLIENT_PROJECTS, PERSONAL_PROJECTS } from '../data/projects'
+import { STATION_PROJECTS, CLIENT_PROJECTS, PERSONAL_PROJECTS } from '../data/projects'
 import { TOOL_GROUPS, SKILLS } from '../data/skills'
 import MotionReveal from '../components/MotionReveal'
 import FeaturedProject, { ProjectCard } from '../components/FeaturedProject'
 import ProjectModal from '../components/ProjectModal'
-import CountUp from '../components/CountUp'
 import AnimatedFill from '../components/AnimatedFill'
 import TechMarquee from '../components/TechMarquee'
 import CopyButton from '../components/CopyButton'
 
 const FEATURED = STATION_PROJECTS.filter((p) => p.featured)
 const HIGHLIGHTS = [...FEATURED, ...CLIENT_PROJECTS.slice(0, 2), ...PERSONAL_PROJECTS.slice(0, 1)]
-
-const STATS = [
-  { value: PROJECTS.length, suffix: '+', label: 'Projects shipped', note: 'Station tools, client apps, and personal builds.' },
-  { value: 50, suffix: '+', label: 'Live feeds monitored', note: 'Aggregated in the News Intelligence Hub.' },
-  { value: 15, suffix: '+', label: 'Technologies in production', note: 'From Python crawlers to React dashboards.' },
-  { value: 1, suffix: '+', label: 'Years on live broadcast', note: 'Building software Bombo Radyo Malaybalay runs daily.' },
-]
 
 const EXPERIENCE = [
   {
@@ -59,12 +51,6 @@ const SECTION_NUMS = {
   contact: '06',
 }
 
-const SOCIALS = [
-  { label: 'GitHub', href: 'https://github.com/klaayd39' },
-  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/klyde-joseph-yabo-a38286373/' },
-  { label: 'Email', href: 'mailto:klydejosephy@gmail.com' },
-]
-
 export default function Home() {
   const [selected, setSelected] = useState(null)
 
@@ -79,15 +65,6 @@ export default function Home() {
       <section className="hero" id="top">
         <div className="container hero-grid">
           <div className="hero-copy">
-            <motion.span
-              className="status-pill"
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              Open to work · Malaybalay, Philippines
-            </motion.span>
-
             <motion.h1
               className="hero-title"
               initial={{ opacity: 0, y: 24 }}
@@ -103,7 +80,7 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.65, delay: 0.16 }}
             >
-              Automation Developer &amp; IT Technician
+              Information Technology
             </motion.p>
 
             <motion.p
@@ -112,9 +89,7 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.65, delay: 0.24 }}
             >
-              I build tools that keep a live radio station running — web crawlers, mixer controls,
-              transmitter monitors, and OBS automation. Designed for real problems, deployed in production,
-              and actively used at <strong>Bombo Radyo Malaybalay</strong>.
+              I build software and automation that solve real-world problems — from internal tools and web applications to broadcast systems and workflow automation. I focus on building practical solutions that are reliable, useful, and actually get used.
             </motion.p>
 
             <motion.div
@@ -126,19 +101,6 @@ export default function Home() {
               <a href="#projects" className="btn btn-primary">View My Work</a>
               <Link to="/contact" className="btn btn-secondary">Contact Me</Link>
             </motion.div>
-
-            <motion.div
-              className="hero-socials"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.65, delay: 0.42 }}
-            >
-              {SOCIALS.map((s) => (
-                <a key={s.label} href={s.href} target="_blank" rel="noreferrer">{s.label}</a>
-              ))}
-            </motion.div>
-
-            <p className="hero-status">📻 probably automating something at the station</p>
           </div>
 
           <motion.div
@@ -164,38 +126,38 @@ export default function Home() {
               <span className="section-num">{SECTION_NUMS.about}</span>
               About Me
             </p>
-            <h2 className="section-title">I automate the job in front of me.</h2>
+            <h2 className="section-title">I turn real-world problems into working software.</h2>
           </MotionReveal>
 
           <div className="about-layout">
             <MotionReveal delay={0.1}>
               <blockquote className="about-pull">
-                Real station. Real tools. Not tutorial folder projects.
+                Real problems. Real tools. Built to be used.
               </blockquote>
               <p className="body-text">
-                I grew up in Bukidnon and studied Information Technology at Bukidnon State University.
-                After graduating I joined Bombo Radyo Malaybalay as an IT technician — and started
-                writing the software the station actually needed.
+                I grew up in Malaybalay City, Bukidnon and studied Information Technology at Bukidnon State University.
+                After graduating, I took about a year to rest and explore what I wanted to pursue. I eventually
+                joined Bombo Radyo Malaybalay as an IT Technician, where I discovered that I could do more than
+                maintain systems — I could build the tools the station actually needed. Working at the station
+                showed me how much time can be lost on small, repetitive tasks. I saw opportunities to make things
+                easier, so I started building my own tools — from crawlers and monitoring systems to OSC controls
+                and OBS scripts. What started as solving small problems gradually became a way of thinking: if
+                something can be automated, why keep doing it manually?
               </p>
               <p className="body-text">
-                Newsrooms were tab-hopping for headlines. Transmitter sites went unchecked.
-                Mixer mutes needed a walk across the studio. I built crawlers, monitors, OSC
-                control, and OBS scripts so those jobs happen in the background.
-              </p>
-              <p className="body-text">
-                I use AI the same way I use a search: to draft structure and generate starting
-                code I can read, change, and own. The systems that matter are the ones that
-                still work at 5am when a transmitter window is covered and nobody is watching.
+                I also use AI throughout my development process, from exploring ideas to getting a starting point
+                for the code. But I don&apos;t just copy and paste what it gives me. I read it, understand it, change
+                it, and make it work for the problem I&apos;m actually solving. My goal is always to build software
+                that is useful, reliable, and something I can confidently call my own.
               </p>
             </MotionReveal>
 
             <MotionReveal delay={0.2}>
               <div className="about-callout">
-                <p className="section-label">What I&apos;m looking for</p>
-                <h3>A full-time automation, software, or broadcast-systems role</h3>
                 <p className="body-text body-text--light">
-                  Agency, in-house, or a station that wants someone who ships. I show up
-                  having already built the kind of work you would hand me on day one.
+                  I want to work with a team that values people who build, solve problems, and take
+                  ownership. I&apos;m looking for opportunities where I can turn real-world problems
+                  into reliable software and automation.
                 </p>
               </div>
             </MotionReveal>
@@ -203,7 +165,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── EXPERIENCE / STATS ── */}
+      {/* ── EXPERIENCE ── */}
       <section className="section section--muted" id="experience">
         <div className="container">
           <MotionReveal>
@@ -211,18 +173,7 @@ export default function Home() {
               <span className="section-num">{SECTION_NUMS.experience}</span>
               Experience
             </p>
-            <h2 className="section-title">Numbers from the work.</h2>
           </MotionReveal>
-
-          <div className="stats-grid">
-            {STATS.map((stat, i) => (
-              <MotionReveal key={stat.label} delay={i * 0.08} className="stat-card">
-                <CountUp end={stat.value} suffix={stat.suffix} className="stat-number" />
-                <h3 className="stat-label">{stat.label}</h3>
-                <p className="stat-note">{stat.note}</p>
-              </MotionReveal>
-            ))}
-          </div>
 
           <div className="timeline">
             {EXPERIENCE.map((item, i) => (

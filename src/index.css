@@ -461,6 +461,11 @@ textarea:focus-visible {
   font-weight: 700;
 }
 
+.about-layout .body-text {
+  text-align: justify;
+  hyphens: auto;
+}
+
 .body-text {
   font-size: 1rem;
   color: var(--text-muted);
