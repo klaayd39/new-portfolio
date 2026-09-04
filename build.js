@@ -111,8 +111,8 @@ const doc = new Document({
                         }),
                         new TextRun({ text: "   |   ", size: 18, font: FONT, color: GRAY }),
                         new ExternalHyperlink({
-                            link: "https://yabopersonalportfolio.vercel.app/",
-                            children: [new TextRun({ text: "yabopersonalportfolio.vercel.app", size: 18, font: FONT, color: ACCENT, underline: {} })],
+                            link: "https://klydeyabo.vercel.app/",
+                            children: [new TextRun({ text: "klydeyabo.vercel.app", size: 18, font: FONT, color: ACCENT, underline: {} })],
                         }),
                         new TextRun({ text: "   |   Malaybalay City, Philippines", size: 18, font: FONT, color: GRAY }),
                     ],

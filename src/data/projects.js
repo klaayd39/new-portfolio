@@ -16,7 +16,7 @@ export const PROJECTS = [
     ],
     tech: ['React', 'Vite', 'Supabase', 'Vanilla CSS'],
     challenges: 'Balancing visual quality and performance. Optimized CSS and lazy-loaded components to ensure lightning-fast speeds.',
-    liveUrl: 'https://yabopersonalportfolio.vercel.app/',
+    liveUrl: 'https://klydeyabo.vercel.app/',
     image: '/projects/portfolio.png'
   },
   {

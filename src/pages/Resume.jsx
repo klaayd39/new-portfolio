@@ -53,7 +53,7 @@ export default function Resume() {
             <span className="sep">|</span>
             <a href="https://www.linkedin.com/in/klyde-joseph-yabo-a38286373/" target="_blank" rel="noreferrer">linkedin.com/in/klyde-joseph-yabo</a>
             <span className="sep">|</span>
-            <a href="https://yabopersonalportfolio.vercel.app/" target="_blank" rel="noreferrer">yabopersonalportfolio.vercel.app</a>
+            <a href="https://klydeyabo.vercel.app/" target="_blank" rel="noreferrer">klydeyabo.vercel.app</a>
             <span className="sep">|</span>
             <span>Malaybalay City, Philippines</span>
           </div>
