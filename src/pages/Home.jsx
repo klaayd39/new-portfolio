@@ -57,7 +57,7 @@ export default function Home() {
   return (
     <>
       <Helmet>
-        <title>Klyde Joseph Yabo — Developer & Automation Engineer</title>
+        <title>Klyde Joseph Yabo — Information Technology</title>
         <meta name="description" content="Klyde Joseph Yabo builds automation, broadcast systems, and web apps for live radio — based in Malaybalay, Philippines." />
       </Helmet>
 
