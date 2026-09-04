@@ -21,23 +21,17 @@ export default function Contact() {
   }
 
   async function sendEmailNotification(formData) {
-    if (!isEmailJSConfigured) return
-    try {
-      await emailjs.send(
-        EMAILJS_SERVICE_ID,
-        EMAILJS_TEMPLATE_ID,
-        {
-          from_name:    formData.name,
-          from_email:   formData.email,
-          message:      formData.message,
-          to_email:     'klydejosephy@gmail.com',
-          reply_to:     formData.email,
-        },
-        EMAILJS_PUBLIC_KEY
-      )
-    } catch (emailErr) {
-      console.warn('EmailJS notification failed:', emailErr)
-    }
+    await emailjs.send(
+      EMAILJS_SERVICE_ID,
+      EMAILJS_TEMPLATE_ID,
+      {
+        from_name: formData.name,
+        from_email: formData.email,
+        message: formData.message,
+        reply_to: formData.email,
+      },
+      EMAILJS_PUBLIC_KEY
+    )
   }
 
   async function handleSubmit(e) {
@@ -50,31 +44,34 @@ export default function Contact() {
       return
     }
 
-    if (!isSupabaseConfigured) {
-      setSentName(form.name.split(' ')[0])
-      setStatus('missing-env')
-      setForm({ name: '', email: '', message: '' })
+    if (!isSupabaseConfigured && !isEmailJSConfigured) {
+      setStatus('error')
+      setErrorMessage('Contact form is not configured yet. Email klydejosephy@gmail.com directly.')
       return
     }
 
     setStatus('submitting')
 
     try {
-      const { error } = await supabase
-        .from('contact_messages')
-        .insert([{ name: form.name, email: form.email, message: form.message }])
+      if (isSupabaseConfigured) {
+        const { error } = await supabase
+          .from('contact_messages')
+          .insert([{ name: form.name, email: form.email, message: form.message }])
 
-      if (error) throw error
+        if (error) throw error
+      }
 
-      await sendEmailNotification(form)
+      if (isEmailJSConfigured) {
+        await sendEmailNotification(form)
+      }
 
       setSentName(form.name.split(' ')[0])
       setStatus('success')
       setForm({ name: '', email: '', message: '' })
     } catch (err) {
-      console.error('Error inserting message:', err)
+      console.error('Contact form error:', err)
       setStatus('error')
-      setErrorMessage(err.message || 'Failed to send message.')
+      setErrorMessage(err.message || 'Failed to send message. Please try again or email directly.')
     }
   }
 
@@ -138,25 +135,46 @@ export default function Contact() {
               {status === 'success' && (
                 <p className="form-success">Message sent. Talk soon, {sentName}.</p>
               )}
-              {status === 'missing-env' && (
-                <p className="form-success">
-                  Demo mode — add Supabase keys in <code>.env</code> to enable live submissions.
-                </p>
-              )}
 
               <div className="form-field">
-                <input id="name" name="name" type="text" placeholder=" " value={form.name} onChange={handleChange} disabled={status === 'submitting'} />
-                <label htmlFor="name">Full Name</label>
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  placeholder="Full Name"
+                  value={form.name}
+                  onChange={handleChange}
+                  disabled={status === 'submitting'}
+                  autoComplete="name"
+                  required
+                />
               </div>
 
               <div className="form-field">
-                <input id="email" name="email" type="email" placeholder=" " value={form.email} onChange={handleChange} disabled={status === 'submitting'} />
-                <label htmlFor="email">Email Address</label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  placeholder="Email Address"
+                  value={form.email}
+                  onChange={handleChange}
+                  disabled={status === 'submitting'}
+                  autoComplete="email"
+                  required
+                />
               </div>
 
               <div className="form-field">
-                <textarea id="message" name="message" rows={5} placeholder=" " value={form.message} onChange={handleChange} disabled={status === 'submitting'} />
-                <label htmlFor="message">Your Message</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows={6}
+                  placeholder="Your Message"
+                  value={form.message}
+                  onChange={handleChange}
+                  disabled={status === 'submitting'}
+                  required
+                />
               </div>
 
               <button type="submit" className="btn btn-primary submit-btn" disabled={status === 'submitting'}>
