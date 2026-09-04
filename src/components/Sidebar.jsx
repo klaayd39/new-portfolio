@@ -111,7 +111,7 @@ function SidebarPanel({ activeId, onLinkClick }) {
           <Link to="/" className="sidebar-name" onClick={onLinkClick}>
             Klyde Joseph Yabo
           </Link>
-          <p className="sidebar-role">Developer &amp; Automation Engineer</p>
+          <p className="sidebar-role">Information Technology</p>
         </div>
       </header>
 
