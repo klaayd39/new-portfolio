@@ -5,9 +5,10 @@ import { supabase, isSupabaseConfigured } from '../supabaseClient'
 import MotionReveal from '../components/MotionReveal'
 import CopyButton from '../components/CopyButton'
 
-const EMAILJS_SERVICE_ID  = import.meta.env.VITE_EMAILJS_SERVICE_ID
-const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID
-const EMAILJS_PUBLIC_KEY  = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+const EMAILJS_SERVICE_ID  = import.meta.env.VITE_EMAILJS_SERVICE_ID?.trim()
+const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID?.trim()
+const EMAILJS_PUBLIC_KEY  = import.meta.env.VITE_EMAILJS_PUBLIC_KEY?.trim()
+const CONTACT_INBOX = 'klydejosephy@gmail.com'
 const isEmailJSConfigured = !!(EMAILJS_SERVICE_ID && EMAILJS_TEMPLATE_ID && EMAILJS_PUBLIC_KEY)
 
 export default function Contact() {
@@ -15,28 +16,34 @@ export default function Contact() {
   const [status, setStatus] = useState(null)
   const [sentName, setSentName] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
+  const [deliveryNote, setDeliveryNote] = useState('')
 
   function handleChange(e) {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
   }
 
   async function sendEmailNotification(formData) {
-    await emailjs.send(
+    const result = await emailjs.send(
       EMAILJS_SERVICE_ID,
       EMAILJS_TEMPLATE_ID,
       {
+        to_email: CONTACT_INBOX,
+        name: formData.name,
         from_name: formData.name,
         from_email: formData.email,
         message: formData.message,
         reply_to: formData.email,
+        time: new Date().toLocaleString('en-PH', { timeZone: 'Asia/Manila' }),
       },
-      EMAILJS_PUBLIC_KEY
+      { publicKey: EMAILJS_PUBLIC_KEY }
     )
+    return result
   }
 
   async function handleSubmit(e) {
     e.preventDefault()
     setErrorMessage('')
+    setDeliveryNote('')
 
     if (!form.name || !form.email || !form.message) {
       setStatus('error')
@@ -52,20 +59,38 @@ export default function Contact() {
 
     setStatus('submitting')
 
+    let savedToDatabase = false
+    let emailed = false
+
     try {
       if (isSupabaseConfigured) {
         const { error } = await supabase
           .from('contact_messages')
           .insert([{ name: form.name, email: form.email, message: form.message }])
 
-        if (error) throw error
+        if (error) throw new Error(`Database: ${error.message}`)
+        savedToDatabase = true
       }
 
       if (isEmailJSConfigured) {
-        await sendEmailNotification(form)
+        try {
+          await sendEmailNotification(form)
+          emailed = true
+        } catch (emailErr) {
+          const detail = emailErr?.text || emailErr?.message || 'Email delivery failed'
+          if (savedToDatabase) {
+            throw new Error(`Message saved, but Gmail notification failed: ${detail}`)
+          }
+          throw new Error(detail)
+        }
       }
 
       setSentName(form.name.split(' ')[0])
+      if (emailed) {
+        setDeliveryNote(`A copy was sent to ${CONTACT_INBOX}. Check Inbox and Spam.`)
+      } else if (savedToDatabase) {
+        setDeliveryNote('Saved to database. EmailJS is not active on this build — add VITE_EMAILJS_* env vars and restart.')
+      }
       setStatus('success')
       setForm({ name: '', email: '', message: '' })
     } catch (err) {
@@ -133,7 +158,10 @@ export default function Contact() {
 
               {status === 'error' && <p className="form-error">{errorMessage}</p>}
               {status === 'success' && (
-                <p className="form-success">Message sent. Talk soon, {sentName}.</p>
+                <div className="form-success">
+                  <p>Message sent. Talk soon, {sentName}.</p>
+                  {deliveryNote && <p className="form-success-note">{deliveryNote}</p>}
+                </div>
               )}
 
               <div className="form-field">

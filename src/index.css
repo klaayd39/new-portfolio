@@ -1693,6 +1693,12 @@ textarea:focus-visible {
 }
 .form-error { background: #fef2f2; color: #b91c1c; border: 1px solid #fecaca; }
 .form-success { background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; }
+.form-success-note {
+  margin-top: 8px;
+  font-size: 0.8rem;
+  color: #15803d;
+  opacity: 0.9;
+}
 
 .submit-btn {
   width: 100%;
