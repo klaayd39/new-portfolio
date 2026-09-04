@@ -1,16 +1,15 @@
-export const NAV_ITEMS = [
-  { label: 'Home', to: '/#top', id: 'top', section: true },
-  { label: 'About', to: '/#about', id: 'about', section: true },
-  { label: 'Projects', to: '/#projects', id: 'projects', section: true },
-  { label: 'Skills', to: '/#skills', id: 'skills', section: true },
-  { label: 'Experience', to: '/#experience', id: 'experience', section: true },
-  { label: 'Contact', to: '/#contact', id: 'contact', section: true },
+export const MAIN_NAV = [
+  { label: 'Home', to: '/#top', id: 'top', icon: 'home', hash: true },
+  { label: 'About', to: '/#about', id: 'about', icon: 'about', hash: true },
+  { label: 'Projects', to: '/projects', id: 'projects', icon: 'projects', path: '/projects' },
+  { label: 'Resume', to: '/resume', id: 'resume', icon: 'resume', path: '/resume' },
+  { label: 'Contact', to: '/contact', id: 'contact-page', icon: 'contact', path: '/contact' },
 ]
 
-export const PAGE_ITEMS = [
-  { label: 'All Projects', to: '/projects', id: 'projects-page' },
-  { label: 'Resume', to: '/resume', id: 'resume' },
-  { label: 'Message', to: '/contact', id: 'contact-page' },
+export const CONNECT_LINKS = [
+  { label: 'Email', href: 'mailto:klydejosephy@gmail.com', icon: 'email' },
+  { label: 'GitHub', href: 'https://github.com/klaayd39', icon: 'github' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/klyde-joseph-yabo-a38286373/', icon: 'linkedin' },
 ]
 
-export const SECTION_IDS = NAV_ITEMS.map((item) => item.id)
+export const SECTION_IDS = ['top', 'about', 'projects', 'skills', 'experience', 'contact']
