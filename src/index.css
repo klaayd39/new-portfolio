@@ -2145,10 +2145,82 @@ textarea:focus-visible {
 }
 
 @media print {
-  @page { size: A4 portrait; margin: 0; }
-  .mobile-bar, .sidebar-panel, .sidebar-scrim, .btt, .site-footer, .resume-actions, .subpage-hero, .scroll-progress { display: none !important; }
-  .layout-main { width: 100% !important; max-width: 100% !important; margin-left: 0 !important; padding-right: 0 !important; padding-top: 0 !important; }
-  .subpage, .resume-page-inner { padding: 0 !important; }
-  .resume-card { box-shadow: none !important; border: none !important; padding: 0 !important; }
-  .rv-body { grid-template-columns: 1fr 190px !important; }
+  @page { size: A4 portrait; margin: 10mm 12mm; }
+
+  html, body, #root, .app-shell, .app-shell--sidebar, .layout-main, main,
+  .resume-page, .subpage, .section, .container, .resume-page-inner {
+    background: #fff !important;
+    background-image: none !important;
+  }
+
+  .page-transition { opacity: 1 !important; transform: none !important; animation: none !important; }
+
+  .mobile-bar, .sidebar-panel, .sidebar-scrim, .btt, .site-footer, .resume-actions,
+  .subpage-hero, .scroll-progress, .page-fallback { display: none !important; }
+
+  .layout-main {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    padding: 0 !important;
+  }
+
+  .section, .subpage, .resume-page-inner, .container { padding: 0 !important; margin: 0 !important; }
+
+  .resume-card.doc-theme {
+    box-shadow: none !important;
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    max-width: none !important;
+  }
+
+  .rv-header { margin-bottom: 8px !important; }
+  .rv-name { font-size: 1.25rem !important; margin-bottom: 2px !important; line-height: 1.1 !important; }
+  .rv-contact-bar {
+    font-size: 0.62rem !important;
+    gap: 4px !important;
+    padding-bottom: 5px !important;
+    border-bottom-width: 1px !important;
+    line-height: 1.35 !important;
+  }
+
+  .rv-body {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) 158px !important;
+    gap: 14px !important;
+    margin-top: 8px !important;
+    align-items: start !important;
+  }
+
+  .rv-left, .rv-right {
+    border: none !important;
+    background: transparent !important;
+  }
+
+  .rv-section { margin-bottom: 8px !important; break-inside: avoid; page-break-inside: avoid; }
+  .rv-section-title {
+    font-size: 0.68rem !important;
+    margin-bottom: 4px !important;
+    padding-bottom: 2px !important;
+    border-bottom-width: 1px !important;
+    letter-spacing: 0.04em !important;
+  }
+
+  .rv-text, .rv-text-bold, .rv-edu-school, .rv-edu-degree, .rv-job-title,
+  .rv-job-period, .rv-job-company, .rv-job-tech, .rv-skill-group-label,
+  .rv-skill-group-items, .rv-spec-list li {
+    font-size: 0.64rem !important;
+    line-height: 1.28 !important;
+  }
+
+  .rv-job { margin-bottom: 6px !important; }
+  .rv-job-list { padding-left: 14px !important; }
+  .rv-job-list li { margin-bottom: 2px !important; }
+  .rv-skill-group { margin-bottom: 4px !important; }
+  .rv-spec-list { gap: 2px !important; }
+  .rv-spec-list li { padding-left: 12px !important; }
+
+  .resume-card, .rv-body, .rv-left, .rv-right, .rv-job { break-inside: avoid; page-break-inside: avoid; }
 }

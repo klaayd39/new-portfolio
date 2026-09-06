@@ -14,20 +14,24 @@ import puppeteer from 'puppeteer';
   await page.waitForSelector('.resume-card', { timeout: 30000 });
 
   await page.evaluate(() => {
-    document.querySelectorAll('[style*="opacity"]').forEach((el) => {
-      el.style.opacity = '1';
-      el.style.transform = 'none';
+    document.querySelectorAll('*').forEach((el) => {
+      el.style.setProperty('opacity', '1', 'important');
+      el.style.setProperty('transform', 'none', 'important');
+      el.style.setProperty('animation', 'none', 'important');
+      el.style.setProperty('visibility', 'visible', 'important');
     });
   });
 
-  await new Promise((resolve) => setTimeout(resolve, 500));
+  await new Promise((resolve) => setTimeout(resolve, 300));
 
   console.log('Generating PDF...');
   await page.pdf({
     path: outputPath,
     format: 'A4',
     printBackground: true,
-    margin: { top: '0px', right: '0px', bottom: '0px', left: '0px' },
+    preferCSSPageSize: true,
+    margin: { top: '0', right: '0', bottom: '0', left: '0' },
+    scale: 0.98,
   });
 
   await browser.close();
