@@ -68,7 +68,7 @@ export default function Resume() {
             {/* Summary */}
             <section className="rv-section">
               <h2 className="rv-section-title">SUMMARY</h2>
-              <p className="rv-text">
+              <p className="rv-text rv-text--justify">
                 Software Automation Developer specializing in Python, JavaScript, REST APIs,
                 Playwright, WebSockets, and broadcast automation. Experienced in building
                 real-time monitoring systems, AI-powered dashboards, workflow automation
