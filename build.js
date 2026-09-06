@@ -142,7 +142,7 @@ const doc = new Document({
                                         new Paragraph({
                                             spacing: { after: 100 },
                                             children: [new TextRun({
-                                                text: "Software Automation Developer specializing in Python, JavaScript, REST APIs, Playwright, WebSockets, and broadcast automation. Experienced in building real-time monitoring systems, AI-powered dashboards, workflow automation tools, and custom control systems for live broadcast environments. Passionate about automation, software engineering, and solving complex operational problems.",
+                                                text: "Information Technology professional specializing in software development, automation, and broadcast systems. Experienced in Python, JavaScript, REST APIs, Playwright, and WebSockets, with hands-on experience building real-time monitoring systems, AI-powered dashboards, workflow automation tools, and custom control systems. Focused on using technology to solve real-world problems, improve workflows, and build reliable solutions for production environments.",
                                                 size: 20, font: FONT, color: DARK,
                                             })],
                                         }),
