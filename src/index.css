@@ -2199,10 +2199,10 @@ textarea:focus-visible {
     background: transparent !important;
   }
 
-  .rv-section { margin-bottom: 8px !important; break-inside: avoid; page-break-inside: avoid; }
+  .rv-section { margin-bottom: 7px !important; }
   .rv-section-title {
-    font-size: 0.68rem !important;
-    margin-bottom: 4px !important;
+    font-size: 0.66rem !important;
+    margin-bottom: 3px !important;
     padding-bottom: 2px !important;
     border-bottom-width: 1px !important;
     letter-spacing: 0.04em !important;
@@ -2211,16 +2211,16 @@ textarea:focus-visible {
   .rv-text, .rv-text-bold, .rv-edu-school, .rv-edu-degree, .rv-job-title,
   .rv-job-period, .rv-job-company, .rv-job-tech, .rv-skill-group-label,
   .rv-skill-group-items, .rv-spec-list li {
-    font-size: 0.64rem !important;
-    line-height: 1.28 !important;
+    font-size: 0.62rem !important;
+    line-height: 1.24 !important;
   }
 
-  .rv-job { margin-bottom: 6px !important; }
-  .rv-job-list { padding-left: 14px !important; }
-  .rv-job-list li { margin-bottom: 2px !important; }
-  .rv-skill-group { margin-bottom: 4px !important; }
-  .rv-spec-list { gap: 2px !important; }
-  .rv-spec-list li { padding-left: 12px !important; }
+  .rv-job { margin-bottom: 5px !important; }
+  .rv-job-list { padding-left: 13px !important; }
+  .rv-job-list li { margin-bottom: 1px !important; }
+  .rv-skill-group { margin-bottom: 3px !important; }
+  .rv-spec-list { gap: 1px !important; }
+  .rv-spec-list li { padding-left: 11px !important; }
 
-  .resume-card, .rv-body, .rv-left, .rv-right, .rv-job { break-inside: avoid; page-break-inside: avoid; }
+  .resume-card, .rv-body { break-inside: avoid; page-break-inside: avoid; }
 }

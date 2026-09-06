@@ -170,6 +170,7 @@ const doc = new Document({
                                         bullet("Developed Nautel AUI Monitor, a real-time transmitter health dashboard with custom telemetry alerts, enabling 24/7 unattended monitoring and reducing equipment downtime."),
                                         bullet("Developed Media Rename Automation, a PowerShell utility for batch-renaming video files using strict regex pattern matching, saving hours of manual data entry."),
                                         bullet("Programmed X32 Remote Toggle using OSC protocols for Behringer X32 mixers, achieving sub-50ms state synchronization and eliminating manual hardware switching."),
+                                        bullet("Developed and maintained an automated OBS Studio broadcast production system for managing cameras, graphics, audio, media playback, scene switching, and live broadcast layouts. Implemented automation scripts and keyboard shortcuts to streamline broadcast operations and reduce repetitive production tasks."),
                                         bullet("Developed OBS automation tools (Media Automator & OBS Scene Autosort) that reduced repetitive production setup time by approximately 70% and improved workflow consistency during live broadcasts."),
                                         bullet("Developed a Drama Report Generator using Raduga in VirtualBox, automating broadcast log and performance report generation and reducing manual data entry by approximately 90%, improving reporting efficiency and accuracy."),
 

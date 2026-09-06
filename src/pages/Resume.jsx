@@ -117,6 +117,7 @@ export default function Resume() {
                   <li>Developed <strong>Nautel AUI Monitor</strong>, a real-time transmitter health dashboard with custom telemetry alerts, enabling 24/7 unattended monitoring and reducing equipment downtime.</li>
                   <li>Developed <strong>Media Rename Automation</strong>, a PowerShell utility for batch-renaming video files using strict regex pattern matching, saving hours of manual data entry.</li>
                   <li>Programmed <strong>X32 Remote Toggle</strong> using OSC protocols for Behringer X32 mixers, achieving sub-50ms state synchronization and eliminating manual hardware switching.</li>
+                  <li>Developed and maintained an automated <strong>OBS Studio</strong> broadcast production system for managing cameras, graphics, audio, media playback, scene switching, and live broadcast layouts. Implemented automation scripts and keyboard shortcuts to streamline broadcast operations and reduce repetitive production tasks.</li>
                   <li>Developed OBS automation tools (<strong>Media Automator</strong> &amp; <strong>OBS Scene Autosort</strong>) that reduced repetitive production setup time by approximately 70% and improved workflow consistency during live broadcasts.</li>
                   <li>Developed a <strong>Drama Report Generator</strong> using Raduga in VirtualBox, automating broadcast log and performance report generation and reducing manual data entry by approximately 90%, improving reporting efficiency and accuracy.</li>
                 </ul>
