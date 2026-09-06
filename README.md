@@ -1,19 +1,20 @@
 # Klyde Joseph Yabo — Portfolio
 
-Personal site for **Klyde Joseph Yabo**, an automation specialist building live broadcast tools at Bombo Radyo Malaybalay.
+Personal portfolio for **Klyde Joseph Yabo**, an Information Technology professional building software, automation, and broadcast systems at Bombo Radyo Malaybalay.
 
-Editorial, light-theme layout: serif headlines, orange accent, navy case-study bands. Built with React and Vite.
+Editorial light-theme layout with a floating left sidebar, green accent, serif headlines, and navy case-study sections. Built with React and Vite.
 
-**Live repo:** [github.com/klaayd39/new-portfolio](https://github.com/klaayd39/new-portfolio)
+**Live site:** [klydeyabo.vercel.app](https://klydeyabo.vercel.app)  
+**Repository:** [github.com/klaayd39/new-portfolio](https://github.com/klaayd39/new-portfolio)
 
 ---
 
 ## Pages
 
-- **Home** — hero, stats, tools marquee, about, confidence-rated tools, two station case studies, more work grid, process, education, contact
+- **Home** — hero, stats, tools marquee, about, confidence-rated tools, station case studies, project grid, process, education, contact
 - **Projects** — filterable archive (Automation, Broadcast Systems, Intelligence, Web App)
-- **Resume** — print-ready document with PDF / DOCX download
-- **Contact** — form that writes to Supabase (and optionally emails via EmailJS)
+- **Resume** — print-ready layout with PDF and DOCX download
+- **Contact** — form backed by Supabase with optional EmailJS Gmail notifications
 
 ---
 
@@ -21,6 +22,7 @@ Editorial, light-theme layout: serif headlines, orange accent, navy case-study b
 
 - React 19 + Vite
 - React Router
+- Framer Motion
 - Vanilla CSS
 - Supabase (contact messages)
 - EmailJS (optional notifications)
@@ -35,13 +37,13 @@ npm install
 npm run dev
 ```
 
-Then open the URL Vite prints (usually `http://localhost:5173`).
+Open the URL Vite prints (usually `http://localhost:5173`).
 
 ### Optional: contact form
 
-Copy `.env.example` to `.env` and fill in keys.
+Copy `.env.example` to `.env` and fill in your keys.
 
-In [Supabase](https://supabase.com), create:
+Run the SQL in `supabase/contact_messages.sql` in your Supabase project, or create the table manually:
 
 ```sql
 create table contact_messages (
@@ -53,9 +55,9 @@ create table contact_messages (
 );
 ```
 
-Allow `anon` inserts on `contact_messages` (RLS policy). Add `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` to `.env`. EmailJS vars are optional.
+Allow `anon` inserts on `contact_messages` (RLS policy). Add `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` to `.env`. EmailJS vars are optional for Gmail alerts.
 
-Without env vars the form still runs in demo mode.
+Without env vars, the contact form shows a configuration message instead of submitting.
 
 ---
 
@@ -63,30 +65,34 @@ Without env vars the form still runs in demo mode.
 
 | Command | What it does |
 | --- | --- |
-| `npm run dev` | Local Vite server |
+| `npm run dev` | Local Vite dev server |
 | `npm run build` | Production build |
 | `npm run preview` | Serve the production build |
 | `npm run lint` | ESLint |
-| `npm run build:resume` | Regenerate PDF / DOCX resume |
+| `npm run build:resume` | Regenerate DOCX resume (`public/Klyde_Joseph_Yabo_Resume.docx`) |
+| `npm run build:resume:pdf` | Regenerate PDF resume (requires `npm run dev` running) |
 
 ---
 
 ## Deploy (Vercel)
 
-1. Import this GitHub repo in Vercel.
-2. Set the same `VITE_*` env vars as local (if you want live contact).
-3. Deploy. `vercel.json` already rewrites all routes to `index.html` for the SPA.
+1. Import this GitHub repo in [Vercel](https://vercel.com).
+2. Add the same `VITE_*` env vars as local if you want live contact form submissions.
+3. Deploy. `vercel.json` rewrites all routes to `index.html` for the SPA.
 
 ---
 
 ## Structure
 
 ```text
-public/           Profile photo, resume files, project screenshots
+public/              Profile photo, resume PDF/DOCX, project screenshots
 src/
-  components/     Navbar, footer, project modal, scroll helpers
-  data/           Projects and skills
-  pages/          Home, Projects, Resume, Contact
-  App.jsx         Routes
-  index.css       Full design system
+  components/        Sidebar, footer, project modal, motion helpers
+  data/              Projects and skills
+  pages/             Home, Projects, Resume, Contact
+  App.jsx            Routes and layout shell
+  index.css          Design system and print styles
+supabase/            Contact messages table + RLS SQL
+build.js             DOCX resume generator
+generate-pdf.js      PDF resume generator (Puppeteer)
 ```
