@@ -727,18 +727,6 @@ textarea:focus-visible {
   pointer-events: none;
 }
 
-.hero::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(17, 17, 16, 0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(17, 17, 16, 0.025) 1px, transparent 1px);
-  background-size: 48px 48px;
-  mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, #000 20%, transparent 75%);
-  pointer-events: none;
-}
-
 .hero-grid {
   position: relative;
   z-index: 1;
