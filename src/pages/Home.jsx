@@ -353,10 +353,10 @@ export default function Home() {
               Contact
             </p>
             <h2 className="section-title section-title--light">
-              Let&apos;s build something that runs at 5am.
+              Let&apos;s build systems that work while you sleep.
             </h2>
             <p className="section-intro section-intro--light">
-              Hiring for automation, broadcast systems, or full-stack work? I read every message.
+              Hiring for automation, broadcast systems, or full-stack development? I&apos;m always open to building something useful. I read every message.
             </p>
           </MotionReveal>
 
