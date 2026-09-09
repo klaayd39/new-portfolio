@@ -1018,6 +1018,15 @@ textarea:focus-visible {
   margin-bottom: 10px;
 }
 
+.education-label {
+  margin-top: clamp(40px, 6vw, 56px);
+  margin-bottom: 24px;
+}
+
+.education-timeline {
+  margin-top: 0;
+}
+
 /* ── Projects ── */
 .featured-list {
   display: flex;
@@ -1950,6 +1959,7 @@ textarea:focus-visible {
 .rv-text-bold { font-size: 0.9rem; font-weight: 700; color: #222; }
 .rv-edu-school { font-size: 0.9rem; font-weight: 700; color: #222; margin-bottom: 2px; }
 .rv-edu-degree { font-size: 0.85rem; font-style: italic; color: #555; }
+.rv-edu + .rv-edu { margin-top: 12px; }
 .rv-job { margin-bottom: 20px; }
 .rv-job-header {
   display: flex;

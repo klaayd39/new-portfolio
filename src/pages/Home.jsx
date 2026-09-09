@@ -27,11 +27,26 @@ const EXPERIENCE = [
     org: 'Department of Education, Malaybalay City',
     detail: 'Computer troubleshooting, data encoding, and loan and voucher processing.',
   },
+]
+
+const EDUCATION = [
   {
     period: '2020 – 2024',
     role: 'BS Information Technology',
     org: 'Bukidnon State University',
     detail: 'College of Technologies Athlete of the Year, 2024.',
+  },
+  {
+    period: '2018 – 2020',
+    role: 'Technical-Vocational-Livelihood — Information Technology',
+    org: 'Senior High School',
+    detail: 'STI Malaybalay',
+  },
+  {
+    period: '2014 – 2018',
+    role: 'Special Program in Sports',
+    org: 'Bukidnon National High School',
+    detail: 'Junior High School',
   },
 ]
 
@@ -183,6 +198,24 @@ export default function Home() {
                   <h3 className="timeline-role">{item.role}</h3>
                   <p className="timeline-org">{item.org}</p>
                   <p className="body-text">{item.detail}</p>
+                </div>
+              </MotionReveal>
+            ))}
+          </div>
+
+          <MotionReveal delay={0.16}>
+            <p className="section-label education-label">Education</p>
+          </MotionReveal>
+
+          <div className="timeline education-timeline">
+            {EDUCATION.map((item, i) => (
+              <MotionReveal key={item.role + item.org} delay={0.2 + i * 0.06} className="timeline-item">
+                {item.period && <span className="timeline-period">{item.period}</span>}
+                {!item.period && <span className="timeline-period" aria-hidden="true" />}
+                <div>
+                  <h3 className="timeline-role">{item.role}</h3>
+                  <p className="timeline-org">{item.org}</p>
+                  {item.detail && <p className="body-text">{item.detail}</p>}
                 </div>
               </MotionReveal>
             ))}

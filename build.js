@@ -153,8 +153,24 @@ const doc = new Document({
                                             children: [new TextRun({ text: "Bukidnon State University", bold: true, size: 20, font: FONT, color: DARK })],
                                         }),
                                         new Paragraph({
-                                            spacing: { after: 40 },
+                                            spacing: { after: 20 },
                                             children: [new TextRun({ text: "Bachelor of Science in Information Technology (2020 – 2024)", size: 19, font: FONT, color: GRAY })],
+                                        }),
+                                        new Paragraph({
+                                            spacing: { after: 20 },
+                                            children: [new TextRun({ text: "STI Malaybalay", bold: true, size: 20, font: FONT, color: DARK })],
+                                        }),
+                                        new Paragraph({
+                                            spacing: { after: 20 },
+                                            children: [new TextRun({ text: "Technical-Vocational-Livelihood — Information Technology, Senior High School (2018 – 2020)", size: 19, font: FONT, color: GRAY })],
+                                        }),
+                                        new Paragraph({
+                                            spacing: { after: 20 },
+                                            children: [new TextRun({ text: "Bukidnon National High School", bold: true, size: 20, font: FONT, color: DARK })],
+                                        }),
+                                        new Paragraph({
+                                            spacing: { after: 40 },
+                                            children: [new TextRun({ text: "Special Program in Sports, Junior High School (2014 – 2018)", size: 19, font: FONT, color: GRAY })],
                                         }),
 
                                         sectionTitle("Experience"),

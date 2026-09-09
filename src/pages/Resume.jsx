@@ -85,6 +85,14 @@ export default function Resume() {
                 <p className="rv-edu-school">Bukidnon State University</p>
                 <p className="rv-edu-degree">Bachelor of Science in Information Technology (2020 – 2024)</p>
               </div>
+              <div className="rv-edu">
+                <p className="rv-edu-school">STI Malaybalay</p>
+                <p className="rv-edu-degree">Technical-Vocational-Livelihood — Information Technology, Senior High School (2018 – 2020)</p>
+              </div>
+              <div className="rv-edu">
+                <p className="rv-edu-school">Bukidnon National High School</p>
+                <p className="rv-edu-degree">Special Program in Sports, Junior High School (2014 – 2018)</p>
+              </div>
             </section>
 
             {/* Experience */}
