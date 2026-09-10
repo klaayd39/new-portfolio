@@ -118,10 +118,10 @@ export default function Contact() {
         </div>
       </section>
 
-      <section className="section contact-page">
+      <section className="section contact-page" aria-labelledby="contact-form-title">
         <div className="container contact-page-inner">
           <MotionReveal>
-            <div className="contact-info-list">
+            <div className="contact-info-list" aria-label="Contact details">
               <div className="contact-info-row contact-info-row--email">
                 <a href="mailto:klydejosephy@gmail.com" className="contact-info-row-link">
                   <span>Email</span>
@@ -153,61 +153,100 @@ export default function Contact() {
           </MotionReveal>
 
           <MotionReveal delay={0.1}>
-            <form onSubmit={handleSubmit} className="contact-form">
-              <h2 className="contact-form-title">Send a message</h2>
+            <form onSubmit={handleSubmit} className="contact-form" noValidate>
+              <div className="contact-form-header">
+                <h2 className="contact-form-title" id="contact-form-title">Send a message</h2>
+                <p className="contact-form-intro">
+                  Share a few details and I&apos;ll get back to you. Most replies go out within 24 hours.
+                </p>
+              </div>
 
-              {status === 'error' && <p className="form-error">{errorMessage}</p>}
-              {status === 'success' && (
-                <div className="form-success">
-                  <p>Message sent. Talk soon, {sentName}.</p>
-                  {deliveryNote && <p className="form-success-note">{deliveryNote}</p>}
-                </div>
-              )}
+              <div className="form-status" aria-live="polite" aria-atomic="true">
+                {status === 'error' && (
+                  <p className="form-error" role="alert">
+                    <span className="form-status-label">Couldn&apos;t send</span>
+                    {errorMessage}
+                  </p>
+                )}
+                {status === 'success' && (
+                  <div className="form-success" role="status">
+                    <p>
+                      <span className="form-status-label">Message sent</span>
+                      Talk soon, {sentName}.
+                    </p>
+                    {deliveryNote && <p className="form-success-note">{deliveryNote}</p>}
+                  </div>
+                )}
+              </div>
 
               <div className="form-field">
+                <label className="form-label" htmlFor="name">Full name</label>
                 <input
                   id="name"
                   name="name"
                   type="text"
-                  placeholder="Full Name"
+                  placeholder="Your full name"
                   value={form.name}
                   onChange={handleChange}
                   disabled={status === 'submitting'}
                   autoComplete="name"
                   required
+                  aria-required="true"
                 />
               </div>
 
               <div className="form-field">
+                <label className="form-label" htmlFor="email">Email address</label>
                 <input
                   id="email"
                   name="email"
                   type="email"
-                  placeholder="Email Address"
+                  placeholder="you@example.com"
                   value={form.email}
                   onChange={handleChange}
                   disabled={status === 'submitting'}
                   autoComplete="email"
+                  inputMode="email"
                   required
+                  aria-required="true"
                 />
               </div>
 
               <div className="form-field">
+                <label className="form-label" htmlFor="message">Your message</label>
                 <textarea
                   id="message"
                   name="message"
                   rows={6}
-                  placeholder="Your Message"
+                  placeholder="What would you like to work on together?"
                   value={form.message}
                   onChange={handleChange}
                   disabled={status === 'submitting'}
                   required
+                  aria-required="true"
                 />
               </div>
 
-              <button type="submit" className="btn btn-primary submit-btn" disabled={status === 'submitting'}>
-                {status === 'submitting' ? 'Sending...' : 'Send Message'}
-              </button>
+              <div className="contact-form-actions">
+                <button
+                  type="submit"
+                  className="btn btn-primary submit-btn"
+                  disabled={status === 'submitting'}
+                  aria-busy={status === 'submitting'}
+                >
+                  {status === 'submitting' ? (
+                    <>
+                      <span className="btn-spinner" aria-hidden="true" />
+                      Sending message...
+                    </>
+                  ) : (
+                    'Send Message'
+                  )}
+                </button>
+                <p className="contact-form-footnote">
+                  Prefer email? <a href="mailto:klydejosephy@gmail.com">klydejosephy@gmail.com</a>
+                </p>
+              </div>
             </form>
           </MotionReveal>
         </div>

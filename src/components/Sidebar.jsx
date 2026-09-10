@@ -195,6 +195,17 @@ export default function Sidebar() {
   }, [drawerOpen])
 
   useEffect(() => {
+    if (!drawerOpen) return undefined
+
+    function handleKeyDown(event) {
+      if (event.key === 'Escape') setDrawerOpen(false)
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [drawerOpen])
+
+  useEffect(() => {
     if (!onHome) return undefined
 
     let io

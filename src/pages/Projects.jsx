@@ -39,11 +39,13 @@ export default function Projects() {
       <section className="section">
         <div className="container">
           <MotionReveal>
-            <div className="filter-tabs">
+            <div className="filter-tabs" role="tablist" aria-label="Filter projects by category">
               {groups.map((group) => (
                 <button
                   key={group}
                   type="button"
+                  role="tab"
+                  aria-selected={activeGroup === group}
                   className={`filter-tab${activeGroup === group ? ' filter-tab--active' : ''}`}
                   onClick={() => setActiveGroup(group)}
                 >
@@ -53,13 +55,29 @@ export default function Projects() {
             </div>
           </MotionReveal>
 
-          <div className="projects-grid">
-            {filteredProjects.map((project, index) => (
-              <MotionReveal key={project.title} delay={Math.min(index * 0.04, 0.24)}>
-                <ProjectCard project={project} onOpen={setSelectedProject} />
-              </MotionReveal>
-            ))}
-          </div>
+          {filteredProjects.length > 0 ? (
+            <div className="projects-grid">
+              {filteredProjects.map((project, index) => (
+                <MotionReveal key={project.title} delay={Math.min(index * 0.04, 0.24)}>
+                  <ProjectCard project={project} onOpen={setSelectedProject} />
+                </MotionReveal>
+              ))}
+            </div>
+          ) : (
+            <div className="empty-state" role="status">
+              <p className="empty-state-title">No projects in this category yet</p>
+              <p className="empty-state-text">
+                Try another filter to browse station systems, client work, and personal builds.
+              </p>
+              <button
+                type="button"
+                className="btn btn-secondary"
+                onClick={() => setActiveGroup('All')}
+              >
+                View all projects
+              </button>
+            </div>
+          )}
         </div>
       </section>
 

@@ -63,7 +63,7 @@ export default function App() {
 
       <div className="layout-main">
         <main id="main-content">
-          <Suspense fallback={<div className="page-fallback" />}>
+          <Suspense fallback={<div className="page-fallback" role="status" aria-live="polite"><span className="page-fallback-label">Loading page</span></div>}>
             <AnimatedRoutes />
           </Suspense>
         </main>
