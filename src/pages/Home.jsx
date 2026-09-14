@@ -150,7 +150,7 @@ export default function Home() {
                 Real problems. Real tools. Built to be used.
               </blockquote>
               <p className="body-text">
-                I grew up in Malaybalay City, Bukidnon and studied Information Technology at Bukidnon State University.
+                I grew up in Malaybalay City, Bukidnon and studied Bachelor of Science in Information Technology at Bukidnon State University.
                 After graduating, I took about a year to rest and explore what I wanted to pursue. I eventually
                 joined Bombo Radyo Malaybalay as an IT Technician, where I discovered that I could do more than
                 maintain systems — I could build the tools the station actually needed. Working at the station
