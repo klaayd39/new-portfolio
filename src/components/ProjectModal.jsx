@@ -1,61 +1,60 @@
-import { useEffect, useRef } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
+import ProjectImage from './ProjectImage'
 
 export default function ProjectModal({ project, onClose }) {
   const dialogRef = useRef(null)
 
+  const dismiss = useCallback(() => {
+    const dialog = dialogRef.current
+    if (dialog?.open) dialog.close()
+    else onClose()
+  }, [onClose])
+
   useEffect(() => {
     const dialog = dialogRef.current
-    if (!dialog) return
+    if (!dialog || !project) return undefined
 
     dialog.showModal()
-    
-    // Close modal when clicking on the backdrop
+
     const handleBackdropClick = (e) => {
-      if (e.target === dialog) {
-        onClose()
-      }
+      if (e.target === dialog) dismiss()
     }
-    
+
+    const handleNativeClose = () => onClose()
+
     dialog.addEventListener('click', handleBackdropClick)
-    
+    dialog.addEventListener('close', handleNativeClose)
+
     return () => {
       dialog.removeEventListener('click', handleBackdropClick)
+      dialog.removeEventListener('close', handleNativeClose)
     }
-  }, [onClose])
+  }, [project, dismiss, onClose])
 
-  // Native dialog already handles Escape key to close, so we just listen to the native close event
   useEffect(() => {
-    const dialog = dialogRef.current
-    if (!dialog) return
-    
-    const handleNativeClose = () => onClose()
-    dialog.addEventListener('close', handleNativeClose)
-    return () => dialog.removeEventListener('close', handleNativeClose)
-  }, [onClose])
-
-  // Prevent scrolling on body when dialog is open
-  useEffect(() => {
+    if (!project) return undefined
     document.body.style.overflow = 'hidden'
     return () => { document.body.style.overflow = '' }
-  }, [])
+  }, [project])
 
   if (!project) return null
 
   return (
     <dialog ref={dialogRef} className="modal-dialog" aria-label={project.title}>
       <div className="modal-container" onClick={(e) => e.stopPropagation()}>
-        <button className="modal-close" onClick={onClose} aria-label="Close modal">
+        <button className="modal-close" onClick={dismiss} aria-label="Close modal">
           ✕
         </button>
 
         <div className="modal-hero">
-          {project.image ? (
-            <img src={project.image} alt={project.title} loading="lazy" className="modal-hero-img" />
-          ) : (
-            <div className="modal-hero-placeholder">
-              <span className="placeholder-text">{project.title}</span>
-            </div>
-          )}
+          <ProjectImage
+            src={project.image}
+            alt={project.title}
+            title={project.title}
+            tag={project.tag}
+            className="modal-hero-img"
+            placeholderClassName="modal-hero-placeholder"
+          />
           <div className="modal-hero-overlay">
             <span className="modal-tag">{project.tag}</span>
             <h2 className="modal-title">{project.title}</h2>

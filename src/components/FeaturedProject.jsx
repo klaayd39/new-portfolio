@@ -1,4 +1,5 @@
 import { motion, useReducedMotion } from 'framer-motion'
+import ProjectImage from './ProjectImage'
 
 export default function FeaturedProject({ project, index, onOpen, total = 3 }) {
   const reduced = useReducedMotion()
@@ -16,11 +17,13 @@ export default function FeaturedProject({ project, index, onOpen, total = 3 }) {
     >
       <div className="featured-project-media">
         <span className="featured-index" aria-hidden="true">{indexLabel} / {String(total).padStart(2, '0')}</span>
-        {project.image ? (
-          <img src={project.image} alt={project.title} loading="lazy" />
-        ) : (
-          <div className="featured-project-placeholder">{project.title}</div>
-        )}
+        <ProjectImage
+          src={project.image}
+          alt={project.title}
+          title={project.title}
+          tag={project.tag}
+          placeholderClassName="featured-project-placeholder"
+        />
       </div>
       <div className="featured-project-body">
         <div className="featured-project-tags">
@@ -66,11 +69,13 @@ export function ProjectCard({ project, onOpen }) {
       transition={{ duration: 0.25 }}
     >
       <div className="project-card-image">
-        {project.image ? (
-          <img src={project.image} alt="" loading="lazy" />
-        ) : (
-          <div className="project-card-placeholder">{project.title}</div>
-        )}
+        <ProjectImage
+          src={project.image}
+          alt=""
+          title={project.title}
+          tag={project.tag}
+          placeholderClassName="project-card-placeholder"
+        />
       </div>
       <div className="project-card-content">
         <span className="tag tag--sm">{project.tag}</span>

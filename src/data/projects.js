@@ -290,7 +290,7 @@ export const PROJECTS = [
     tech: ['Python', 'OBS Scripting API'],
     challenges: 'Handling audio routing glitches in nested OBS scenes. Solved by implementing dynamic toggle logic to disable "Restart on Activate" only when required.',
     liveUrl: '',
-    image: '/projects/media.png'
+    image: '/projects/obs.png'
   }
 ];
 

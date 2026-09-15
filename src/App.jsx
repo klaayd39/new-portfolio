@@ -6,6 +6,7 @@ import ScrollToTopFAB from './components/ScrollToTopFAB'
 import ScrollProgress from './components/ScrollProgress'
 import PageTransition from './components/PageTransition'
 import { Analytics } from '@vercel/analytics/react'
+import { scrollToHash } from './utils/scrollToHash'
 
 const Home = lazy(() => import('./pages/Home'))
 const Projects = lazy(() => import('./pages/Projects'))
@@ -31,23 +32,13 @@ function ScrollManager() {
 
   useEffect(() => {
     if (hash) {
-      const id = decodeURIComponent(hash.slice(1))
-      let attempts = 0
-      const jump = () => {
-        const el = document.getElementById(id)
-        if (el) {
-          el.scrollIntoView({ behavior: 'smooth' })
-          return
-        }
-        if (attempts < 20) {
-          attempts += 1
-          window.setTimeout(jump, 50)
-        }
-      }
-      jump()
-      return undefined
+      const onHome = pathname === '/'
+      return scrollToHash(hash, {
+        behavior: onHome ? 'smooth' : 'auto',
+        maxAttempts: onHome ? 40 : 100,
+      })
     }
-    window.scrollTo(0, 0)
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
     return undefined
   }, [pathname, hash])
 

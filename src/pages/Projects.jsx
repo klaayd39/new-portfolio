@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { PROJECTS } from '../data/projects'
 import MotionReveal from '../components/MotionReveal'
 import { ProjectCard } from '../components/FeaturedProject'
@@ -8,6 +8,7 @@ import ProjectModal from '../components/ProjectModal'
 export default function Projects() {
   const [activeGroup, setActiveGroup] = useState('All')
   const [selectedProject, setSelectedProject] = useState(null)
+  const closeModal = useCallback(() => setSelectedProject(null), [])
 
   const groups = ['All', 'Bombo Radyo Malaybalay', 'Client Projects', 'Personal']
 
@@ -82,7 +83,7 @@ export default function Projects() {
       </section>
 
       {selectedProject && (
-        <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />
+        <ProjectModal project={selectedProject} onClose={closeModal} />
       )}
     </div>
   )

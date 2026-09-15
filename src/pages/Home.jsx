@@ -1,6 +1,7 @@
 import { Helmet } from 'react-helmet-async'
 import { Link } from 'react-router-dom'
-import { useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
+import { scrollToHash } from '../utils/scrollToHash'
 import { motion } from 'framer-motion'
 import { STATION_PROJECTS, CLIENT_PROJECTS, PERSONAL_PROJECTS } from '../data/projects'
 import { TOOL_GROUPS, SKILLS } from '../data/skills'
@@ -68,6 +69,13 @@ const SECTION_NUMS = {
 
 export default function Home() {
   const [selected, setSelected] = useState(null)
+  const closeModal = useCallback(() => setSelected(null), [])
+
+  useEffect(() => {
+    const hash = window.location.hash
+    if (!hash) return undefined
+    return scrollToHash(hash, { behavior: 'auto', maxAttempts: 60 })
+  }, [])
 
   return (
     <>
@@ -384,7 +392,7 @@ export default function Home() {
       </section>
 
       {selected && (
-        <ProjectModal project={selected} onClose={() => setSelected(null)} />
+        <ProjectModal project={selected} onClose={closeModal} />
       )}
     </>
   )

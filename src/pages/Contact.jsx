@@ -11,11 +11,54 @@ const EMAILJS_PUBLIC_KEY  = import.meta.env.VITE_EMAILJS_PUBLIC_KEY?.trim()
 const CONTACT_INBOX = 'klydejosephy@gmail.com'
 const isEmailJSConfigured = !!(EMAILJS_SERVICE_ID && EMAILJS_TEMPLATE_ID && EMAILJS_PUBLIC_KEY)
 
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+function getDeliveryCopy({ savedToDatabase, emailed, emailError }) {
+  if (savedToDatabase && emailed) {
+    return {
+      status: 'success',
+      label: 'Message sent',
+      note: `Saved and emailed to ${CONTACT_INBOX}. Check Inbox and Spam if you do not see a reply soon.`,
+    }
+  }
+
+  if (savedToDatabase && emailError) {
+    return {
+      status: 'warning',
+      label: 'Message saved',
+      note: `Your message is stored, but the Gmail notification failed (${emailError}). I still received it — or email ${CONTACT_INBOX} directly if you need a faster reply.`,
+    }
+  }
+
+  if (savedToDatabase) {
+    return {
+      status: 'warning',
+      label: 'Message saved',
+      note: 'Your message was saved to the database. Email notifications are not active on this build, so also email klydejosephy@gmail.com if you need a quick reply.',
+    }
+  }
+
+  if (emailed) {
+    return {
+      status: 'success',
+      label: 'Email sent',
+      note: `Notification sent to ${CONTACT_INBOX}. I usually reply within 24 hours.`,
+    }
+  }
+
+  return {
+    status: 'error',
+    label: 'Could not send',
+    note: 'Something went wrong. Please try again or email directly.',
+  }
+}
+
 export default function Contact() {
   const [form, setForm] = useState({ name: '', email: '', message: '' })
   const [status, setStatus] = useState(null)
   const [sentName, setSentName] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
+  const [deliveryLabel, setDeliveryLabel] = useState('')
   const [deliveryNote, setDeliveryNote] = useState('')
 
   function handleChange(e) {
@@ -43,17 +86,24 @@ export default function Contact() {
   async function handleSubmit(e) {
     e.preventDefault()
     setErrorMessage('')
+    setDeliveryLabel('')
     setDeliveryNote('')
 
-    if (!form.name || !form.email || !form.message) {
+    if (!form.name.trim() || !form.email.trim() || !form.message.trim()) {
       setStatus('error')
       setErrorMessage('Please fill in all fields before sending.')
       return
     }
 
+    if (!EMAIL_PATTERN.test(form.email.trim())) {
+      setStatus('error')
+      setErrorMessage('Enter a valid email address so I can reply.')
+      return
+    }
+
     if (!isSupabaseConfigured && !isEmailJSConfigured) {
       setStatus('error')
-      setErrorMessage('Contact form is not configured yet. Email klydejosephy@gmail.com directly.')
+      setErrorMessage(`Contact form is not configured yet. Email ${CONTACT_INBOX} directly.`)
       return
     }
 
@@ -61,12 +111,17 @@ export default function Contact() {
 
     let savedToDatabase = false
     let emailed = false
+    let emailError = ''
 
     try {
       if (isSupabaseConfigured) {
         const { error } = await supabase
           .from('contact_messages')
-          .insert([{ name: form.name, email: form.email, message: form.message }])
+          .insert([{
+            name: form.name.trim(),
+            email: form.email.trim(),
+            message: form.message.trim(),
+          }])
 
         if (error) throw new Error(`Database: ${error.message}`)
         savedToDatabase = true
@@ -74,24 +129,27 @@ export default function Contact() {
 
       if (isEmailJSConfigured) {
         try {
-          await sendEmailNotification(form)
+          await sendEmailNotification({
+            name: form.name.trim(),
+            email: form.email.trim(),
+            message: form.message.trim(),
+          })
           emailed = true
         } catch (emailErr) {
-          const detail = emailErr?.text || emailErr?.message || 'Email delivery failed'
-          if (savedToDatabase) {
-            throw new Error(`Message saved, but Gmail notification failed: ${detail}`)
-          }
-          throw new Error(detail)
+          emailError = emailErr?.text || emailErr?.message || 'Email delivery failed'
+          if (!savedToDatabase) throw new Error(emailError)
         }
       }
 
-      setSentName(form.name.split(' ')[0])
-      if (emailed) {
-        setDeliveryNote(`A copy was sent to ${CONTACT_INBOX}. Check Inbox and Spam.`)
-      } else if (savedToDatabase) {
-        setDeliveryNote('Saved to database. EmailJS is not active on this build — add VITE_EMAILJS_* env vars and restart.')
+      if (!savedToDatabase && !emailed) {
+        throw new Error('Message could not be delivered. Please email directly.')
       }
-      setStatus('success')
+
+      const delivery = getDeliveryCopy({ savedToDatabase, emailed, emailError })
+      setSentName(form.name.trim().split(' ')[0])
+      setDeliveryLabel(delivery.label)
+      setDeliveryNote(delivery.note)
+      setStatus(delivery.status)
       setForm({ name: '', email: '', message: '' })
     } catch (err) {
       console.error('Contact form error:', err)
@@ -171,10 +229,19 @@ export default function Contact() {
                 {status === 'success' && (
                   <div className="form-success" role="status">
                     <p>
-                      <span className="form-status-label">Message sent</span>
+                      <span className="form-status-label">{deliveryLabel}</span>
                       Talk soon, {sentName}.
                     </p>
                     {deliveryNote && <p className="form-success-note">{deliveryNote}</p>}
+                  </div>
+                )}
+                {status === 'warning' && (
+                  <div className="form-warning" role="status">
+                    <p>
+                      <span className="form-status-label">{deliveryLabel}</span>
+                      Talk soon, {sentName}.
+                    </p>
+                    {deliveryNote && <p className="form-warning-note">{deliveryNote}</p>}
                   </div>
                 )}
               </div>
@@ -246,6 +313,14 @@ export default function Contact() {
                 <p className="contact-form-footnote">
                   Prefer email? <a href="mailto:klydejosephy@gmail.com">klydejosephy@gmail.com</a>
                 </p>
+                {(isSupabaseConfigured || isEmailJSConfigured) && (
+                  <p className="contact-form-delivery-hint">
+                    Delivery: {[
+                      isSupabaseConfigured && 'database save',
+                      isEmailJSConfigured && 'Gmail notification',
+                    ].filter(Boolean).join(' + ')}
+                  </p>
+                )}
               </div>
             </form>
           </MotionReveal>
