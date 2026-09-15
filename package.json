@@ -8,6 +8,7 @@
     "build": "vite build",
     "build:resume": "node build.js",
     "build:resume:pdf": "node generate-pdf.js",
+    "build:resume:all": "node build.js && node generate-pdf.js",
     "lint": "eslint .",
     "preview": "vite preview"
   },

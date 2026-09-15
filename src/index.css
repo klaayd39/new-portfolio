@@ -2411,7 +2411,10 @@ textarea:focus-visible {
 }
 
 @media print {
-  @page { size: A4 portrait; margin: 10mm 12mm; }
+  @page {
+    size: A4 portrait;
+    margin: 12mm 14mm;
+  }
 
   html, body, #root, .app-shell, .app-shell--sidebar, .layout-main, main,
   .resume-page, .subpage, .section, .container, .resume-page-inner {
@@ -2440,23 +2443,34 @@ textarea:focus-visible {
     padding: 0 !important;
     margin: 0 !important;
     max-width: none !important;
+    width: 100% !important;
+    box-sizing: border-box;
   }
 
-  .rv-header { margin-bottom: 8px !important; }
-  .rv-name { font-size: 1.25rem !important; margin-bottom: 2px !important; line-height: 1.1 !important; }
+  .rv-header { margin-bottom: 10px !important; }
+  .rv-name {
+    font-size: 1.45rem !important;
+    margin-bottom: 4px !important;
+    line-height: 1.1 !important;
+    letter-spacing: 0.02em !important;
+  }
   .rv-contact-bar {
-    font-size: 0.62rem !important;
-    gap: 4px !important;
-    padding-bottom: 5px !important;
-    border-bottom-width: 1px !important;
-    line-height: 1.35 !important;
+    font-size: 0.72rem !important;
+    gap: 6px !important;
+    padding-bottom: 8px !important;
+    border-bottom: 1.5px solid #8B4513 !important;
+    line-height: 1.4 !important;
+  }
+  .rv-contact-bar a {
+    color: #8B4513 !important;
+    text-decoration: underline !important;
   }
 
   .rv-body {
     display: grid !important;
-    grid-template-columns: minmax(0, 1fr) 158px !important;
-    gap: 14px !important;
-    margin-top: 8px !important;
+    grid-template-columns: minmax(0, 1fr) 188px !important;
+    gap: 20px !important;
+    margin-top: 12px !important;
     align-items: start !important;
   }
 
@@ -2465,28 +2479,33 @@ textarea:focus-visible {
     background: transparent !important;
   }
 
-  .rv-section { margin-bottom: 7px !important; }
+  .rv-section { margin-bottom: 8px !important; }
   .rv-section-title {
-    font-size: 0.66rem !important;
-    margin-bottom: 3px !important;
-    padding-bottom: 2px !important;
-    border-bottom-width: 1px !important;
-    letter-spacing: 0.04em !important;
+    font-size: 0.76rem !important;
+    margin-bottom: 5px !important;
+    padding-bottom: 3px !important;
+    border-bottom: 1.5px solid #8B4513 !important;
+    letter-spacing: 0.05em !important;
   }
 
   .rv-text, .rv-text-bold, .rv-edu-school, .rv-edu-degree, .rv-job-title,
   .rv-job-period, .rv-job-company, .rv-job-tech, .rv-skill-group-label,
-  .rv-skill-group-items, .rv-spec-list li {
-    font-size: 0.62rem !important;
-    line-height: 1.24 !important;
+  .rv-skill-group-items, .rv-job-list, .rv-job-list li, .rv-spec-list li {
+    font-size: 0.69rem !important;
+    line-height: 1.28 !important;
   }
 
-  .rv-job { margin-bottom: 5px !important; }
-  .rv-job-list { padding-left: 13px !important; }
-  .rv-job-list li { margin-bottom: 1px !important; }
-  .rv-skill-group { margin-bottom: 3px !important; }
-  .rv-spec-list { gap: 1px !important; }
-  .rv-spec-list li { padding-left: 11px !important; }
+  .rv-edu + .rv-edu { margin-top: 5px !important; }
+  .rv-job { margin-bottom: 6px !important; }
+  .rv-job-header { margin-bottom: 2px !important; }
+  .rv-job-company { margin-bottom: 3px !important; }
+  .rv-job-tech { margin-bottom: 4px !important; }
+  .rv-job-list { padding-left: 15px !important; margin: 0 !important; }
+  .rv-job-list li { margin-bottom: 2px !important; }
+  .rv-skill-group { margin-bottom: 6px !important; }
+  .rv-spec-list { gap: 3px !important; }
+  .rv-spec-list li { padding-left: 14px !important; }
 
-  .resume-card, .rv-body { break-inside: avoid; page-break-inside: avoid; }
+  /* Allow natural flow; keep small blocks from splitting across pages */
+  .rv-job, .rv-edu, .rv-skill-group { break-inside: avoid; page-break-inside: avoid; }
 }

@@ -1,14 +1,53 @@
+import { existsSync } from 'fs';
 import puppeteer from 'puppeteer';
 
-(async () => {
-  const url = process.env.RESUME_URL || 'http://localhost:5173/resume';
-  const outputPath = 'public/Klyde_Joseph_Yabo_Resume.pdf';
+const OUTPUT_PATH = 'public/Klyde_Joseph_Yabo_Resume.pdf';
+const DEFAULT_PORTS = [4173, 5173, 5174, 5175, 5176, 5177, 5178];
 
+function getBrowserOptions() {
+  const options = { headless: true };
+  const candidates = [
+    '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+    '/Applications/Brave Browser.app/Contents/MacOS/Brave Browser',
+    '/Applications/Chromium.app/Contents/MacOS/Chromium',
+  ];
+
+  for (const path of candidates) {
+    if (existsSync(path)) {
+      options.executablePath = path;
+      break;
+    }
+  }
+
+  return options;
+}
+
+async function resolveResumeUrl() {
+  if (process.env.RESUME_URL) return process.env.RESUME_URL;
+
+  for (const port of DEFAULT_PORTS) {
+    const url = `http://localhost:${port}/resume`;
+    try {
+      const response = await fetch(url, { redirect: 'follow' });
+      if (response.ok) return url;
+    } catch {
+      // try next port
+    }
+  }
+
+  throw new Error(
+    'Could not reach /resume. Start the app with `npm run dev` or `npm run preview`, or set RESUME_URL.'
+  );
+}
+
+(async () => {
+  const url = await resolveResumeUrl();
   console.log('Launching browser...');
-  const browser = await puppeteer.launch({ headless: 'new' });
+  const browser = await puppeteer.launch(getBrowserOptions());
   const page = await browser.newPage();
 
   console.log(`Navigating to ${url}...`);
+  await page.emulateMediaType('print');
   await page.emulateMediaFeatures([{ name: 'prefers-reduced-motion', value: 'reduce' }]);
   await page.goto(url, { waitUntil: 'networkidle0', timeout: 60000 });
   await page.waitForSelector('.resume-card', { timeout: 30000 });
@@ -26,18 +65,17 @@ import puppeteer from 'puppeteer';
 
   console.log('Generating PDF...');
   await page.pdf({
-    path: outputPath,
+    path: OUTPUT_PATH,
     format: 'A4',
     printBackground: true,
+    // Margins come from the CSS `@page` rule so browser printing and this
+    // generator stay identical. Avoid also setting `margin` here or it doubles.
     preferCSSPageSize: true,
-    margin: { top: '0', right: '0', bottom: '0', left: '0' },
-    scale: 0.94,
   });
 
   await browser.close();
-  console.log(`PDF generated at ${outputPath}`);
+  console.log(`PDF generated at ${OUTPUT_PATH}`);
 })().catch((err) => {
   console.error('Failed to generate resume PDF:', err.message);
-  console.error('Make sure the dev server is running: npm run dev');
   process.exit(1);
 });
