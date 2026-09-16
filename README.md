@@ -82,8 +82,8 @@ Without env vars, the contact form shows a configuration message instead of subm
 | `npm run preview` | Serve the production build |
 | `npm run lint` | ESLint |
 | `npm run build:resume` | Regenerate DOCX resume (`public/Klyde_Joseph_Yabo_Resume.docx`) |
-| `npm run build:resume:pdf` | Regenerate PDF resume from `/resume` (requires `npm run dev` or `npm run preview`) |
-| `npm run build:resume:all` | Regenerate both DOCX and PDF |
+| `npm run build:resume-pdf` | Regenerate PDF resume from `/resume` (requires `npm run dev` or `npm run preview`) |
+| `npm run build:resume-all` | Regenerate both DOCX and PDF |
 
 ### Resume files
 
@@ -92,7 +92,7 @@ After editing `src/pages/Resume.jsx`, regenerate the downloadable files:
 ```bash
 npm run dev
 # in another terminal:
-npm run build:resume:all
+npm run build:resume-all
 ```
 
 The PDF generator:

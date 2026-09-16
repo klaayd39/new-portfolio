@@ -1,0 +1,49 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "dev",
+      "type": "npm",
+      "script": "dev",
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "new" }
+    },
+    {
+      "label": "build",
+      "type": "npm",
+      "script": "build",
+      "problemMatcher": [],
+      "group": "build"
+    },
+    {
+      "label": "preview",
+      "type": "npm",
+      "script": "preview",
+      "problemMatcher": []
+    },
+    {
+      "label": "lint",
+      "type": "npm",
+      "script": "lint",
+      "problemMatcher": ["$eslint-stylish"]
+    },
+    {
+      "label": "build:resume",
+      "type": "npm",
+      "script": "build:resume",
+      "problemMatcher": []
+    },
+    {
+      "label": "build:resume-pdf",
+      "type": "npm",
+      "script": "build:resume-pdf",
+      "problemMatcher": []
+    },
+    {
+      "label": "build:resume-all",
+      "type": "npm",
+      "script": "build:resume-all",
+      "problemMatcher": []
+    }
+  ]
+}

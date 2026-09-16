@@ -3,7 +3,7 @@ const HASH_ALIASES = {
   exploring: 'projects',
 }
 
-export function resolveHashTarget(rawHash) {
+function resolveHashTarget(rawHash) {
   const raw = decodeURIComponent(rawHash.replace(/^#/, ''))
   if (!raw) return null
   return HASH_ALIASES[raw] || raw
