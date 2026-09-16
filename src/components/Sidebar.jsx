@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { MAIN_NAV, CONNECT_LINKS, SECTION_IDS } from './navItems'
+import ThemeToggle from './ThemeToggle'
 
 const ICONS = {
   home: (
@@ -165,6 +166,7 @@ function SidebarPanel({ activeId, onLinkClick }) {
       </div>
 
       <footer className="sidebar-footer">
+        <ThemeToggle className="theme-toggle--sidebar" />
         <a
           href="/Klyde_Joseph_Yabo_Resume.pdf"
           download="Klyde_Joseph_Yabo_Resume.pdf"
@@ -243,6 +245,8 @@ export default function Sidebar() {
         <Link to="/" className="mobile-bar-brand" onClick={closeDrawer}>
           Klyde<span>.</span>
         </Link>
+        <div className="mobile-bar-actions">
+          <ThemeToggle className="theme-toggle--mobile" />
         <button
           type="button"
           className={`mobile-bar-toggle${drawerOpen ? ' mobile-bar-toggle--open' : ''}`}
@@ -252,6 +256,7 @@ export default function Sidebar() {
         >
           <span /><span /><span />
         </button>
+        </div>
       </header>
 
       {drawerOpen && (
