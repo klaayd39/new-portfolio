@@ -698,6 +698,12 @@ textarea:focus-visible {
   margin-inline: var(--content-pad);
 }
 
+.hero-card .container {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
 @media (min-width: 1024px) {
   .hero-card {
     height: var(--panel-height);
@@ -726,13 +732,16 @@ textarea:focus-visible {
   gap: clamp(28px, 4vw, 56px);
   align-items: center;
   width: 100%;
+  min-height: 100%;
 }
 
 .hero-copy {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-self: center;
   min-width: 0;
+  height: 100%;
 }
 
 .hero-title {
@@ -2080,6 +2089,10 @@ textarea:focus-visible {
     max-width: 36rem;
   }
   .hero-actions { justify-content: center; }
+  .hero-card .container {
+    height: auto;
+    display: block;
+  }
   .about-layout { grid-template-columns: 1fr; gap: 32px; }
   .featured-project,
   .featured-project--reverse {
