@@ -1,22 +1,20 @@
-import { motion, useReducedMotion } from 'framer-motion'
+import MotionReveal, { staggerDelay } from './MotionReveal'
 import ProjectImage from './ProjectImage'
 
 export default function FeaturedProject({ project, index, onOpen, total = 3 }) {
-  const reduced = useReducedMotion()
   const reverse = index % 2 === 1
   const indexLabel = String(index + 1).padStart(2, '0')
 
   return (
-    <motion.article
+    <MotionReveal
+      as="article"
       className={`featured-project${reverse ? ' featured-project--reverse' : ''}`}
       id={project.featuredId}
-      initial={reduced ? false : { opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.15 }}
-      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+      delay={staggerDelay(index)}
     >
       <div className="featured-project-media">
         <span className="featured-index" aria-hidden="true">{indexLabel} / {String(total).padStart(2, '0')}</span>
+        {project.tag && <span className="tag tag--overlay">{project.tag}</span>}
         <ProjectImage
           src={project.image}
           alt={project.title}
@@ -40,7 +38,7 @@ export default function FeaturedProject({ project, index, onOpen, total = 3 }) {
           ))}
         </div>
         <div className="featured-project-actions">
-          <button type="button" className="btn btn-primary" onClick={() => onOpen(project)}>
+          <button type="button" className="btn btn-primary btn-arrow" onClick={() => onOpen(project)}>
             View case study
           </button>
           <a href={project.link} target="_blank" rel="noreferrer" className="btn btn-ghost">
@@ -53,22 +51,19 @@ export default function FeaturedProject({ project, index, onOpen, total = 3 }) {
           )}
         </div>
       </div>
-    </motion.article>
+    </MotionReveal>
   )
 }
 
 export function ProjectCard({ project, onOpen }) {
-  const reduced = useReducedMotion()
-
   return (
-    <motion.button
+    <button
       type="button"
       className="project-card"
       onClick={() => onOpen(project)}
-      whileHover={reduced ? undefined : { y: -6 }}
-      transition={{ duration: 0.25 }}
     >
       <div className="project-card-image">
+        {project.tag && <span className="tag tag--sm tag--overlay">{project.tag}</span>}
         <ProjectImage
           src={project.image}
           alt=""
@@ -78,7 +73,6 @@ export function ProjectCard({ project, onOpen }) {
         />
       </div>
       <div className="project-card-content">
-        <span className="tag tag--sm">{project.tag}</span>
         <h3>{project.title}</h3>
         <p>{project.desc}</p>
         <div className="tech-row">
@@ -86,8 +80,8 @@ export function ProjectCard({ project, onOpen }) {
             <span key={t} className="tech-pill tech-pill--sm">{t}</span>
           ))}
         </div>
-        <span className="project-card-cta">View case study →</span>
+        <span className="project-card-cta">View case study <span className="cta-arrow" aria-hidden="true">→</span></span>
       </div>
-    </motion.button>
+    </button>
   )
 }

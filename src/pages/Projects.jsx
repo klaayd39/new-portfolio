@@ -1,9 +1,9 @@
-import { Helmet } from 'react-helmet-async'
 import { useCallback, useState } from 'react'
 import { PROJECTS } from '../data/projects'
-import MotionReveal from '../components/MotionReveal'
+import MotionReveal, { staggerDelay } from '../components/MotionReveal'
 import { ProjectCard } from '../components/FeaturedProject'
 import ProjectModal from '../components/ProjectModal'
+import Seo from '../components/Seo'
 
 export default function Projects() {
   const [activeGroup, setActiveGroup] = useState('All')
@@ -21,9 +21,11 @@ export default function Projects() {
 
   return (
     <div className="subpage">
-      <Helmet>
-        <title>Projects | Klyde Joseph Yabo</title>
-      </Helmet>
+      <Seo
+        title="Projects"
+        path="/projects"
+        description="Automation toolsets, telemetry systems, and web apps Klyde Joseph Yabo shipped for a live radio station, clients, and personal use."
+      />
 
       <section className="subpage-hero">
         <div className="container">
@@ -59,7 +61,7 @@ export default function Projects() {
           {filteredProjects.length > 0 ? (
             <div className="projects-grid">
               {filteredProjects.map((project, index) => (
-                <MotionReveal key={project.title} delay={Math.min(index * 0.04, 0.24)}>
+                  <MotionReveal key={project.title} delay={staggerDelay(index, 0.04)}>
                   <ProjectCard project={project} onOpen={setSelectedProject} />
                 </MotionReveal>
               ))}

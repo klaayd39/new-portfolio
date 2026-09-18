@@ -1,9 +1,9 @@
-import { Helmet } from 'react-helmet-async'
 import { useState } from 'react'
 import emailjs from '@emailjs/browser'
 import { supabase, isSupabaseConfigured } from '../supabaseClient'
 import MotionReveal from '../components/MotionReveal'
 import CopyButton from '../components/CopyButton'
+import Seo from '../components/Seo'
 
 const EMAILJS_SERVICE_ID  = import.meta.env.VITE_EMAILJS_SERVICE_ID?.trim()
 const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID?.trim()
@@ -160,9 +160,11 @@ export default function Contact() {
 
   return (
     <div className="subpage">
-      <Helmet>
-        <title>Contact | Klyde Joseph Yabo</title>
-      </Helmet>
+      <Seo
+        title="Contact"
+        path="/contact"
+        description="Hire Klyde Joseph Yabo for automation, broadcast systems, or full-stack development. Based in Malaybalay, Philippines."
+      />
 
       <section className="subpage-hero">
         <div className="container">

@@ -1,16 +1,15 @@
-import { Helmet } from 'react-helmet-async'
 import { Link } from 'react-router-dom'
 import { useCallback, useEffect, useState } from 'react'
 import { scrollToHash } from '../utils/scrollToHash'
-import { motion } from 'framer-motion'
 import { STATION_PROJECTS, CLIENT_PROJECTS, PERSONAL_PROJECTS } from '../data/projects'
-import { TOOL_GROUPS, SKILLS } from '../data/skills'
-import MotionReveal from '../components/MotionReveal'
+import { TOOL_GROUPS, SKILLS, getSkillTier, getSkillBarWidth } from '../data/skills'
+import MotionReveal, { staggerDelay } from '../components/MotionReveal'
 import FeaturedProject, { ProjectCard } from '../components/FeaturedProject'
 import ProjectModal from '../components/ProjectModal'
 import AnimatedFill from '../components/AnimatedFill'
 import TechMarquee from '../components/TechMarquee'
 import CopyButton from '../components/CopyButton'
+import Seo from '../components/Seo'
 
 const FEATURED = STATION_PROJECTS.filter((p) => p.featured)
 const HIGHLIGHTS = [...FEATURED, ...CLIENT_PROJECTS.slice(0, 2), ...PERSONAL_PROJECTS.slice(0, 1)]
@@ -79,63 +78,61 @@ export default function Home() {
 
   return (
     <>
-      <Helmet>
-        <title>Klyde Joseph Yabo — Information Technology</title>
-        <meta name="description" content="Klyde Joseph Yabo builds automation, broadcast systems, and web apps for live radio — based in Malaybalay, Philippines." />
-      </Helmet>
+      <Seo path="/" />
 
       {/* ── HERO ── */}
       <section className="hero" id="top">
         <div className="hero-card surface-card">
         <div className="container hero-grid">
-          <motion.div
+          <MotionReveal
             className="hero-visual"
-            initial={{ opacity: 0, scale: 0.96 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            variant="scale"
+            mode="mount"
+            delay={0.2}
+            duration={0.8}
           >
             <div className="hero-photo-wrap">
               <img src="/ID.png" alt="Klyde Joseph Yabo" className="hero-photo" />
             </div>
-          </motion.div>
+          </MotionReveal>
 
           <div className="hero-copy">
-            <motion.h1
-              className="hero-title"
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.65, delay: 0.08 }}
-            >
+            <MotionReveal as="span" className="hero-status" mode="mount" delay={0.04}>
+              <span className="hero-status-dot" aria-hidden="true" />
+              Open to work · Malaybalay, PH
+            </MotionReveal>
+
+            <MotionReveal as="h1" className="hero-title" mode="mount" delay={0.08}>
               Hey, I&apos;m <span className="text-accent">Klyde</span>
-            </motion.h1>
+            </MotionReveal>
 
-            <motion.p
-              className="hero-role"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.65, delay: 0.16 }}
-            >
+            <MotionReveal as="p" className="hero-role" mode="mount" delay={0.16}>
               Information Technology
-            </motion.p>
+            </MotionReveal>
 
-            <motion.p
-              className="hero-lead"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.65, delay: 0.24 }}
-            >
+            <MotionReveal as="p" className="hero-lead" mode="mount" delay={0.24}>
               I build software and automation that solve real-world problems — from internal tools and web applications to broadcast systems and workflow automation. I focus on building practical solutions that are reliable, useful, and actually get used.
-            </motion.p>
+            </MotionReveal>
 
-            <motion.div
-              className="hero-actions"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.65, delay: 0.32 }}
-            >
-              <a href="#projects" className="btn btn-primary">View My Work</a>
+            <MotionReveal className="hero-actions" mode="mount" delay={0.32}>
+              <a href="#projects" className="btn btn-primary btn-arrow">View My Work</a>
               <Link to="/contact" className="btn btn-secondary">Contact Me</Link>
-            </motion.div>
+            </MotionReveal>
+
+            <MotionReveal as="ul" className="hero-stats" mode="mount" delay={0.4}>
+              <li>
+                <strong>12+</strong>
+                <span>Projects shipped</span>
+              </li>
+              <li>
+                <strong>8</strong>
+                <span>Systems in production</span>
+              </li>
+              <li>
+                <strong>3</strong>
+                <span>Focus areas</span>
+              </li>
+            </MotionReveal>
           </div>
         </div>
         </div>
@@ -202,7 +199,7 @@ export default function Home() {
 
           <div className="timeline">
             {EXPERIENCE.map((item, i) => (
-              <MotionReveal key={item.role + item.org} delay={i * 0.08} className="timeline-item">
+              <MotionReveal key={item.role + item.org} delay={staggerDelay(i)} className="timeline-item">
                 <span className="timeline-period">{item.period}</span>
                 <div>
                   <h3 className="timeline-role">{item.role}</h3>
@@ -219,7 +216,7 @@ export default function Home() {
 
           <div className="timeline education-timeline">
             {EDUCATION.map((item, i) => (
-              <MotionReveal key={item.role + item.org} delay={0.2 + i * 0.06} className="timeline-item">
+              <MotionReveal key={item.role + item.org} delay={0.2 + staggerDelay(i, 0.06)} className="timeline-item">
                 {item.period && <span className="timeline-period">{item.period}</span>}
                 {!item.period && <span className="timeline-period" aria-hidden="true" />}
                 <div>
@@ -268,7 +265,7 @@ export default function Home() {
 
           <div className="projects-grid">
             {HIGHLIGHTS.filter((p) => !p.featured).slice(0, 6).map((project, i) => (
-              <MotionReveal key={project.title} delay={i * 0.05}>
+              <MotionReveal key={project.title} delay={staggerDelay(i, 0.05)}>
                 <ProjectCard project={project} onOpen={setSelected} />
               </MotionReveal>
             ))}
@@ -292,7 +289,7 @@ export default function Home() {
 
           <div className="skills-layout">
             {SKILLS.map((group, i) => (
-              <MotionReveal key={group.category} delay={i * 0.08} className="skill-group">
+              <MotionReveal key={group.category} delay={staggerDelay(i)} className="skill-group">
                 <h3>{group.category}</h3>
                 <ul>
                   {group.items.map((item) => (
@@ -305,22 +302,26 @@ export default function Home() {
 
           <div className="tools-detail">
             {TOOL_GROUPS.map((group, gi) => (
-              <MotionReveal key={group.num} delay={gi * 0.06} className="tool-block">
+              <MotionReveal key={group.num} delay={staggerDelay(gi, 0.06)} className="tool-block">
                 <div className="tool-block-head">
                   <span className="tool-num">{group.num}</span>
                   <h3>{group.title}</h3>
                 </div>
                 <ul className="tool-list">
-                  {group.tools.map((tool) => (
+                  {group.tools.map((tool) => {
+                    const tier = getSkillTier(tool.level)
+                    return (
                     <li key={tool.name}>
                       <div className="tool-list-top">
                         <strong>{tool.name}</strong>
-                        <span>{tool.level}%</span>
+                        <span className={`skill-tier skill-tier--${tier.toLowerCase()}`}>{tier}</span>
                       </div>
                       <p>{tool.desc}</p>
-                      <AnimatedFill width={tool.level} />
+                      {tool.used && <p className="tool-used">Used in {tool.used}</p>}
+                      <AnimatedFill width={getSkillBarWidth(tool.level)} />
                     </li>
-                  ))}
+                    )
+                  })}
                 </ul>
               </MotionReveal>
             ))}
@@ -344,7 +345,7 @@ export default function Home() {
 
           <div className="explore-grid">
             {EXPLORING.map((item, i) => (
-              <MotionReveal key={item.title} delay={i * 0.08} className="explore-card">
+              <MotionReveal key={item.title} delay={staggerDelay(i)} className="explore-card">
                 <span className="explore-emoji">{item.emoji}</span>
                 <h3>{item.title}</h3>
                 <p>{item.text}</p>

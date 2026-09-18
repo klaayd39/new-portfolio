@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
+import { LayoutGroup, motion, useReducedMotion } from 'framer-motion'
 import { MAIN_NAV, CONNECT_LINKS, SECTION_IDS } from './navItems'
 import { navigateToSection } from '../utils/scrollToHash'
 
@@ -75,9 +76,16 @@ const ICONS = {
   ),
 }
 
-function NavItem({ item, active, onClick, onHome, onSectionNav }) {
+function NavItem({ item, active, onClick, onHome, onSectionNav, reduced }) {
   const content = (isActive) => (
     <>
+      {isActive && !reduced && (
+        <motion.span
+          className="sidebar-nav-pill"
+          layoutId="sidebar-active-pill"
+          transition={{ type: 'spring', stiffness: 420, damping: 34 }}
+        />
+      )}
       <span className="sidebar-nav-icon">{ICONS[item.icon]}</span>
       <span className="sidebar-nav-text">{item.label}</span>
       {isActive && <span className="sidebar-nav-chevron">{ICONS.chevron}</span>}
@@ -120,6 +128,7 @@ function NavItem({ item, active, onClick, onHome, onSectionNav }) {
 function SidebarPanel({ activeId, onLinkClick, onSectionNav }) {
   const location = useLocation()
   const onHome = location.pathname === '/'
+  const reduced = useReducedMotion()
 
   const handleBrandClick = (event) => {
     if (onHome) {
@@ -148,18 +157,21 @@ function SidebarPanel({ activeId, onLinkClick, onSectionNav }) {
       </header>
 
       <nav className="sidebar-nav" aria-label="Main navigation">
-        <ul className="sidebar-nav-list">
-          {MAIN_NAV.map((item) => (
-            <NavItem
-              key={item.id}
-              item={item}
-              active={isNavActive(item)}
-              onClick={onLinkClick}
-              onHome={onHome}
-              onSectionNav={onSectionNav}
-            />
-          ))}
-        </ul>
+        <LayoutGroup>
+          <ul className="sidebar-nav-list">
+            {MAIN_NAV.map((item) => (
+              <NavItem
+                key={item.id}
+                item={item}
+                active={isNavActive(item)}
+                onClick={onLinkClick}
+                onHome={onHome}
+                onSectionNav={onSectionNav}
+                reduced={reduced}
+              />
+            ))}
+          </ul>
+        </LayoutGroup>
       </nav>
 
       <div className="sidebar-connect">

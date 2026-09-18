@@ -38,6 +38,18 @@ export const MARQUEE_TOOLS = [
   { name: 'Discord', icon: 'https://api.iconify.design/simple-icons:discord.svg' },
 ]
 
+export function getSkillTier(level) {
+  if (level >= 90) return 'Production'
+  if (level >= 80) return 'Comfortable'
+  return 'Learning'
+}
+
+export function getSkillBarWidth(level) {
+  if (level >= 90) return 92
+  if (level >= 80) return 70
+  return 46
+}
+
 export const TOOL_GROUPS = [
   {
     num: '01',
@@ -46,21 +58,25 @@ export const TOOL_GROUPS = [
       {
         name: 'Python',
         desc: 'Primary language for crawlers, transmitter monitors, and OBS scripts that run during live production.',
+        used: 'Live crawlers, transmitter monitors, and OBS scripts',
         level: 95,
       },
       {
         name: 'Playwright',
         desc: 'Browser automation for headline extraction and monitoring workflows that would otherwise be done by hand.',
+        used: 'Headline extraction and monitoring workflows',
         level: 80,
       },
       {
         name: 'PowerShell',
         desc: 'Windows automation for media renaming, mixer control, and scheduled station tasks.',
+        used: 'Station Windows tasks and mixer control',
         level: 85,
       },
       {
         name: 'OSC Protocol',
         desc: 'Low-latency UDP control of Behringer X32 mixers so engineers can mute and switch without touching the desk.',
+        used: 'Behringer X32 mixer control during live shows',
         level: 85,
       },
     ],
@@ -72,21 +88,25 @@ export const TOOL_GROUPS = [
       {
         name: 'React',
         desc: 'Interactive dashboards and this portfolio. Used where operators need a live view of data, not a static page.',
+        used: 'This portfolio and operator-facing dashboards',
         level: 85,
       },
       {
         name: 'JavaScript',
         desc: 'Browser engines, Discord webhooks, and the live news dashboard sitting on top of the Python backend.',
+        used: 'Live news dashboard and Discord webhooks',
         level: 88,
       },
       {
         name: 'WebSockets',
         desc: 'Real-time sync between monitoring services and operator-facing boards during broadcasts.',
+        used: 'Broadcast monitoring boards',
         level: 80,
       },
       {
         name: 'Supabase',
         desc: 'Postgres-backed storage and realtime subscriptions for apps that need to stay in sync without a custom backend.',
+        used: 'Contact form storage and realtime app data',
         level: 78,
       },
     ],
@@ -98,21 +118,25 @@ export const TOOL_GROUPS = [
       {
         name: 'OBS Studio',
         desc: 'Scene organisation, media source automation, and Lua/Python scripts used on live shows.',
+        used: 'Live radio production at Bombo Radyo',
         level: 90,
       },
       {
         name: 'Nautel Telemetry',
         desc: 'Transmitter health capture from a legacy AUI window, including when the window is minimised or covered.',
+        used: 'Transmitter health capture on station machines',
         level: 82,
       },
       {
         name: 'X32 Control',
         desc: 'Custom OSC tooling for Behringer X32 channel toggles with sub-50ms state sync.',
+        used: 'Live mixer channel toggles',
         level: 85,
       },
       {
         name: 'Linux',
         desc: 'Station machines, scripting, and keeping production tools running without babysitting them.',
+        used: 'Station production machines',
         level: 75,
       },
     ],

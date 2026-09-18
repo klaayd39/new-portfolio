@@ -1,12 +1,14 @@
-import { Helmet } from 'react-helmet-async';
-import MotionReveal from '../components/MotionReveal';
+import MotionReveal from '../components/MotionReveal'
+import Seo from '../components/Seo'
 
 export default function Resume() {
   return (
     <div className="resume-page subpage">
-      <Helmet>
-        <title>Resume | Klyde Joseph Yabo</title>
-      </Helmet>
+      <Seo
+        title="Resume"
+        path="/resume"
+        description="Download Klyde Joseph Yabo's resume — IT technician building automation, broadcast systems, and web apps in Malaybalay, Philippines."
+      />
 
       <section className="subpage-hero">
         <div className="container">
