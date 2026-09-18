@@ -88,6 +88,17 @@ export default function Home() {
       <section className="hero" id="top">
         <div className="hero-card surface-card">
         <div className="container hero-grid">
+          <motion.div
+            className="hero-visual"
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <div className="hero-photo-wrap">
+              <img src="/ID.png" alt="Klyde Joseph Yabo" className="hero-photo" />
+            </div>
+          </motion.div>
+
           <div className="hero-copy">
             <motion.h1
               className="hero-title"
@@ -126,17 +137,6 @@ export default function Home() {
               <Link to="/contact" className="btn btn-secondary">Contact Me</Link>
             </motion.div>
           </div>
-
-          <motion.div
-            className="hero-visual"
-            initial={{ opacity: 0, scale: 0.96 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <div className="hero-photo-wrap">
-              <img src="/ID.png" alt="Klyde Joseph Yabo" className="hero-photo" />
-            </div>
-          </motion.div>
         </div>
         </div>
       </section>
