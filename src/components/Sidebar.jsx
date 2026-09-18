@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { MAIN_NAV, CONNECT_LINKS, SECTION_IDS } from './navItems'
+import { navigateToSection } from '../utils/scrollToHash'
 
 const ICONS = {
   home: (
@@ -74,7 +75,7 @@ const ICONS = {
   ),
 }
 
-function NavItem({ item, active, onClick }) {
+function NavItem({ item, active, onClick, onHome, onSectionNav }) {
   const content = (isActive) => (
     <>
       <span className="sidebar-nav-icon">{ICONS[item.icon]}</span>
@@ -82,6 +83,14 @@ function NavItem({ item, active, onClick }) {
       {isActive && <span className="sidebar-nav-chevron">{ICONS.chevron}</span>}
     </>
   )
+
+  const handleHashClick = (event) => {
+    if (item.hash && onHome) {
+      event.preventDefault()
+      onSectionNav(item)
+    }
+    onClick?.()
+  }
 
   if (item.path) {
     return (
@@ -101,16 +110,24 @@ function NavItem({ item, active, onClick }) {
 
   return (
     <li>
-      <Link to={item.to} className={className} onClick={onClick}>
+      <Link to={item.to} className={className} onClick={handleHashClick}>
         {content(active)}
       </Link>
     </li>
   )
 }
 
-function SidebarPanel({ activeId, onLinkClick }) {
+function SidebarPanel({ activeId, onLinkClick, onSectionNav }) {
   const location = useLocation()
   const onHome = location.pathname === '/'
+
+  const handleBrandClick = (event) => {
+    if (onHome) {
+      event.preventDefault()
+      onSectionNav({ id: 'top', to: '/#top' })
+    }
+    onLinkClick?.()
+  }
 
   const isNavActive = (item) => {
     if (item.path) return location.pathname === item.path
@@ -123,7 +140,7 @@ function SidebarPanel({ activeId, onLinkClick }) {
       <header className="sidebar-profile">
         <img src="/ID.png" alt="Klyde Joseph Yabo" className="sidebar-avatar" />
         <div className="sidebar-profile-copy">
-          <Link to="/" className="sidebar-name" onClick={onLinkClick}>
+          <Link to="/#top" className="sidebar-name" onClick={handleBrandClick}>
             Klyde Joseph Yabo
           </Link>
           <p className="sidebar-role">Information Technology</p>
@@ -138,6 +155,8 @@ function SidebarPanel({ activeId, onLinkClick }) {
               item={item}
               active={isNavActive(item)}
               onClick={onLinkClick}
+              onHome={onHome}
+              onSectionNav={onSectionNav}
             />
           ))}
         </ul>
@@ -237,6 +256,11 @@ export default function Sidebar() {
 
   const activeId = onHome ? activeHash : ''
 
+  const handleSectionNav = useCallback((item) => {
+    navigateToSection(`#${item.id}`, { behavior: 'smooth' })
+    setActiveHash(item.id)
+  }, [])
+
   return (
     <>
       <header className="mobile-bar">
@@ -270,7 +294,11 @@ export default function Sidebar() {
         >
           ✕
         </button>
-        <SidebarPanel activeId={activeId} onLinkClick={closeDrawer} />
+        <SidebarPanel
+          activeId={activeId}
+          onLinkClick={closeDrawer}
+          onSectionNav={handleSectionNav}
+        />
       </aside>
     </>
   )

@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import HashLink from './HashLink'
 import MotionReveal from './MotionReveal'
 
 export default function Footer() {
@@ -11,9 +12,9 @@ export default function Footer() {
         </MotionReveal>
         <MotionReveal delay={0.08}>
           <div className="footer-links">
-            <Link to="/#about">About</Link>
-            <Link to="/#projects">Projects</Link>
-            <Link to="/#skills">Skills</Link>
+            <HashLink to="/#about">About</HashLink>
+            <HashLink to="/#projects">Projects</HashLink>
+            <HashLink to="/#skills">Skills</HashLink>
             <Link to="/resume">Resume</Link>
             <Link to="/contact">Contact</Link>
             <a href="https://github.com/klaayd39" target="_blank" rel="noreferrer">GitHub</a>
