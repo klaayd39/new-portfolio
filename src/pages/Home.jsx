@@ -86,6 +86,7 @@ export default function Home() {
 
       {/* ── HERO ── */}
       <section className="hero" id="top">
+        <div className="hero-card surface-card">
         <div className="container hero-grid">
           <div className="hero-copy">
             <motion.h1
@@ -136,6 +137,7 @@ export default function Home() {
               <img src="/ID.png" alt="Klyde Joseph Yabo" className="hero-photo" />
             </div>
           </motion.div>
+        </div>
         </div>
       </section>
 

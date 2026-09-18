@@ -22,6 +22,7 @@
   --content-pad: clamp(16px, 4vw, 28px);
   --sidebar-w: 280px;
   --sidebar-gap: clamp(16px, 2vw, 24px);
+  --panel-height: calc(100vh - var(--sidebar-gap) * 2);
   --content-offset: calc(var(--sidebar-w) + var(--sidebar-gap) * 2);
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
   --radius: 14px;
@@ -146,17 +147,20 @@ textarea:focus-visible {
   .sidebar-close { display: none; }
 }
 
-.sidebar-panel-inner {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  padding: 20px 18px 16px;
+.surface-card {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 24px;
   box-shadow:
     0 1px 2px rgba(17, 17, 16, 0.04),
     0 12px 40px rgba(17, 17, 16, 0.07);
+}
+
+.sidebar-panel-inner {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 18px 16px;
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: var(--border) transparent;
@@ -668,15 +672,41 @@ textarea:focus-visible {
 
 /* ── Hero ── */
 .hero {
-  min-height: min(100vh, 880px);
   display: flex;
-  align-items: center;
-  padding: clamp(40px, 6vw, 72px) 0;
+  align-items: stretch;
+  padding: clamp(20px, 3vw, 32px) 0 clamp(28px, 4vw, 40px);
   position: relative;
-  overflow: hidden;
 }
 
-.hero::before {
+@media (min-width: 1024px) {
+  .hero {
+    display: block;
+    padding: var(--sidebar-gap) 0;
+    min-height: 0;
+  }
+}
+
+.hero-card {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: clamp(32px, 5vw, 64px) 0;
+  margin-inline: var(--content-pad);
+}
+
+@media (min-width: 1024px) {
+  .hero-card {
+    height: var(--panel-height);
+    min-height: var(--panel-height);
+    max-height: var(--panel-height);
+    margin-inline: 0;
+    padding: clamp(28px, 3.5vw, 48px) 0;
+  }
+}
+
+.hero-card::before {
   content: '';
   position: absolute;
   inset: 0;

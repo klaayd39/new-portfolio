@@ -119,7 +119,7 @@ function SidebarPanel({ activeId, onLinkClick }) {
   }
 
   return (
-    <div className="sidebar-panel-inner">
+    <div className="sidebar-panel-inner surface-card">
       <header className="sidebar-profile">
         <img src="/ID.png" alt="Klyde Joseph Yabo" className="sidebar-avatar" />
         <div className="sidebar-profile-copy">
