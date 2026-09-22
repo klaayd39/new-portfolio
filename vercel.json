@@ -1,24 +1,4 @@
 {
-  "headers": [
-    {
-      "source": "/Klyde_Joseph_Yabo_Resume.pdf",
-      "headers": [
-        {
-          "key": "Content-Disposition",
-          "value": "attachment; filename=\"Klyde_Joseph_Yabo_Resume.pdf\""
-        }
-      ]
-    },
-    {
-      "source": "/Klyde_Joseph_Yabo_Resume.docx",
-      "headers": [
-        {
-          "key": "Content-Disposition",
-          "value": "attachment; filename=\"Klyde_Joseph_Yabo_Resume.docx\""
-        }
-      ]
-    }
-  ],
   "rewrites": [
     {
       "source": "/((?!.*\\..*).*)",

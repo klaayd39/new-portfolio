@@ -4,16 +4,15 @@ export const PROJECTS = [
     tag: 'Web App',
     group: 'personal',
     link: 'https://github.com/klaayd39/new-portfolio',
-    desc: 'Editorial portfolio for an IT professional — broadcast automation, projects, resume, and contact.',
-    longDesc: 'Production portfolio for Klyde Joseph Yabo, an Information Technology professional building broadcast automation, web apps, and internal tools at Bombo Radyo Malaybalay. Editorial light theme with a floating left sidebar, serif headlines, orange accents, and navy case-study sections across Home, Projects, Resume, and Contact.',
+    desc: 'Editorial portfolio for an IT professional — broadcast automation, projects, and contact.',
+    longDesc: 'Production portfolio for Klyde Joseph Yabo, an Information Technology professional building broadcast automation, web apps, and internal tools at Bombo Radyo Malaybalay. Editorial light theme with a floating left sidebar, serif headlines, and green accents across Home, Projects, and Contact.',
     problem: 'Work across broadcast systems, automation scripts, and web apps lived in scattered repos with no single place for recruiters and collaborators to browse projects, experience, and contact details.',
-    solution: 'Built a React SPA with filterable project archives, featured station case studies, scroll-reveal motion, a Supabase-backed contact form with optional EmailJS notifications, and downloadable resume output — deployed on Vercel at klydeyabo.vercel.app.',
+    solution: 'Built a React SPA with filterable project archives, featured station case studies, scroll-reveal motion, and a Supabase-backed contact form with optional EmailJS notifications — deployed on Vercel at klydeyabo.vercel.app.',
     features: [
       'Floating left sidebar with profile, navigation, and social links',
       'Filterable project archive (Automation, Broadcast, Intelligence, Web App)',
       'Featured station case studies and confidence-rated tools on the home page',
       'Supabase contact form with optional EmailJS Gmail notifications',
-      'Print-ready resume page with PDF and DOCX export',
       'Responsive layout tuned for desktop, tablet, and mobile'
     ],
     tech: ['React 19', 'Vite', 'React Router', 'Supabase', 'EmailJS', 'Framer Motion', 'Vanilla CSS'],
@@ -165,7 +164,7 @@ export const PROJECTS = [
     ],
     tech: ['Python', 'JavaScript', 'HTML5', 'CSS3', 'Discord API'],
     challenges: 'Maintaining speed and reliability while processing massive amounts of incoming feeds. Mitigated by using a hybrid Python backend and efficient JS rendering.',
-    liveUrl: '',
+    liveUrl: 'https://bombo-radyo.vercel.app',
     image: '/projects/bombo.png'
   },
   {

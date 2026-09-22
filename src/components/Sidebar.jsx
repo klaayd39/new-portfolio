@@ -22,12 +22,6 @@ const ICONS = {
       <path d="M12 12l8-3.5M12 12v8M12 12L4 8.5" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round" />
     </svg>
   ),
-  resume: (
-    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
-      <path d="M8 4h8l4 4v12a1.5 1.5 0 01-1.5 1.5h-13A1.5 1.5 0 016 20V5.5A1.5 1.5 0 017.5 4H8z" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round" />
-      <path d="M14 4v4h4M9 13h6M9 16.5h4" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
-    </svg>
-  ),
   contact: (
     <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
       <path d="M4 7.5l8 5.5 8-5.5M5 18h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round" />
@@ -196,15 +190,6 @@ function SidebarPanel({ activeId, onLinkClick, onSectionNav }) {
       </div>
 
       <footer className="sidebar-footer">
-        <a
-          href="/Klyde_Joseph_Yabo_Resume.pdf"
-          download="Klyde_Joseph_Yabo_Resume.pdf"
-          className="sidebar-download-card"
-          onClick={onLinkClick}
-        >
-          <span className="sidebar-download-kicker">Get my resume</span>
-          <span className="sidebar-download-title">Download PDF</span>
-        </a>
         <p className="sidebar-meta">Open to work · Malaybalay, PH</p>
         <p className="sidebar-copy">© {new Date().getFullYear()} Klyde Joseph Yabo</p>
       </footer>

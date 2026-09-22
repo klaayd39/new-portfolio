@@ -36,6 +36,7 @@ export const MARQUEE_TOOLS = [
   { name: 'DaVinci Resolve', icon: 'https://api.iconify.design/simple-icons:davinciresolve.svg' },
   { name: 'NewBlue Titler Live 5', icon: '/icons/newblue-titler.svg' },
   { name: 'Discord', icon: 'https://api.iconify.design/simple-icons:discord.svg' },
+  { name: 'Wordpress', icon: 'https://api.iconify.design/logos:wordpress-icon.svg' },
 ]
 
 export function getSkillTier(level) {

@@ -7,16 +7,12 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "lint": "eslint .",
-    "build:resume": "node build.js",
-    "build:resume-pdf": "node generate-pdf.js",
-    "build:resume-all": "node build.js && node generate-pdf.js"
+    "lint": "eslint ."
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
     "@supabase/supabase-js": "^2.110.7",
     "@vercel/analytics": "^2.0.1",
-    "docx": "^9.7.1",
     "framer-motion": "^12.43.0",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
@@ -32,7 +28,6 @@
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.2",
     "globals": "^17.6.0",
-    "puppeteer": "^25.5.0",
     "vite": "^8.0.12"
   }
 }

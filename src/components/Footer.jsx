@@ -15,7 +15,6 @@ export default function Footer() {
             <HashLink to="/#about">About</HashLink>
             <HashLink to="/#projects">Projects</HashLink>
             <HashLink to="/#skills">Skills</HashLink>
-            <Link to="/resume">Resume</Link>
             <Link to="/contact">Contact</Link>
             <a href="https://github.com/klaayd39" target="_blank" rel="noreferrer">GitHub</a>
           </div>

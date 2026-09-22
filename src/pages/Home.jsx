@@ -388,7 +388,6 @@ export default function Home() {
               <a href="tel:+639455927782">+63 945 592 7782</a>
               <a href="https://github.com/klaayd39" target="_blank" rel="noreferrer">GitHub</a>
               <a href="https://www.linkedin.com/in/klyde-joseph-yabo-a38286373/" target="_blank" rel="noreferrer">LinkedIn</a>
-              <Link to="/resume">Resume</Link>
             </div>
           </MotionReveal>
         </div>

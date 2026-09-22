@@ -11,21 +11,19 @@ Editorial light-theme layout with a floating left sidebar, green accent, serif h
 
 ## Pages
 
-- **Home** — hero, stats, tools marquee, about, confidence-rated tools, featured station case studies, project grid, process, education, contact
+- **Home** — hero, stats, tools marquee, about, confidence-rated tools, featured station case studies, project grid, education, contact
 - **Projects** — filterable archive (Automation, Broadcast Systems, Intelligence, Web App) with case-study modals
-- **Resume** — print-ready layout with one-page A4 PDF and DOCX download
 - **Contact** — validated form backed by Supabase with optional EmailJS Gmail notifications
 
 ---
 
 ## Features
 
-- **Floating sidebar** — profile header, icon navigation, connect links, resume download card
+- **Floating sidebar** — profile header, icon navigation, and connect links
 - **Project images** — lazy-loaded screenshots with styled fallbacks when an image is missing or fails
 - **Case studies** — featured Bombo Radyo and Nautel projects with situation / built / outcome sections
 - **Mobile UX** — responsive layout, hash scrolling across lazy-loaded routes, touch-friendly modals
 - **Contact reliability** — email validation, clear success / warning / error states, and mailto fallback
-- **Resume export** — A4 print styles, Puppeteer PDF generator, and DOCX builder kept in sync
 
 ---
 
@@ -38,7 +36,6 @@ Editorial light-theme layout with a floating left sidebar, green accent, serif h
 - Supabase (contact messages)
 - EmailJS (optional notifications)
 - Vercel Analytics
-- Puppeteer (resume PDF generation)
 
 ---
 
@@ -81,27 +78,6 @@ Without env vars, the contact form shows a configuration message instead of subm
 | `npm run build` | Production build |
 | `npm run preview` | Serve the production build |
 | `npm run lint` | ESLint |
-| `npm run build:resume` | Regenerate DOCX resume (`public/Klyde_Joseph_Yabo_Resume.docx`) |
-| `npm run build:resume-pdf` | Regenerate PDF resume from `/resume` (requires `npm run dev` or `npm run preview`) |
-| `npm run build:resume-all` | Regenerate both DOCX and PDF |
-
-### Resume files
-
-After editing `src/pages/Resume.jsx`, regenerate the downloadable files:
-
-```bash
-npm run dev
-# in another terminal:
-npm run build:resume-all
-```
-
-The PDF generator:
-
-- uses print CSS for a single A4 page
-- auto-detects the local dev/preview port
-- falls back to Chrome or Brave on macOS if bundled Chromium is unavailable
-
-Commit the updated files in `public/` so Vercel serves the latest resume downloads.
 
 ---
 
@@ -111,27 +87,21 @@ Commit the updated files in `public/` so Vercel serves the latest resume downloa
 2. Add the same `VITE_*` env vars as local if you want live contact form submissions.
 3. Deploy.
 
-`vercel.json`:
-
-- rewrites extensionless routes to `index.html` for the SPA
-- serves static files such as resume PDF/DOCX and project screenshots directly
-- forces resume downloads with `Content-Disposition: attachment`
+`vercel.json` rewrites extensionless routes to `index.html` for the SPA.
 
 ---
 
 ## Structure
 
 ```text
-public/                  Profile photo, resume PDF/DOCX, project screenshots
+public/                  Profile photo, project screenshots
 src/
   components/            Sidebar, footer, project modal, ProjectImage, motion helpers
   data/                  Projects and skills
-  pages/                 Home, Projects, Resume, Contact
+  pages/                 Home, Projects, Contact
   utils/                 Hash scroll helper for lazy-loaded routes
   App.jsx                Routes and layout shell
-  index.css              Design system, responsive rules, and A4 print styles
+  index.css              Design system and responsive rules
 supabase/                Contact messages table + RLS SQL
-build.js                 DOCX resume generator
-generate-pdf.js          PDF resume generator (Puppeteer)
-vercel.json              SPA rewrites, resume download headers
+vercel.json              SPA rewrites
 ```

@@ -1,4 +1,4 @@
-import { Routes, Route, useLocation } from 'react-router-dom'
+import { Navigate, Routes, Route, useLocation } from 'react-router-dom'
 import { useEffect, Suspense, lazy } from 'react'
 import Sidebar from './components/Sidebar'
 import Footer from './components/Footer'
@@ -10,7 +10,6 @@ import { scrollToHash } from './utils/scrollToHash'
 
 const Home = lazy(() => import('./pages/Home'))
 const Projects = lazy(() => import('./pages/Projects'))
-const Resume = lazy(() => import('./pages/Resume'))
 const Contact = lazy(() => import('./pages/Contact'))
 
 function AnimatedRoutes() {
@@ -20,7 +19,7 @@ function AnimatedRoutes() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/projects" element={<Projects />} />
-        <Route path="/resume" element={<Resume />} />
+        <Route path="/resume" element={<Navigate to="/" replace />} />
         <Route path="/contact" element={<Contact />} />
       </Routes>
     </PageTransition>

@@ -26,24 +26,6 @@
       "type": "npm",
       "script": "lint",
       "problemMatcher": ["$eslint-stylish"]
-    },
-    {
-      "label": "build:resume",
-      "type": "npm",
-      "script": "build:resume",
-      "problemMatcher": []
-    },
-    {
-      "label": "build:resume-pdf",
-      "type": "npm",
-      "script": "build:resume-pdf",
-      "problemMatcher": []
-    },
-    {
-      "label": "build:resume-all",
-      "type": "npm",
-      "script": "build:resume-all",
-      "problemMatcher": []
     }
   ]
 }

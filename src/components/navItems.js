@@ -2,7 +2,6 @@ export const MAIN_NAV = [
   { label: 'Home', to: '/#top', id: 'top', icon: 'home', hash: true },
   { label: 'About', to: '/#about', id: 'about', icon: 'about', hash: true },
   { label: 'Projects', to: '/projects', id: 'projects', icon: 'projects', path: '/projects' },
-  { label: 'Resume', to: '/resume', id: 'resume', icon: 'resume', path: '/resume' },
   { label: 'Contact', to: '/contact', id: 'contact-page', icon: 'contact', path: '/contact' },
 ]
 
