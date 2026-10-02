@@ -24,6 +24,14 @@
        below it (mobile-pass.css). */
     --qmenu-size: 44px;
     --qmenu-top: calc(14px + env(safe-area-inset-top, 0px));
+    /* Fixed tab bar footprint: offset + bar + raised Contact + scroll gap. */
+    --tabbar-inset: 14px;
+    --tabbar-height: 64px;
+    --tabbar-fab-overhang: 28px;
+    --tabbar-scroll-gap: 18px;
+    --tabbar-stack: calc(
+      var(--tabbar-inset) + var(--tabbar-height) + var(--tabbar-fab-overhang) + var(--tabbar-scroll-gap)
+    );
   }
 
   /* ---------- Bottom tab bar ----------
@@ -34,13 +42,13 @@
     position: fixed;
     left: 14px;
     right: 14px;
-    bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+    bottom: calc(var(--tabbar-inset) + env(safe-area-inset-bottom, 0px));
     z-index: 60;
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    align-items: center;
-    height: 64px;
-    padding: 6px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    align-items: end;
+    height: var(--tabbar-height);
+    padding: 6px 8px 8px;
     border-radius: var(--radius-pill);
     background: linear-gradient(180deg, var(--white), var(--paper));
     box-shadow:
@@ -61,9 +69,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: 3px;
+    justify-content: flex-end;
+    gap: 4px;
+    min-width: 0;
     height: 100%;
+    padding-bottom: 2px;
     border-radius: var(--radius-pill);
     color: color-mix(in srgb, var(--navy) 60%, transparent);
     font-size: 10.5px;
@@ -93,12 +103,23 @@
   }
   .tabbar__pill[data-off] { opacity: 0; }
 
+  .tabbar__tab--primary {
+    justify-content: center;
+    align-self: center;
+    padding-bottom: 0;
+  }
+  .tabbar__label {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
   .tabbar__fab {
     display: grid;
     place-items: center;
-    width: 54px;
-    height: 54px;
-    margin-top: -24px;
+    width: 52px;
+    height: 52px;
+    margin-top: -22px;
     border-radius: 50%;
     background: var(--orange);
     color: #0B1120;
@@ -244,7 +265,9 @@
     gap: clamp(12px, 2vh, 22px);
     padding-bottom: clamp(12px, 2vh, 28px);
   }
-  .shell__panel { padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px)); }
+  .shell__panel {
+    padding-bottom: calc(var(--tabbar-stack) + env(safe-area-inset-bottom, 0px));
+  }
   .pgrid__head {
     padding-right: calc(var(--qmenu-size) + 14px);
     gap: 6px;
@@ -487,6 +510,7 @@
   .hproof__copy { display: flex; flex-direction: column; gap: 3px; padding: 12px 2px 0; }
   .hproof__title { font-size: 16px; font-weight: 700; line-height: 1.3; letter-spacing: -0.012em; }
   .hproof__meta { font-size: 12px; letter-spacing: 0.004em; color: var(--muted); }
+  .hproof { margin-bottom: 4px; }
 
   /* ---------- Projects: filter + two-column grid ---------- */
   .pfilter {
