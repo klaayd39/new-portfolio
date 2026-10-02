@@ -1,8 +1,9 @@
 /* ============================================
    HOME BENTO - one card per view
-   The showcase band of Home. Six raised paper cards on a 4x2 grid that fills
-   the elastic row; every card is a link and clips its own media, so the band
-   can shrink with the viewport and Home never grows a scrollbar. Motion is
+   The showcase band of Home. Five cards on a 4×2 grid — top row: Projects and
+   Systems (two wide tiles); bottom row: About, Credentials, Contact. Every
+   card is a link and clips its own media, so the band can shrink with the
+   viewport and Home never grows a scrollbar. Motion is
    transform-only on inner tracks. Light plates stay light in dark mode for
    the brand marks (see shell.css), but the cards themselves flip with the
    theme.
@@ -20,8 +21,10 @@
     grid-template-columns: repeat(4, minmax(0, 1fr));
     grid-template-rows: repeat(2, minmax(0, 1fr));
   }
-  .bento__card--projects { grid-column: span 2; }
-  .bento__card--contact  { grid-column: span 2; }
+  /* Row 1: two equal feature tiles. Row 2: About | Credentials | Contact (wide). */
+  .bento__card--projects,
+  .bento__card--ai { grid-column: span 2; }
+  .bento__card--contact { grid-column: span 2; }
 }
 
 .bento__card {
@@ -120,8 +123,16 @@
 
 /* Projects: two columns side by side in the wide card - the head on the left,
    the drifting reel on the right. */
-.bento__card--projects { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 14px; }
-.bento__card--projects .bento__media { margin-top: 0; grid-row: 1; grid-column: 2; }
+.bento__card--projects,
+.bento__card--ai {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  column-gap: 14px;
+}
+.bento__card--projects .bento__media,
+.bento__card--ai .bento__media { margin-top: 0; grid-row: 1; grid-column: 2; }
+.bento__card--projects .bento__head,
+.bento__card--ai .bento__head { grid-column: 1; grid-row: 1; align-self: center; }
 .bento__reel {
   overflow: hidden;
   border-radius: 14px;
@@ -175,7 +186,37 @@
 
 /* About: three portraits fanned — center card is the hero shot. */
 .bento__card--about .bento__media { flex: 1 1 auto; min-height: 0; }
-.bento__card--about:not(:has(.bento__media)) { align-self: start; }
+
+/* About: compact facts so the bottom row matches Credentials height. */
+.bento__glance {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: var(--tint);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+.bento__glance-line {
+  font-size: clamp(11px, 0.72vw, 12.5px);
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--navy);
+}
+.bento__glance-pill {
+  align-self: flex-start;
+  margin-top: 2px;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--orange-ink);
+  background: rgba(255, 122, 26, 0.12);
+  box-shadow: inset 0 0 0 1px rgba(255, 122, 26, 0.22);
+}
 .bento__fan {
   position: relative;
   display: grid;
@@ -448,6 +489,16 @@
   border-radius: 12px;
   background: var(--tint);
 }
+@media (min-width: 1100px) {
+  .bento__card--contact {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    column-gap: 14px;
+  }
+  .bento__card--contact .bento__head { grid-column: 1; grid-row: 1; align-self: center; }
+  .bento__card--contact .bento__media { margin-top: 0; grid-column: 2; grid-row: 1; }
+  .bento__card--contact .bento__contact { margin-top: 0; height: 100%; }
+}
 .bento__contact-line {
   font-size: 12px;
   font-weight: 600;
@@ -458,13 +509,22 @@
 /* Below the shell breakpoint the grid has no fixed rows, so the tracks would
    set the card height. Cap the media instead, and let the two wide cards
    stack their media under the head - side by side they had 80px each. */
+@media (min-width: 640px) and (max-width: 1099px) {
+  .bento__card--projects,
+  .bento__card--ai,
+  .bento__card--contact { grid-column: 1 / -1; }
+}
 @media (max-width: 1099px) {
   .bento__reel, .bento__reviews, .bento__fan, .bento__chips, .bento__badge { max-height: 200px; }
   .bento__fan { min-height: 150px; }
   .bento__card--projects,
+  .bento__card--ai,
   .bento__card--quotes { display: flex; flex-direction: column; }
   .bento__card--projects .bento__media,
+  .bento__card--ai .bento__media,
   .bento__card--quotes .bento__media { margin-top: clamp(8px, 1.2vh, 14px); height: 190px; }
+  .bento__card--projects .bento__head,
+  .bento__card--ai .bento__head { align-self: auto; }
   /* The reel runs sideways under the head: a row of browser windows at a
      size where a page crop reads as a page, not one giant hero. */
   .bento__reel {

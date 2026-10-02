@@ -64,10 +64,6 @@ export default function HomeBento() {
         </div>
       </Link>
 
-      <Link to="/about" className="bento__card bento__card--about">
-        <CardHead Icon={User} title="About" desc="Malaybalay-based IT building tools for live radio and client ops." />
-      </Link>
-
       <Link to="/projects" className="bento__card bento__card--ai">
         <CardHead Icon={Robot} title="Systems" desc="News hub, OBS automation, transmitters, and Supabase apps." />
         <div className="bento__media bento__chips" aria-hidden="true">
@@ -83,6 +79,15 @@ export default function HomeBento() {
               </div>
             </div>
           ))}
+        </div>
+      </Link>
+
+      <Link to="/about" className="bento__card bento__card--about">
+        <CardHead Icon={User} title="About" desc="Malaybalay-based IT building tools for live radio and client ops." />
+        <div className="bento__media bento__glance" aria-hidden="true">
+          <span className="bento__glance-line">{profile.location}</span>
+          <span className="bento__glance-line">{profile.handle} · {profile.role}</span>
+          <span className="bento__glance-pill">{profile.verifiedLabel}</span>
         </div>
       </Link>
 
