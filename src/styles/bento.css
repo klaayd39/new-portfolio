@@ -175,6 +175,7 @@
 
 /* About: three portraits fanned — center card is the hero shot. */
 .bento__card--about .bento__media { flex: 1 1 auto; min-height: 0; }
+.bento__card--about:not(:has(.bento__media)) { align-self: start; }
 .bento__fan {
   position: relative;
   display: grid;

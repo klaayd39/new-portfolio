@@ -93,9 +93,6 @@
 }
 @media (max-width: 1099px) {
   .bento__card--wide { display: flex; flex-direction: column; }
-  /* The floating pill is fixed at the top of the document down here, so the
-     head has to start below it - same offset home.css gives .home. */
-  .pgrid { padding-top: 76px; }
   .bento__card--wide .bento__media { margin-top: clamp(8px, 1.2vh, 14px); height: 190px; }
 }
 

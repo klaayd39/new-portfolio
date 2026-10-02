@@ -232,12 +232,26 @@
   .qmenu__row[aria-checked='true'] .qmenu__switch::after { transform: translateX(14px); }
 
   /* ---------- Page frame ----------
-     Just the notch at the top; room at the bottom for the bar plus a thumb. */
-  .home,
-  .pgrid { padding-top: calc(22px + env(safe-area-inset-top, 0px)); }
+     Home: safe area only — the profile header is the top chrome.
+     Other routes: sit below the floating QuickMenu. Room at the bottom for
+     the tab bar plus a thumb. */
+  .home {
+    padding-top: calc(14px + env(safe-area-inset-top, 0px));
+    gap: clamp(14px, 2.5vh, 24px);
+  }
+  .pgrid {
+    padding-top: calc(var(--qmenu-top) + var(--qmenu-size) + 12px);
+    gap: clamp(12px, 2vh, 22px);
+    padding-bottom: clamp(12px, 2vh, 28px);
+  }
   .shell__panel { padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px)); }
-  /* Inner pages float the QuickMenu top-right; keep the head clear of it. */
-  .pgrid__head { padding-right: 56px; }
+  .pgrid__head {
+    padding-right: calc(var(--qmenu-size) + 14px);
+    gap: 6px;
+  }
+  .pgrid__title { font-size: clamp(26px, 7.5vw, 38px); }
+  .pgrid__lede { font-size: clamp(14px, 3.8vw, 17px); }
+  .pgrid .home__glass { padding: clamp(12px, 2vh, 18px); }
 
   /* ---------- Home: profile header ---------- */
   .hprofile {
@@ -544,6 +558,9 @@
 @media (max-width: 639px) {
   .bento--projects .bento__title { font-size: 14px; }
   .bento--projects .bento__desc { font-size: 12px; }
+  .hprofile { margin-bottom: 14px; gap: 10px; }
+  .home { padding-left: max(16px, var(--panel-x)); padding-right: max(16px, var(--panel-x)); }
+  .pgrid { padding-left: max(16px, var(--panel-x)); padding-right: max(16px, var(--panel-x)); }
 }
 
 /* Small phones: keep the bar's labels legible. */

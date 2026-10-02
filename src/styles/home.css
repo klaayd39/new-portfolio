@@ -280,8 +280,5 @@
     margin: 0 auto;
   }
   .home__headline { flex-direction: column; }
-
-  /* The floating pill is fixed at the top of the document down here, so the
-     headline has to start below it or the first line reads through the navy. */
-  .home { padding-top: 104px; }
+  /* Top inset: mobile-app.css (profile header + safe area). */
 }

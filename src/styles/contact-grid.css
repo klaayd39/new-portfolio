@@ -398,8 +398,9 @@
 
 /* ---------- Below the shell ---------- */
 @media (max-width: 1099px) {
-  .cgrid__glass { display: flex; flex-direction: column; gap: 18px; }
-  .cgrid__field textarea { min-height: 160px; }
+  .cgrid__glass { display: flex; flex-direction: column; gap: 14px; }
+  .cgrid__form { padding: clamp(14px, 2vh, 22px); }
+  .cgrid__field textarea { min-height: 140px; }
 }
 @media (max-width: 560px) {
   .cgrid__row { grid-template-columns: minmax(0, 1fr); }

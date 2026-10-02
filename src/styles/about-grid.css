@@ -59,6 +59,8 @@
     display: flex;
     flex-direction: column;
     height: auto;
+    gap: clamp(10px, 1.8vh, 16px);
+    padding-bottom: 0;
   }
   .pgrid.agrid .pgrid__head { flex: 0 0 auto; }
   .pgrid.agrid .agrid__glass {
@@ -355,11 +357,13 @@
   .agrid__portrait {
     order: -1;
     flex: 0 0 auto;
-    width: min(68%, 220px);
-    max-height: min(32vh, 240px);
-    margin: 0 auto;
+    width: min(56%, 176px);
+    max-height: min(24vh, 200px);
+    margin: 0 auto 4px;
     aspect-ratio: 3 / 4;
   }
+  .agrid__lead { font-size: clamp(17px, 4.6vw, 24px); }
+  .agrid__cap { --tile: clamp(26px, 7vw, 32px); gap: 8px; }
   .agrid__portrait img {
     object-position: center 12%;
   }
@@ -473,4 +477,8 @@
 /* Phone type floor. */
 @media (max-width: 639px) {
   .agrid__cell-meta { font-size: 11.5px; }
+  .agrid__portrait {
+    width: min(52%, 160px);
+    max-height: min(22vh, 180px);
+  }
 }
