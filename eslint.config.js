@@ -1,21 +1,29 @@
 import js from '@eslint/js'
-import globals from 'globals'
+import tseslint from 'typescript-eslint'
 import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
-import { defineConfig, globalIgnores } from 'eslint/config'
+import globals from 'globals'
 
-export default defineConfig([
-  globalIgnores(['dist']),
+// Flat config. The TypeScript parser is what lets ESLint read .ts/.tsx at all -
+// without it every file failed to parse and the hooks rules never ran.
+export default tseslint.config(
+  // Build output, the Node helper scripts and static public files are not
+  // app source.
+  { ignores: ['dist', 'node_modules', 'scripts', 'public'] },
   {
-    files: ['**/*.{js,jsx}'],
-    extends: [
-      js.configs.recommended,
-      reactHooks.configs.flat.recommended,
-      reactRefresh.configs.vite,
-    ],
+    files: ['**/*.{ts,tsx}'],
+    extends: [js.configs.recommended, ...tseslint.configs.recommended],
     languageOptions: {
+      ecmaVersion: 2022,
       globals: globals.browser,
-      parserOptions: { ecmaFeatures: { jsx: true } },
+    },
+    plugins: {
+      'react-hooks': reactHooks,
+      'react-refresh': reactRefresh,
+    },
+    rules: {
+      ...reactHooks.configs.recommended.rules,
+      'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
     },
   },
-])
+)
