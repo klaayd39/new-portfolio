@@ -1,17 +1,13 @@
 import { useCallback, useEffect, useLayoutEffect, useRef } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
-import { House, FolderOpen, EnvelopeSimple, User } from '@/components/slab'
+import { House, FolderOpen, User } from '@/components/slab'
 import { motionReduced } from '@/lib/a11y'
 
 /**
- * The phone navigation: a bottom tab bar with Contact as the raised action
- * in the middle. Home, Projects, About, and Contact.
- *
- * One pill marks the current tab and travels to the next one, stretching
- * toward it and settling (Liquid Glass). It skips Contact - the raised button
- * is its own mark - and hides on the two routes that have no tab. The bar
- * slides away while the visitor reads down a page and returns the moment
- * they scroll back up.
+ * The phone navigation: Home, Work, and About in a bottom tab bar. Contact
+ * lives in ContactFab (lower-right). One pill marks the active tab and
+ * travels between them. The bar slides away while the visitor reads down a
+ * page and returns when they scroll back up.
  *
  * Only rendered below the shell breakpoint (App decides); from 1100px the
  * profile rail is the navigation.
@@ -19,7 +15,6 @@ import { motionReduced } from '@/lib/a11y'
 const TABS = [
   { label: 'Home', to: '/', Icon: House },
   { label: 'Work', to: '/projects', Icon: FolderOpen },
-  { label: 'Contact', to: '/contact', Icon: EnvelopeSimple, primary: true },
   { label: 'About', to: '/about', Icon: User },
 ] as const
 
@@ -46,25 +41,18 @@ export default function TabBar() {
     [],
   )
 
-  // Put the pill on the active tab; travel there when it was already showing.
-  // Reads the DOM (aria-current), so it needs no props and never goes stale.
   const place = useCallback(
     (animate: boolean) => {
       const nav = navRef.current
       const pill = pillRef.current
       if (!nav || !pill) return
-      const tab = nav.querySelector<HTMLElement>(
-        '.tabbar__tab[aria-current="page"]:not(.tabbar__tab--primary)',
-      )
+      const tab = nav.querySelector<HTMLElement>('.tabbar__tab[aria-current="page"]')
       if (!tab) {
         pill.dataset.off = ''
         last.current = null
         return
       }
       const to: Box = { x: tab.offsetLeft, w: tab.offsetWidth }
-      // Interrupted mid-flight: start from where the pill is on screen, not
-      // where it was headed. Only the WAAPI travel is cancelled - the CSS
-      // opacity transition keeps running.
       let from = last.current
       const travel = pill.getAnimations().filter((a) => !(a instanceof CSSTransition))
       if (travel.length && from) {
@@ -91,13 +79,11 @@ export default function TabBar() {
     [reduced],
   )
 
-  // Route change: travel, and a new page always arrives with the bar showing.
   useLayoutEffect(() => {
     place(true)
     delete navRef.current?.dataset.hidden
   }, [pathname, place])
 
-  // The bar's own size changes (rotation, text size) re-place without travel.
   useEffect(() => {
     const nav = navRef.current
     if (!nav) return
@@ -106,9 +92,6 @@ export default function TabBar() {
     return () => ro.disconnect()
   }, [place])
 
-  // Hide while reading down, show on the way back up. The document is the
-  // scroller below 1100px (the shell dissolves there). State lives in data
-  // attributes, not React state: nothing here needs a re-render per frame.
   useEffect(() => {
     reducedMotion.current = window.matchMedia('(prefers-reduced-motion: reduce)')
     let lastY = window.scrollY
@@ -136,32 +119,21 @@ export default function TabBar() {
   return (
     <nav className="tabbar" aria-label="Primary navigation" ref={navRef}>
       <span className="tabbar__pill" ref={pillRef} aria-hidden="true" data-off="" />
-      {TABS.map(({ label, to, Icon, ...rest }) => {
-        const primary = 'primary' in rest && rest.primary
-        return (
-          <NavLink
-            key={to}
-            to={to}
-            end={to === '/'}
-            className={`tabbar__tab${primary ? ' tabbar__tab--primary' : ''}`}
-            aria-label={primary ? label : undefined}
-          >
-            {/* Outline at rest, filled when selected - the iOS tab convention. */}
-            {({ isActive }) =>
-              primary ? (
-                <span className="tabbar__fab">
-                  <Icon size={24} weight="bold" aria-hidden="true" />
-                </span>
-              ) : (
-                <>
-                  <Icon size={22} weight={isActive ? 'fill' : 'regular'} aria-hidden="true" />
-                  <span className="tabbar__label">{label}</span>
-                </>
-              )
-            }
-          </NavLink>
-        )
-      })}
+      {TABS.map(({ label, to, Icon }) => (
+        <NavLink
+          key={to}
+          to={to}
+          end={to === '/'}
+          className="tabbar__tab"
+        >
+          {({ isActive }) => (
+            <>
+              <Icon size={22} weight={isActive ? 'fill' : 'regular'} aria-hidden="true" />
+              <span className="tabbar__label">{label}</span>
+            </>
+          )}
+        </NavLink>
+      ))}
     </nav>
   )
 }

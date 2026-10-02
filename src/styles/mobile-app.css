@@ -2,8 +2,8 @@
    PHONE APP CHROME (below the shell breakpoint)
    The rail is gone under 1100px. What replaces it is app furniture, and this
    sheet is the one owner of each piece:
-     .tabbar      bottom tab bar: a light material, a pill that travels between
-                  tabs, Contact raised in the middle, hides on scroll down
+     .tabbar      bottom tab bar: Home, Work, About; hides on scroll down
+     .contact-fab floating Contact action, lower-right beside the bar
      .qmenu       the "more" button (theme + accessibility), in Home's header
                   or floating top-right on every other page
      .hprofile    Home's identity header (the rail, laid flat)
@@ -24,14 +24,13 @@
        below it (mobile-pass.css). */
     --qmenu-size: 44px;
     --qmenu-top: calc(14px + env(safe-area-inset-top, 0px));
-    /* Fixed tab bar footprint: offset + bar + raised Contact + scroll gap. */
+    /* Tab bar footprint + floating Contact (separate control). */
     --tabbar-inset: 14px;
     --tabbar-height: 64px;
-    --tabbar-fab-overhang: 28px;
     --tabbar-scroll-gap: 18px;
-    --tabbar-stack: calc(
-      var(--tabbar-inset) + var(--tabbar-height) + var(--tabbar-fab-overhang) + var(--tabbar-scroll-gap)
-    );
+    --contact-fab-size: 56px;
+    --contact-fab-gap: 10px;
+    --tabbar-stack: calc(var(--tabbar-inset) + var(--tabbar-height) + var(--tabbar-scroll-gap));
   }
 
   /* ---------- Bottom tab bar ----------
@@ -41,11 +40,11 @@
   .tabbar {
     position: fixed;
     left: 14px;
-    right: 14px;
+    right: calc(14px + var(--contact-fab-size) + var(--contact-fab-gap));
     bottom: calc(var(--tabbar-inset) + env(safe-area-inset-bottom, 0px));
     z-index: 60;
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     align-items: end;
     height: var(--tabbar-height);
     padding: 6px 8px 8px;
@@ -83,13 +82,10 @@
   }
   .tabbar__tab:active { transform: scale(0.94); }
   .tabbar__tab[aria-current='page'] { color: var(--navy); }
-  /* Not the raised button: its envelope keeps its own ink on the orange. */
-  .tabbar__tab[aria-current='page']:not(.tabbar__tab--primary) svg { color: var(--orange-ink); }
+  .tabbar__tab[aria-current='page'] svg { color: var(--orange-ink); }
   .tabbar__tab:focus-visible { outline: 2px solid var(--orange); outline-offset: -6px; }
 
-  /* The pill: one mark that travels between tabs (TabBar.tsx places and
-     animates it). The raised Contact button is its own mark, so the pill
-     skips it. */
+  /* The pill: one mark that travels between tabs (TabBar.tsx places and animates it). */
   .tabbar__pill {
     position: absolute;
     top: 6px;
@@ -103,34 +99,38 @@
   }
   .tabbar__pill[data-off] { opacity: 0; }
 
-  .tabbar__tab--primary {
-    justify-content: center;
-    align-self: center;
-    padding-bottom: 0;
-  }
   .tabbar__label {
     max-width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-  .tabbar__fab {
+
+  /* ---------- Floating Contact (lower right) ---------- */
+  .contact-fab {
+    position: fixed;
+    z-index: 62;
+    right: calc(14px + env(safe-area-inset-right, 0px));
+    bottom: calc(
+      var(--tabbar-inset) + (var(--tabbar-height) - var(--contact-fab-size)) / 2 + env(safe-area-inset-bottom, 0px)
+    );
     display: grid;
     place-items: center;
-    width: 52px;
-    height: 52px;
-    margin-top: -22px;
+    width: var(--contact-fab-size);
+    height: var(--contact-fab-size);
     border-radius: 50%;
-    background: var(--orange);
     color: #0B1120;
+    background: var(--orange);
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.35),
       0 1px 2px rgba(6, 12, 26, 0.2),
-      0 10px 24px -10px rgba(255, 122, 26, 0.55);
+      0 12px 28px -10px rgba(255, 122, 26, 0.55);
     transition: transform var(--dur-med) var(--ease-out), background var(--dur-fast) var(--ease-out);
   }
-  .tabbar__tab--primary[aria-current='page'] .tabbar__fab { background: var(--orange-hover); }
-  .tabbar__tab--primary:active .tabbar__fab { transform: scale(0.92); transition-duration: 100ms; }
+  .contact-fab:active { transform: scale(0.92); transition-duration: 100ms; }
+  .contact-fab--active,
+  .contact-fab[aria-current='page'] { background: var(--orange-hover); }
+  .contact-fab:focus-visible { outline: 2px solid var(--orange); outline-offset: 3px; }
 
   /* Reading down a page the bar slides away; scrolling up brings it back
      (TabBar.tsx sets the data attributes). The spring takes over only once the
@@ -555,7 +555,7 @@
   /* ---------- Preferences ---------- */
   @media (prefers-reduced-motion: reduce) {
     .tabbar__tab:active,
-    .tabbar__tab--primary:active .tabbar__fab,
+    .contact-fab:active,
     .qmenu__button:active,
     .htile:active,
     .hproof:active { transform: none; }
@@ -567,6 +567,7 @@
   }
   @media (prefers-contrast: more) {
     .tabbar,
+    .contact-fab,
     .hstats,
     .qmenu__button,
     .qmenu__panel { box-shadow: inset 0 0 0 1px var(--line-strong); }
@@ -589,6 +590,12 @@
 
 /* Small phones: keep the bar's labels legible. */
 @media (max-width: 380px) {
-  .tabbar { left: 10px; right: 10px; height: 62px; }
+  :root { --contact-fab-size: 52px; }
+  .tabbar {
+    left: 10px;
+    right: calc(10px + var(--contact-fab-size) + var(--contact-fab-gap));
+    height: 62px;
+  }
+  .contact-fab { right: calc(10px + env(safe-area-inset-right, 0px)); }
   .tabbar__tab { font-size: 10px; }
 }

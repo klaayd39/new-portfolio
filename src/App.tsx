@@ -1,6 +1,7 @@
 import { lazy, Suspense, useState, useEffect, useLayoutEffect, useRef } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import TabBar from '@/components/TabBar'
+import ContactFab from '@/components/ContactFab'
 import QuickMenu from '@/components/QuickMenu'
 import Rail from '@/components/Rail'
 import IntroOverlay from '@/components/IntroOverlay'
@@ -115,7 +116,12 @@ export default function App() {
           </Suspense>
         </main>
       </div>
-      {phone && <TabBar />}
+      {phone && (
+        <>
+          <TabBar />
+          <ContactFab />
+        </>
+      )}
       <AccessMenu />
     </>
   )
