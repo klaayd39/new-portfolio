@@ -18,8 +18,6 @@ const thumbSrc = funnelThumbSrc
 
 const PROJECT_SHOTS = [gymFunnel[0], bookingFunnel[0], gymFunnel[1], gymFunnel[2]].filter(Boolean)
 
-const PHOTOS = [profile.avatarSrc, profile.avatarSrc, profile.hero.portraitSrc]
-
 const leaves = (n: StackNode): StackNode[] =>
   n.children?.length ? n.children.flatMap(leaves) : [n]
 const AI_BUILDS = leaves(aiStack)
@@ -68,13 +66,6 @@ export default function HomeBento() {
 
       <Link to="/about" className="bento__card bento__card--about">
         <CardHead Icon={User} title="About" desc="Malaybalay-based IT building tools for live radio and client ops." />
-        <div className="bento__media bento__fan" aria-hidden="true">
-          {PHOTOS.map((src, i) => (
-            <span key={`${src}-${i}`} className="bento__photo" style={{ ['--i' as string]: i }}>
-              <img src={src} alt="" loading="lazy" decoding="async" />
-            </span>
-          ))}
-        </div>
       </Link>
 
       <Link to="/projects" className="bento__card bento__card--ai">

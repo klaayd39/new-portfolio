@@ -1,5 +1,26 @@
 {
   "npm.autoDetect": "on",
   "npm.enableScriptExplorer": true,
-  "npm.packageManager": "npm"
+  "npm.packageManager": "npm",
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "json.schemaDownload.enable": true,
+  "json.validate.enable": true,
+  "json.schemas": [
+    {
+      "fileMatch": ["tsconfig.json", "tsconfig.*.json"],
+      "schema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "compilerOptions": { "type": "object" },
+          "include": { "type": "array" },
+          "exclude": { "type": "array" },
+          "files": { "type": "array" },
+          "extends": { "type": ["string", "array"] },
+          "references": { "type": "array" }
+        },
+        "additionalProperties": true
+      }
+    }
+  ]
 }

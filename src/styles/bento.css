@@ -173,23 +173,72 @@
   to   { transform: translateY(-50%); }
 }
 
-/* About: three photos fanned like a hand of cards. */
-.bento__fan { display: grid; place-items: center; }
+/* About: three portraits fanned — center card is the hero shot. */
+.bento__card--about .bento__media { flex: 1 1 auto; min-height: 0; }
+.bento__fan {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: clamp(128px, 15vh, 176px);
+  padding: 4px 0 8px;
+}
+.bento__fan::after {
+  content: '';
+  position: absolute;
+  bottom: 6%;
+  left: 50%;
+  z-index: 0;
+  width: min(72%, 220px);
+  height: 22%;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse at center, rgba(6, 12, 26, 0.16), transparent 72%);
+  pointer-events: none;
+}
 .bento__photo {
   grid-area: 1 / 1;
   display: block;
-  width: clamp(72px, 5.6vw, 96px);
+  width: clamp(68px, 5.2vw, 92px);
   aspect-ratio: 3 / 4;
-  border-radius: 12px;
+  border-radius: clamp(18px, 1.6vw, 24px);
   overflow: hidden;
-  background: var(--plate);
-  box-shadow: 0 0 0 3px var(--white), 0 14px 30px -14px rgba(6, 12, 26, 0.6);
-  transform: rotate(calc((var(--i) - 1) * 9deg)) translateX(calc((var(--i) - 1) * 26px));
-  transition: transform var(--dur-slow) var(--ease-spring);
+  z-index: calc(var(--i) + 1);
+  background: linear-gradient(165deg, var(--white), var(--tint));
+  box-shadow:
+    inset 0 0 0 1px var(--line),
+    0 0 0 3px var(--white),
+    0 16px 34px -18px rgba(6, 12, 26, 0.5);
+  transform: rotate(calc((var(--i) - 1) * 10deg)) translateX(calc((var(--i) - 1) * 28px));
+  transition:
+    transform var(--dur-slow) var(--ease-spring),
+    box-shadow var(--dur-med) var(--ease-out);
 }
-.bento__photo img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%; }
-.bento__card:hover .bento__photo {
-  transform: rotate(calc((var(--i) - 1) * 14deg)) translateX(calc((var(--i) - 1) * 34px)) translateY(-4px);
+.bento__photo--lead {
+  z-index: 4;
+  width: clamp(78px, 6vw, 104px);
+  box-shadow:
+    inset 0 0 0 1px var(--line-strong),
+    0 0 0 3px var(--white),
+    0 22px 44px -20px rgba(6, 12, 26, 0.55);
+}
+.bento__photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.bento__card--about:hover .bento__photo {
+  transform: rotate(calc((var(--i) - 1) * 15deg)) translateX(calc((var(--i) - 1) * 36px)) translateY(-6px);
+  box-shadow:
+    inset 0 0 0 1px var(--line-strong),
+    0 0 0 3px var(--white),
+    0 24px 48px -18px rgba(6, 12, 26, 0.58);
+}
+.bento__card--about:hover .bento__photo--lead {
+  transform: rotate(calc((var(--i) - 1) * 15deg)) translateX(calc((var(--i) - 1) * 36px)) translateY(-10px) scale(1.03);
+}
+@media (prefers-reduced-motion: reduce) {
+  .bento__card--about:hover .bento__photo,
+  .bento__card--about:hover .bento__photo--lead { transform: none; }
 }
 
 /* Tools: two chip rows scrolling against each other. */
