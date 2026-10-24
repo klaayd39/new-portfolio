@@ -19,26 +19,27 @@ export const SKILLS: SkillCategory[] = [
   }
 ]
 
+/** Self-hosted under public/icons — no external CDN (avoids broken images offline / on deploy). */
 export const MARQUEE_TOOLS = [
-  { name: 'Visual Studio Code', icon: 'https://api.iconify.design/logos:visual-studio-code.svg' },
-  { name: 'GitHub', icon: 'https://api.iconify.design/logos:github-icon.svg' },
-  { name: 'Cursor', icon: 'https://api.iconify.design/simple-icons:cursor.svg' },
-  { name: 'Claude Code', icon: 'https://api.iconify.design/simple-icons:claudecode.svg' },
+  { name: 'Visual Studio Code', icon: '/icons/vscode.svg' },
+  { name: 'GitHub', icon: '/icons/ai/github.svg' },
+  { name: 'Cursor', icon: '/icons/cursor.svg' },
+  { name: 'Claude Code', icon: '/icons/claude-code-logo.png' },
   { name: 'Antigravity', icon: '/icons/antigravity.png' },
   { name: 'OBS Studio', icon: '/icons/obs-studio.jpg' },
-  { name: 'Python', icon: 'https://api.iconify.design/logos:python.svg' },
-  { name: 'Supabase', icon: 'https://api.iconify.design/logos:supabase-icon.svg' },
-  { name: 'React', icon: 'https://api.iconify.design/logos:react.svg' },
-  { name: 'Javascript', icon: 'https://api.iconify.design/logos:javascript.svg' },
-  { name: 'Vite', icon: 'https://api.iconify.design/logos:vitejs.svg' },
-  { name: 'ChatGPT', icon: 'https://api.iconify.design/simple-icons:openai.svg' },
-  { name: 'Microsoft Excel', icon: 'https://api.iconify.design/simple-icons:microsoftexcel.svg' },
-  { name: 'Microsoft Word', icon: 'https://api.iconify.design/simple-icons:microsoftword.svg' },
-  { name: 'Gmail', icon: 'https://api.iconify.design/simple-icons:gmail.svg' },
-  { name: 'DaVinci Resolve', icon: 'https://api.iconify.design/simple-icons:davinciresolve.svg' },
+  { name: 'Python', icon: '/icons/python.svg' },
+  { name: 'Supabase', icon: '/icons/supabase.svg' },
+  { name: 'React', icon: '/icons/ai/react.svg' },
+  { name: 'Javascript', icon: '/icons/javascript.svg' },
+  { name: 'Vite', icon: '/icons/ai/vite.svg' },
+  { name: 'ChatGPT', icon: '/icons/openai.svg' },
+  { name: 'Microsoft Excel', icon: '/icons/microsoftexcel.svg' },
+  { name: 'Microsoft Word', icon: '/icons/microsoftword.svg' },
+  { name: 'Gmail', icon: '/icons/gmail.svg' },
+  { name: 'DaVinci Resolve', icon: '/icons/davinciresolve.svg' },
   { name: 'NewBlue Titler Live 5', icon: '/icons/newblue-titler.svg' },
-  { name: 'Discord', icon: 'https://api.iconify.design/simple-icons:discord.svg' },
-  { name: 'Wordpress', icon: 'https://api.iconify.design/logos:wordpress-icon.svg' },
+  { name: 'Discord', icon: '/icons/discord.svg' },
+  { name: 'Wordpress', icon: '/icons/wordpress.svg' },
 ]
 
 export type SkillTier = 'Production' | 'Comfortable' | 'Learning'
