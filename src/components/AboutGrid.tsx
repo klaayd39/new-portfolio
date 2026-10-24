@@ -71,7 +71,7 @@ export default function AboutGrid() {
           <p className="agrid__lead">{ABOUT_PULL_QUOTE}</p>
 
           {ABOUT_PARAGRAPHS.map((para) => (
-            <p key={para.slice(0, 24)} className="agrid__note">
+            <p key={para.slice(0, 24)} className="agrid__note agrid__note--justify">
               {para}
             </p>
           ))}

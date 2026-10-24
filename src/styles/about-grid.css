@@ -123,6 +123,20 @@
   color: var(--muted);
   flex: 0 0 auto;
 }
+/* Long-form story: flush edges in the glass column; narrow phones stay ragged-right. */
+.agrid__note--justify {
+  max-width: none;
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+}
+@media (max-width: 479px) {
+  .agrid__note--justify {
+    text-align: left;
+    hyphens: none;
+  }
+}
 .agrid__note strong { color: var(--navy); font-weight: 700; }
 .agrid__link {
   color: var(--navy);
